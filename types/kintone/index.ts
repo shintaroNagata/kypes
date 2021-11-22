@@ -1,4 +1,7 @@
 import "./api";
+import "./mobile";
+import "./portal";
+import "./space";
 
 declare global {
   namespace kintone {
