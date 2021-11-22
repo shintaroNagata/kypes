@@ -1,4 +1,5 @@
 import "./api";
+import "./app";
 import "./events";
 import "./mobile";
 import "./portal";
