@@ -1,7 +1,7 @@
 declare global {
   namespace kintone {
     function api(
-      path: string,
+      pathOrUrl: string,
       method: "GET" | "POST" | "PUT" | "DELETE",
       parameter: any
     ): Promise<any>;
