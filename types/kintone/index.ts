@@ -2,6 +2,7 @@ import "./api";
 import "./events";
 import "./mobile";
 import "./portal";
+import "./proxy";
 import "./space";
 
 declare global {
