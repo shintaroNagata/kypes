@@ -1,0 +1,13 @@
+{
+  "name": "kypes",
+  "version": "0.0.1",
+  "author": "shintaroNagata <cybozu.nagata@gmail.com>",
+  "license": "MIT",
+  "types": "./types/index.ts",
+  "devDependencies": {
+    "@cybozu/eslint-config": "^16.0.0",
+    "eslint": "^8.2.0",
+    "prettier": "^2.4.1",
+    "typescript": "^4.5.2"
+  }
+}
