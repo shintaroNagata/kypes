@@ -2,6 +2,7 @@ import "./api";
 import "./app";
 import "./events";
 import "./mobile";
+import "./plugin";
 import "./portal";
 import "./proxy";
 import "./space";
