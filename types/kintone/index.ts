@@ -1,3 +1,5 @@
+import "./api";
+
 declare global {
   namespace kintone {
     interface LoginUser {
