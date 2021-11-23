@@ -33,7 +33,7 @@ import {
   MobileAppRecordEditSubmitProperties,
   MobileAppRecordEditSubmitSuccessProperties,
   MobileAppReportShowProperties,
-  MobilePortalShow,
+  MobilePortalShowProperties,
   MobileSpacePortalShowProperties,
 } from "./properties";
 
@@ -183,7 +183,7 @@ type EventsMap = {
   };
   MobilePortalShow: {
     type: "mobile.portal.show";
-    properties: MobilePortalShow;
+    properties: MobilePortalShowProperties;
   };
   MobileSpacePortalShow: {
     type: "mobile.space.portal.show";

@@ -238,7 +238,7 @@ type MobileAppRecordEditSubmitSuccessProperties = {
 
 type MobileAppReportShowProperties = { appId: number };
 
-type MobilePortalShow = {};
+type MobilePortalShowProperties = {};
 type MobileSpacePortalShowProperties = { spaceId: string };
 
 export {
@@ -276,6 +276,6 @@ export {
   MobileAppRecordEditSubmitProperties,
   MobileAppRecordEditSubmitSuccessProperties,
   MobileAppReportShowProperties,
-  MobilePortalShow,
+  MobilePortalShowProperties,
   MobileSpacePortalShowProperties,
 };
