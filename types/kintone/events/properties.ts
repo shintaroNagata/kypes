@@ -1,4 +1,4 @@
-import type { KintoneRecord, KintoneField } from "./record";
+import type { KintoneRecord, KintoneField } from "../types";
 
 type AppRecordIndexShowProperties = {
   appId: number;
