@@ -1,7 +1,8 @@
-import { RecordRestApiMap } from "./record";
 import { ExtractRestApiMapEntry, Methods } from "./types";
+import { RecordRestApiMap } from "./record";
+import { BulkRequestRestApiMap } from "./bulkRequest";
 
-type RestApiMap = RecordRestApiMap;
+type RestApiMap = RecordRestApiMap & BulkRequestRestApiMap;
 
 type RestApiMapEntries = RestApiMap[keyof RestApiMap];
 type Endpoints = RestApiMapEntries["endpoint"];
