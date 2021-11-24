@@ -4,16 +4,6 @@ type OmitTypes<Record extends KintoneRecord> = {
   [fieldCode in keyof Record]: Omit<Record[fieldCode], "type">;
 };
 
-type RecordEndpoints =
-  | "record"
-  | "records"
-  | "records/cursor"
-  | "record/comment"
-  | "record/comments"
-  | "record/assignees"
-  | "record/status"
-  | "records/status";
-
 type RecordRestApiMap = {
   GetRecord: {
     method: "GET";
@@ -229,4 +219,4 @@ type RecordRestApiMap = {
   };
 };
 
-export { RecordRestApiMap, RecordEndpoints };
+export { RecordRestApiMap };

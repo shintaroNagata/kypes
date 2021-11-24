@@ -1,19 +1,10 @@
-import { RecordEndpoints, RecordRestApiMap } from "./record";
+import { RecordRestApiMap } from "./record";
 import { Methods } from "./types";
 
 type RestApiMap = RecordRestApiMap;
 
-type Endpoints = RecordEndpoints | "bulkRequest";
 type RestApiMapEntries = RestApiMap[keyof RestApiMap];
-
-/**
- * tests
- */
-type ExpectExtends<T1, T2> = T1 extends T2 ? true : false;
-const test1: ExpectExtends<RestApiMapEntries["method"][], Methods[]> =
-  /* to be */ true;
-const test2: ExpectExtends<RestApiMapEntries["endpoint"][], Endpoints[]> =
-  /* to be */ true;
+type Endpoints = RestApiMapEntries["endpoint"];
 
 type PathFor<Endpoint extends Endpoints> = `/k/v1/${Endpoint}`;
 type Domain = "cybozu.com" | "kintone.com" | "cybozu.cn";
