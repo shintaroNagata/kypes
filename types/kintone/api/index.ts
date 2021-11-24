@@ -6,7 +6,7 @@ import {
   RequestParameters,
   ResponseProperties,
   Urls,
-} from "./api/types";
+} from "./types";
 
 declare global {
   namespace kintone {
