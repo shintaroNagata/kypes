@@ -1,5 +1,5 @@
 import { RecordRestApiMap } from "./record";
-import { Methods } from "./types";
+import { ExtractRestApiMapEntry, Methods } from "./types";
 
 type RestApiMap = RecordRestApiMap;
 
@@ -15,24 +15,8 @@ type UrlFor<Endpoint extends Endpoints> =
 type Paths = PathFor<Endpoints>;
 type Urls = UrlFor<Endpoints>;
 
-type ExtractEntryInternal<
-  RestApiMapEntry extends RestApiMapEntries,
-  Endpoint extends Endpoints,
-  Method extends Methods
-> = RestApiMapEntry extends RestApiMapEntries
-  ? Endpoint extends RestApiMapEntry["endpoint"]
-    ? Method extends RestApiMapEntry["method"]
-      ? RestApiMapEntry
-      : never
-    : never
-  : never;
-
-type ExtractEntry<
-  Endpoint extends Endpoints,
-  Method extends Methods
-> = ExtractEntryInternal<RestApiMapEntries, Endpoint, Method>;
-
-type EnableMethods<Endpoint extends Endpoints> = ExtractEntry<
+type EnableMethods<Endpoint extends Endpoints> = ExtractRestApiMapEntry<
+  RestApiMapEntries,
   Endpoint,
   Methods
 >["method"];
@@ -52,12 +36,20 @@ type EndpointFromUrl<Url extends UrlFor<Endpoints>> = Url extends UrlFor<
 type RequestParameters<
   Endpoint extends Endpoints,
   Method extends Methods
-> = ExtractEntry<Endpoint, Method>["requestParameters"];
+> = ExtractRestApiMapEntry<
+  RestApiMapEntries,
+  Endpoint,
+  Method
+>["requestParameters"];
 
 type ResponseProperties<
   Endpoint extends Endpoints,
   Method extends Methods
-> = ExtractEntry<Endpoint, Method>["responseProperties"];
+> = ExtractRestApiMapEntry<
+  RestApiMapEntries,
+  Endpoint,
+  Method
+>["responseProperties"];
 
 export {
   Paths,
