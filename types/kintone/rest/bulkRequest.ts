@@ -1,4 +1,4 @@
-import { ExtractRestApiMapEntry } from "./types";
+import { ExtractRestApiMapEntry } from "./restApiMap";
 import { RecordRestApiMap } from "./record";
 
 type EnableBulkRequestApi = ExtractRestApiMapEntry<

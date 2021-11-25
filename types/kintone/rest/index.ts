@@ -4,7 +4,7 @@ import {
   EnableMethodsOf,
   RequestParametersOf,
   ResponsePropertiesOf,
-} from "./types";
+} from "./restApiMap";
 
 type Paths = PathFor<Endpoints>;
 type Urls = UrlFor<Endpoints>;
