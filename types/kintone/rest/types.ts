@@ -1,4 +1,4 @@
-type Methods = "GET" | "POST" | "PUT" | "DELETE";
+import { Methods } from "./http";
 
 type RestApiMapEntryFormat = {
   method: Methods;
@@ -19,4 +19,4 @@ type ExtractRestApiMapEntry<
     : never
   : never;
 
-export { Methods, ExtractRestApiMapEntry };
+export { ExtractRestApiMapEntry };

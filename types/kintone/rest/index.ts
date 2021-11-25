@@ -1,4 +1,11 @@
-import { ExtractRestApiMapEntry, Methods } from "./types";
+import {
+  Methods,
+  PathFor,
+  UrlFor,
+  EndpointFromPath,
+  EndpointFromUrl,
+} from "./http";
+import { ExtractRestApiMapEntry } from "./types";
 import { RecordRestApiMap } from "./record";
 import { BulkRequestRestApiMap } from "./bulkRequest";
 import { AppRestApiMap } from "./app";
@@ -12,12 +19,6 @@ type RestApiMap = RecordRestApiMap &
 type RestApiMapEntries = RestApiMap[keyof RestApiMap];
 type Endpoints = RestApiMapEntries["endpoint"];
 
-type PathFor<Endpoint extends Endpoints> = `/k/v1/${Endpoint}`;
-type Domain = "cybozu.com" | "kintone.com" | "cybozu.cn";
-type UrlFor<Endpoint extends Endpoints> =
-  | `https://${string}.${Domain}/k/v1/${Endpoint}.json`
-  | `https://${string}.${Domain}/k/guest/${number}/v1/${Endpoint}.json`;
-
 type Paths = PathFor<Endpoints>;
 type Urls = UrlFor<Endpoints>;
 
@@ -26,18 +27,6 @@ type EnableMethods<Endpoint extends Endpoints> = ExtractRestApiMapEntry<
   Endpoint,
   Methods
 >["method"];
-
-type EndpointFromPath<Path extends PathFor<Endpoints>> = Path extends PathFor<
-  infer Endpoint
->
-  ? Endpoint
-  : never;
-
-type EndpointFromUrl<Url extends UrlFor<Endpoints>> = Url extends UrlFor<
-  infer Endpoint
->
-  ? Endpoint
-  : never;
 
 type RequestParameters<
   Endpoint extends Endpoints,
