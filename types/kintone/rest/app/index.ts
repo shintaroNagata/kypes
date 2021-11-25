@@ -13,20 +13,67 @@ type AppRestApiMap = FormRestApiMap &
     GetApp: {
       method: "GET";
       endpoint: "app";
-      requestParameters: any;
-      responseProperties: any;
+      requestParameters: {
+        id: string | number;
+      };
+      responseProperties: {
+        appId: string;
+        code: string;
+        name: string;
+        description: string;
+        spaceId: string | null;
+        threadId: string | null;
+        createdAt: string;
+        creator: {
+          code: string;
+          name: string;
+        };
+        modifiedAt: string;
+        modifier: {
+          code: string;
+          name: string;
+        };
+      };
     };
     GetApps: {
       method: "GET";
       endpoint: "apps";
-      requestParameters: any;
-      responseProperties: any;
+      requestParameters: {
+        ids?: (string | number)[];
+        codes?: string[];
+        name?: string;
+        spaceIds?: (string | number)[];
+        limit?: string | number;
+        offset?: string | number;
+      };
+      responseProperties: {
+        apps: Array<{
+          appId: string;
+          code: string;
+          name: string;
+          description: string;
+          spaceId: string | null;
+          threadId: string | null;
+          createdAt: string;
+          creator: {
+            code: string;
+            name: string;
+          };
+          modifiedAt: string;
+          modifier: {
+            code: string;
+            name: string;
+          };
+        }>;
+      };
     };
     PostPreviewApp: {
       method: "POST";
       endpoint: "preview/app";
-      requestParameters: any;
-      responseProperties: any;
+      requestParameters:
+        | { name: string }
+        | { name: string; space: string | number; thread: string | number };
+      responseProperties: { app: string; revision: string };
     };
   } & SettingsRestApiMap &
   StatusRestApiMap &
@@ -38,14 +85,25 @@ type AppRestApiMap = FormRestApiMap &
     GetPreviewAppDeploy: {
       method: "GET";
       endpoint: "preview/app/deploy";
-      requestParameters: any;
-      responseProperties: any;
+      requestParameters: { apps: (string | number)[] };
+      responseProperties: {
+        apps: Array<{
+          app: string;
+          status: "PROCESSING" | "SUCCESS" | "FAIL" | "CANCEL";
+        }>;
+      };
     };
     PostPreviewAppDeploy: {
       method: "POST";
       endpoint: "preview/app/deploy";
-      requestParameters: any;
-      responseProperties: any;
+      requestParameters: {
+        apps: Array<{
+          app: string | number;
+          revision?: string | number;
+        }>;
+        revert: boolean;
+      };
+      responseProperties: {};
     };
   };
 
