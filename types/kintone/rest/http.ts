@@ -6,16 +6,11 @@ type UrlFor<Endpoint extends string> =
   | `https://${string}.${Domain}/k/v1/${Endpoint}.json`
   | `https://${string}.${Domain}/k/guest/${number}/v1/${Endpoint}.json`;
 
-type EndpointFromPath<Path extends PathFor<string>> = Path extends PathFor<
-  infer Endpoint
->
-  ? Endpoint
-  : never;
+type EndpointOf<PathOrUrl extends PathFor<string> | UrlFor<string>> =
+  PathOrUrl extends PathFor<infer Endpoint>
+    ? Endpoint
+    : PathOrUrl extends UrlFor<infer Endpoint>
+    ? Endpoint
+    : never;
 
-type EndpointFromUrl<Url extends UrlFor<string>> = Url extends UrlFor<
-  infer Endpoint
->
-  ? Endpoint
-  : never;
-
-export { Methods, PathFor, UrlFor, EndpointFromPath, EndpointFromUrl };
+export { Methods, PathFor, UrlFor, EndpointOf };

@@ -1,57 +1,26 @@
+import { Methods, PathFor, UrlFor, EndpointOf } from "./http";
 import {
-  Methods,
-  PathFor,
-  UrlFor,
-  EndpointFromPath,
-  EndpointFromUrl,
-} from "./http";
-import { ExtractRestApiMapEntry } from "./types";
-import { RecordRestApiMap } from "./record";
-import { BulkRequestRestApiMap } from "./bulkRequest";
-import { AppRestApiMap } from "./app";
-import { SpaceRestApiMap } from "./space";
-
-type RestApiMap = RecordRestApiMap &
-  BulkRequestRestApiMap &
-  AppRestApiMap &
-  SpaceRestApiMap;
-
-type RestApiMapEntries = RestApiMap[keyof RestApiMap];
-type Endpoints = RestApiMapEntries["endpoint"];
+  Endpoints,
+  EnableMethodsOf,
+  RequestParametersOf,
+  ResponsePropertiesOf,
+} from "./types";
 
 type Paths = PathFor<Endpoints>;
 type Urls = UrlFor<Endpoints>;
 
-type EnableMethods<Endpoint extends Endpoints> = ExtractRestApiMapEntry<
-  RestApiMapEntries,
-  Endpoint,
-  Methods
->["method"];
+type EnableMethods<PathOrUrl extends Paths | Urls> = EnableMethodsOf<
+  EndpointOf<PathOrUrl>
+>;
 
 type RequestParameters<
-  Endpoint extends Endpoints,
+  PathOrUrl extends Paths | Urls,
   Method extends Methods
-> = ExtractRestApiMapEntry<
-  RestApiMapEntries,
-  Endpoint,
-  Method
->["requestParameters"];
+> = RequestParametersOf<EndpointOf<PathOrUrl>, Method>;
 
 type ResponseProperties<
-  Endpoint extends Endpoints,
+  PathOrUrl extends Paths | Urls,
   Method extends Methods
-> = ExtractRestApiMapEntry<
-  RestApiMapEntries,
-  Endpoint,
-  Method
->["responseProperties"];
+> = ResponsePropertiesOf<EndpointOf<PathOrUrl>, Method>;
 
-export {
-  Paths,
-  Urls,
-  EnableMethods,
-  EndpointFromPath,
-  EndpointFromUrl,
-  RequestParameters,
-  ResponseProperties,
-};
+export { Paths, Urls, EnableMethods, RequestParameters, ResponseProperties };

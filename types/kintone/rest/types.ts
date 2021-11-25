@@ -1,4 +1,8 @@
 import { Methods } from "./http";
+import { RecordRestApiMap } from "./record";
+import { BulkRequestRestApiMap } from "./bulkRequest";
+import { AppRestApiMap } from "./app";
+import { SpaceRestApiMap } from "./space";
 
 type RestApiMapEntryFormat = {
   method: Methods;
@@ -19,4 +23,42 @@ type ExtractRestApiMapEntry<
     : never
   : never;
 
-export { ExtractRestApiMapEntry };
+type RestApiMap = RecordRestApiMap &
+  BulkRequestRestApiMap &
+  AppRestApiMap &
+  SpaceRestApiMap;
+
+type RestApiMapEntries = RestApiMap[keyof RestApiMap];
+type Endpoints = RestApiMapEntries["endpoint"];
+
+type EnableMethodsOf<Endpoint extends string> = ExtractRestApiMapEntry<
+  RestApiMapEntries,
+  Endpoint,
+  Methods
+>["method"];
+
+type RequestParametersOf<
+  Endpoint extends string,
+  Method extends Methods
+> = ExtractRestApiMapEntry<
+  RestApiMapEntries,
+  Endpoint,
+  Method
+>["requestParameters"];
+
+type ResponsePropertiesOf<
+  Endpoint extends string,
+  Method extends Methods
+> = ExtractRestApiMapEntry<
+  RestApiMapEntries,
+  Endpoint,
+  Method
+>["responseProperties"];
+
+export {
+  ExtractRestApiMapEntry,
+  Endpoints,
+  EnableMethodsOf,
+  RequestParametersOf,
+  ResponsePropertiesOf,
+};

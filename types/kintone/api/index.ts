@@ -1,7 +1,5 @@
 import {
   EnableMethods,
-  EndpointFromPath,
-  EndpointFromUrl,
   Paths,
   RequestParameters,
   ResponseProperties,
@@ -18,15 +16,11 @@ declare global {
      * @param method The HTTP method. Specify one of the following: `GET` / `POST` / `PUT` / `DELETE`.
      * @param params The parameters to be used with the API, specified as an object.
      */
-    function api<
-      Path extends Paths,
-      Endpoint extends EndpointFromPath<Path>,
-      Method extends EnableMethods<Endpoint>
-    >(
+    function api<Path extends Paths, Method extends EnableMethods<Path>>(
       pathOrUrl: Path,
       method: Method,
-      params: RequestParameters<Endpoint, Method>
-    ): Promise<ResponseProperties<Endpoint, Method>>;
+      params: RequestParameters<Path, Method>
+    ): Promise<ResponseProperties<Path, Method>>;
 
     /**
      * REST APIs with the GET, POST, PUT, DELETE method can be used.
@@ -36,15 +30,11 @@ declare global {
      * @param method The HTTP method. Specify one of the following: `GET` / `POST` / `PUT` / `DELETE`.
      * @param params The parameters to be used with the API, specified as an object.
      */
-    function api<
-      Url extends Urls,
-      Endpoint extends EndpointFromUrl<Url>,
-      Method extends EnableMethods<Endpoint>
-    >(
+    function api<Url extends Urls, Method extends EnableMethods<Url>>(
       pathOrUrl: Url,
       method: Method,
-      params: RequestParameters<Endpoint, Method>
-    ): Promise<ResponseProperties<Endpoint, Method>>;
+      params: RequestParameters<Url, Method>
+    ): Promise<ResponseProperties<Url, Method>>;
 
     /**
      * REST APIs with the GET, POST, PUT, DELETE method can be used.
@@ -58,15 +48,11 @@ declare global {
      * @param failureCallback The callback function called when the API fails.
      * The parameter for this function is a JSON response. If the JSON response cannot be parsed, an unparsed string will be given.
      */
-    function api<
-      Path extends Paths,
-      Endpoint extends EndpointFromPath<Path>,
-      Method extends EnableMethods<Endpoint>
-    >(
+    function api<Path extends Paths, Method extends EnableMethods<Path>>(
       pathOrUrl: Path,
       method: Method,
-      params: RequestParameters<Endpoint, Method>,
-      successCallback: (response: ResponseProperties<Endpoint, Method>) => void,
+      params: RequestParameters<Path, Method>,
+      successCallback: (response: ResponseProperties<Path, Method>) => void,
       failureCallback?: (errorResponse: any) => void
     ): void;
 
@@ -82,15 +68,11 @@ declare global {
      * @param failureCallback The callback function called when the API fails.
      * The parameter for this function is a JSON response. If the JSON response cannot be parsed, an unparsed string will be given.
      */
-    function api<
-      Url extends Urls,
-      Endpoint extends EndpointFromUrl<Url>,
-      Method extends EnableMethods<Endpoint>
-    >(
+    function api<Url extends Urls, Method extends EnableMethods<Url>>(
       pathOrUrl: Url,
       method: Method,
-      params: RequestParameters<Endpoint, Method>,
-      successCallback: (response: ResponseProperties<Endpoint, Method>) => void,
+      params: RequestParameters<Url, Method>,
+      successCallback: (response: ResponseProperties<Url, Method>) => void,
       failureCallback?: (errorResponse: any) => void
     ): void;
   }
@@ -132,6 +114,13 @@ declare global {
        */
       running: number;
     }>;
+    export {
+      url,
+      urlForGet,
+      getConcurrencyLimit,
+      RequestParameters,
+      ResponseProperties,
+    };
   }
 }
 
