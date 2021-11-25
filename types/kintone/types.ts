@@ -1,6 +1,6 @@
 type KintoneField = { type: string; value: any };
 type KintoneRecord = {
-  [fieldCode in string]?: KintoneField;
+  [fieldCode: string]: KintoneField | undefined;
 };
 
 export type { KintoneRecord, KintoneField };

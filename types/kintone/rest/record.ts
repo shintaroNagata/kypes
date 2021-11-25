@@ -1,7 +1,7 @@
 import { KintoneRecord } from "../types";
 
 type OmitTypes<Record extends KintoneRecord> = {
-  [fieldCode in keyof Record]: Omit<Record[fieldCode], "type">;
+  [fieldCode in keyof Record]?: Omit<NonNullable<Record[fieldCode]>, "type">;
 };
 
 type RecordRestApiMap = {
