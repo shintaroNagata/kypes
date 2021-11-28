@@ -1,4 +1,4 @@
-import { Methods, PathFor, UrlFor, EndpointOf } from "./http";
+import { Methods, PathFor, UrlFor, WithQuery, EndpointOf } from "./http";
 import {
   Endpoints,
   EnableMethods as EnableMethodsInternal,
@@ -23,4 +23,11 @@ type ResponseProperties<
   Method extends Methods
 > = ResponsePropertiesInternal<EndpointOf<PathOrUrl>, Method>;
 
-export { Paths, Urls, EnableMethods, RequestParameters, ResponseProperties };
+export {
+  Paths,
+  Urls,
+  WithQuery,
+  EnableMethods,
+  RequestParameters,
+  ResponseProperties,
+};
