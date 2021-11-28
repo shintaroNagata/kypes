@@ -4,6 +4,7 @@ import {
   ResponseProperties,
   Paths,
   Urls,
+  UrlFromPath,
   WithQuery,
 } from "../rest";
 
@@ -128,7 +129,7 @@ declare global {
     function url<Path extends Paths>(
       path: Path,
       detectGuestSpace?: boolean
-    ): any;
+    ): UrlFromPath<Path>;
 
     /**
      * Returns a URL including a query string, from an API path and parameters.
@@ -142,7 +143,7 @@ declare global {
       path: Path,
       params: RequestParameters<Path, "GET">,
       detectGuestSpace?: boolean
-    ): any;
+    ): WithQuery<UrlFromPath<Path>>;
 
     /**
      * Gets the current number of simultaneous API calls and the maximum number of API calls you can make simultaneously in your Kintone domain.

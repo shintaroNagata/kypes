@@ -8,6 +8,9 @@ import {
 
 type Paths = PathFor<Endpoints>;
 type Urls = UrlFor<Endpoints>;
+type UrlFromPath<Path extends string> = Path extends PathFor<infer Endpoint>
+  ? UrlFor<Endpoint>
+  : string;
 
 type EnableMethods<PathOrUrl extends string> = EnableMethodsInternal<
   EndpointOf<PathOrUrl>
@@ -26,6 +29,7 @@ type ResponseProperties<
 export {
   Paths,
   Urls,
+  UrlFromPath,
   WithQuery,
   EnableMethods,
   RequestParameters,
