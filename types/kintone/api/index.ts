@@ -1,8 +1,8 @@
 import {
   EnableMethods,
-  Paths,
   RequestParameters,
   ResponseProperties,
+  Paths,
   Urls,
 } from "../rest";
 

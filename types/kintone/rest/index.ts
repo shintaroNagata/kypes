@@ -1,26 +1,26 @@
 import { Methods, PathFor, UrlFor, EndpointOf } from "./http";
 import {
   Endpoints,
-  EnableMethodsOf,
-  RequestParametersOf,
-  ResponsePropertiesOf,
+  EnableMethods as EnableMethodsInternal,
+  RequestParameters as RequestParametersInternal,
+  ResponseProperties as ResponsePropertiesInternal,
 } from "./restApiMap";
 
 type Paths = PathFor<Endpoints>;
 type Urls = UrlFor<Endpoints>;
 
-type EnableMethods<PathOrUrl extends Paths | Urls> = EnableMethodsOf<
+type EnableMethods<PathOrUrl extends string> = EnableMethodsInternal<
   EndpointOf<PathOrUrl>
 >;
 
 type RequestParameters<
-  PathOrUrl extends Paths | Urls,
+  PathOrUrl extends string,
   Method extends Methods
-> = RequestParametersOf<EndpointOf<PathOrUrl>, Method>;
+> = RequestParametersInternal<EndpointOf<PathOrUrl>, Method>;
 
 type ResponseProperties<
-  PathOrUrl extends Paths | Urls,
+  PathOrUrl extends string,
   Method extends Methods
-> = ResponsePropertiesOf<EndpointOf<PathOrUrl>, Method>;
+> = ResponsePropertiesInternal<EndpointOf<PathOrUrl>, Method>;
 
 export { Paths, Urls, EnableMethods, RequestParameters, ResponseProperties };
