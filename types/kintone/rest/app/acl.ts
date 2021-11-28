@@ -175,7 +175,7 @@ type AclRestApiMap = {
     endpoint: "record/acl/evaluate";
     requestParameters: {
       app: string | number;
-      ids: (string | number)[];
+      ids: Array<string | number>;
     };
     responseProperties: {
       rights: Array<{

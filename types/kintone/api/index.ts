@@ -51,7 +51,7 @@ declare global {
     >(
       pathOrUrl: Url,
       method: Method,
-      params: {}
+      params: Record<string, never>
     ): Promise<ResponseProperties<Url, Method>>;
 
     /**
@@ -112,7 +112,7 @@ declare global {
     >(
       pathOrUrl: Url,
       method: Method,
-      params: {},
+      params: Record<string, never>,
       successCallback: (response: ResponseProperties<Url, Method>) => void,
       failureCallback?: (errorResponse: any) => void
     ): void;

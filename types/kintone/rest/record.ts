@@ -55,7 +55,7 @@ type RecordRestApiMap = {
     endpoint: "records";
     requestParameters: {
       app: string | number;
-      records: OmitTypes<KintoneRecord>[];
+      records: Array<OmitTypes<KintoneRecord>>;
     };
     responseProperties: {
       ids: string[];
@@ -78,7 +78,7 @@ type RecordRestApiMap = {
       >;
     };
     responseProperties: {
-      records: { id: string; revision: string }[];
+      records: Array<{ id: string; revision: string }>;
     };
   };
   DeleteRecords: {
@@ -86,10 +86,10 @@ type RecordRestApiMap = {
     endpoint: "records";
     requestParameters: {
       app: string | number;
-      ids: (string | number)[];
-      revisions?: (string | number)[];
+      ids: Array<string | number>;
+      revisions?: Array<string | number>;
     };
-    responseProperties: {};
+    responseProperties: Record<string, never>;
   };
   PostRecordsCursor: {
     method: "POST";
@@ -122,7 +122,7 @@ type RecordRestApiMap = {
     requestParameters: {
       id: string;
     };
-    responseProperties: {};
+    responseProperties: Record<string, never>;
   };
   PostRecordComment: {
     method: "POST";
@@ -150,7 +150,7 @@ type RecordRestApiMap = {
       record: string | number;
       comment: string | number;
     };
-    responseProperties: {};
+    responseProperties: Record<string, never>;
   };
   GetRecordComments: {
     method: "GET";

@@ -52,7 +52,7 @@ type SpaceRestApiMap = {
     method: "DELETE";
     endpoint: "space";
     requestParameters: { id: string };
-    responseProperties: {};
+    responseProperties: Record<string, never>;
   };
   PostTemplateSpace: {
     method: "POST";
@@ -92,13 +92,13 @@ type SpaceRestApiMap = {
       id: string | number;
       body: string;
     };
-    responseProperties: {};
+    responseProperties: Record<string, never>;
   };
   PutSpaceThread: {
     method: "PUT";
     endpoint: "space/thread";
     requestParameters: { id: string | number; name?: string; body?: string };
-    responseProperties: {};
+    responseProperties: Record<string, never>;
   };
   PostSpaceThreadComment: {
     method: "POST";
@@ -177,7 +177,7 @@ type SpaceRestApiMap = {
           }
       >;
     };
-    responseProperties: {};
+    responseProperties: Record<string, never>;
   };
   PostGuests: {
     method: "POST";
@@ -198,7 +198,7 @@ type SpaceRestApiMap = {
         callto?: string;
       }>;
     };
-    responseProperties: {};
+    responseProperties: Record<string, never>;
   };
   DeleteGuests: {
     method: "DELETE";
@@ -206,13 +206,13 @@ type SpaceRestApiMap = {
     requestParameters: {
       guests: string[];
     };
-    responseProperties: {};
+    responseProperties: Record<string, never>;
   };
   PutSpaceGuests: {
     method: "PUT";
     endpoint: "space/guests";
     requestParameters: { id: string | number; guests: string[] };
-    responseProperties: {};
+    responseProperties: Record<string, never>;
   };
 };
 

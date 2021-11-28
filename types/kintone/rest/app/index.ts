@@ -39,10 +39,10 @@ type AppRestApiMap = FormRestApiMap &
       method: "GET";
       endpoint: "apps";
       requestParameters: {
-        ids?: (string | number)[];
+        ids?: Array<string | number>;
         codes?: string[];
         name?: string;
-        spaceIds?: (string | number)[];
+        spaceIds?: Array<string | number>;
         limit?: string | number;
         offset?: string | number;
       };
@@ -85,7 +85,7 @@ type AppRestApiMap = FormRestApiMap &
     GetPreviewAppDeploy: {
       method: "GET";
       endpoint: "preview/app/deploy";
-      requestParameters: { apps: (string | number)[] };
+      requestParameters: { apps: Array<string | number> };
       responseProperties: {
         apps: Array<{
           app: string;
@@ -103,7 +103,7 @@ type AppRestApiMap = FormRestApiMap &
         }>;
         revert: boolean;
       };
-      responseProperties: {};
+      responseProperties: Record<string, never>;
     };
   };
 
