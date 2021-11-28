@@ -4,6 +4,9 @@
   "author": "shintaroNagata <cybozu.nagata@gmail.com>",
   "license": "MIT",
   "types": "./types/index.ts",
+  "scripts": {
+    "lint": "eslint types"
+  },
   "devDependencies": {
     "@cybozu/eslint-config": "^16.0.0",
     "eslint": "^8.2.0",

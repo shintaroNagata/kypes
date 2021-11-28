@@ -137,7 +137,7 @@ type AppRecordPrintShowProperties = {
 
 type AppReportShowProperties = { appId: number };
 
-type PortalShowProperties = {};
+type PortalShowProperties = Record<string, never>;
 type SpacePortalShowProperties = { spaceId: string };
 
 type MobileAppRecordIndexShowProperties = {
@@ -238,7 +238,7 @@ type MobileAppRecordEditSubmitSuccessProperties = {
 
 type MobileAppReportShowProperties = { appId: number };
 
-type MobilePortalShowProperties = {};
+type MobilePortalShowProperties = Record<string, never>;
 type MobileSpacePortalShowProperties = { spaceId: string };
 
 export {
