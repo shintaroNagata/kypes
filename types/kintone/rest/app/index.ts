@@ -101,7 +101,7 @@ type AppRestApiMap = FormRestApiMap &
           app: string | number;
           revision?: string | number;
         }>;
-        revert: boolean;
+        revert?: boolean;
       };
       responseProperties: Record<string, never>;
     };

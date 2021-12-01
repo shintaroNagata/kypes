@@ -28,7 +28,7 @@ type BulkRequestRestApiMap = {
     method: "POST";
     endpoint: "bulkRequest";
     requestParameters: {
-      request: BulkRequestApiParameter[];
+      requests: BulkRequestApiParameter[];
     };
     responseProperties: { results: any[] };
   };
