@@ -3,19 +3,19 @@ declare global {
     function proxy(
       url: string,
       method: "GET" | "POST" | "PUT" | "DELETE",
-      headers: { [Key: string]: string },
-      data: { [Key: string]: string } | string
-    ): Promise<[string, number, { [Key in string]?: string }]>;
+      headers: Record<string, string>,
+      data: Record<string, string> | string
+    ): Promise<[string, number, Record<string, string | undefined>]>;
 
     function proxy(
       url: string,
       method: "GET" | "POST" | "PUT" | "DELETE",
-      headers: { [Key: string]: string },
-      data: { [Key: string]: string } | string,
+      headers: Record<string, string>,
+      data: Record<string, string> | string,
       successCallback: (
         responseBody: string,
         statusCode: number,
-        responseHeader: { [Key in string]?: string }
+        responseHeader: Record<string, string | undefined>
       ) => void,
       failureCallback?: (errorResponseBody: string) => void
     ): void;
@@ -24,16 +24,16 @@ declare global {
     function upload(
       url: string,
       method: "POST" | "PUT",
-      headers: { [Key: string]: string },
+      headers: Record<string, string>,
       data: {
         format: "RAW";
         value: unknown;
       }
-    ): Promise<[string, number, { [Key in string]?: string }]>;
+    ): Promise<[string, number, Record<string, string | undefined>]>;
     function upload(
       url: string,
       method: "POST" | "PUT",
-      headers: { [Key: string]: string },
+      headers: Record<string, string>,
       data: {
         format: "RAW";
         value: unknown;
@@ -41,7 +41,7 @@ declare global {
       successCallback: (
         responseBody: string,
         statusCode: number,
-        responseHeader: { [Key in string]?: string }
+        responseHeader: Record<string, string | undefined>
       ) => void,
       failureCallback?: (errorResponseBody: string) => void
     ): void;

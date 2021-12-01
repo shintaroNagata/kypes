@@ -1,27 +1,27 @@
 declare global {
   namespace kintone.plugin.app {
     function setConfig(
-      config: { [Key in string]?: string },
+      config: Record<string, string>,
       successCallback?: () => void
     ): void;
-    function getConfig(pluginId: string): { [Key in string]?: string };
+    function getConfig(pluginId: string): Record<string, string | undefined>;
     function proxy(
       pluginId: string,
       url: string,
       method: "GET" | "POST" | "PUT" | "DELETE",
-      headers: { [Key: string]: string },
-      data: { [Key: string]: string } | string
-    ): Promise<[string, number, { [Key in string]?: string }]>;
+      headers: Record<string, string>,
+      data: Record<string, string> | string
+    ): Promise<[string, number, Record<string, string | undefined>]>;
     function proxy(
       pluginId: string,
       url: string,
       method: "GET" | "POST" | "PUT" | "DELETE",
-      headers: { [Key: string]: string },
-      data: { [Key: string]: string } | string,
+      headers: Record<string, string>,
+      data: Record<string, string> | string,
       successCallback: (
         responseBody: string,
         statusCode: number,
-        responseHeader: { [Key in string]?: string }
+        responseHeader: Record<string, string | undefined>
       ) => void,
       failureCallback?: (errorResponseBody: string) => void
     ): void;
@@ -29,16 +29,16 @@ declare global {
     function setProxyConfig(
       url: string,
       method: "GET" | "POST" | "PUT" | "DELETE",
-      headers: { [Key: string]: string },
-      data: { [Key: string]: string },
+      headers: Record<string, string>,
+      data: Record<string, string>,
       successCallback?: () => void
     ): void;
     function getProxyConfig(
       url: string,
       method: "GET" | "POST" | "PUT" | "DELETE"
     ): {
-      headers: { [Key in string]?: string };
-      data: { [Key in string]?: string };
+      headers: Record<string, string | undefined>;
+      data: Record<string, string | undefined>;
     };
   }
   namespace kintone.plugin.app.proxy {
@@ -46,17 +46,17 @@ declare global {
       pluginId: string,
       url: string,
       method: "POST" | "PUT",
-      headers: { [Key: string]: string },
+      headers: Record<string, string>,
       data: {
         format: "RAW";
         value: unknown;
       }
-    ): Promise<[string, number, { [Key in string]?: string }]>;
+    ): Promise<[string, number, Record<string, string | undefined>]>;
     function upload(
       pluginId: string,
       url: string,
       method: "POST" | "PUT",
-      headers: { [Key: string]: string },
+      headers: Record<string, string>,
       data: {
         format: "RAW";
         value: unknown;
@@ -64,7 +64,7 @@ declare global {
       successCallback: (
         responseBody: string,
         statusCode: number,
-        responseHeader: { [Key in string]?: string }
+        responseHeader: Record<string, string | undefined>
       ) => void,
       failureCallback?: (errorResponseBody: string) => void
     ): void;

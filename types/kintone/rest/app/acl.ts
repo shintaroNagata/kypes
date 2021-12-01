@@ -185,7 +185,7 @@ type AclRestApiMap = {
           editable: boolean;
           deletable: boolean;
           fields: {
-            [k: string]:
+            [fieldCode: string]:
               | {
                   viewable: boolean;
                   editable: boolean;
