@@ -48,7 +48,7 @@ type RecordRestApiMap = {
       query?: string;
       totalCount?: true;
     };
-    responseProperties: { record: KintoneRecord[]; totalCount: string | null };
+    responseProperties: { records: KintoneRecord[]; totalCount: string | null };
   };
   PostRecords: {
     method: "POST";
