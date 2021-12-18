@@ -1,22 +1,30 @@
-import { KintoneRecord } from "../types";
-
-type OmitTypes<Record extends KintoneRecord> = {
-  [fieldCode in keyof Record]?: Omit<NonNullable<Record[fieldCode]>, "type">;
-};
+import { FieldsMap } from "../field";
 
 type RecordRestApiMap = {
   GetRecord: {
     method: "GET";
     endpoint: "record";
     requestParameters: { app: string | number; id: string | number };
-    responseProperties: { record: KintoneRecord };
+    responseProperties: {
+      record: {
+        $id: FieldsMap["ID"]["rest"]["record"]["get"];
+        $revision: FieldsMap["Revision"]["rest"]["record"]["get"];
+        [fieldCode: string]:
+          | FieldsMap[keyof FieldsMap]["rest"]["record"]["get"]
+          | undefined;
+      };
+    };
   };
   PostRecord: {
     method: "POST";
     endpoint: "record";
     requestParameters: {
       app: string | number;
-      record?: OmitTypes<KintoneRecord>;
+      record?: {
+        [
+          fieldCode: string
+        ]: FieldsMap[keyof FieldsMap]["rest"]["record"]["add"];
+      };
     };
     responseProperties: {
       id: string;
@@ -28,7 +36,11 @@ type RecordRestApiMap = {
     endpoint: "record";
     requestParameters: {
       app: string | number;
-      record?: OmitTypes<KintoneRecord>;
+      record?: {
+        [
+          fieldCode: string
+        ]: FieldsMap[keyof FieldsMap]["rest"]["record"]["update"];
+      };
       revision?: string | number;
     } & (
       | { id: string | number }
@@ -48,14 +60,27 @@ type RecordRestApiMap = {
       query?: string;
       totalCount?: true;
     };
-    responseProperties: { records: KintoneRecord[]; totalCount: string | null };
+    responseProperties: {
+      records: Array<{
+        $id: FieldsMap["ID"]["rest"]["record"]["get"];
+        $revision: FieldsMap["Revision"]["rest"]["record"]["get"];
+        [fieldCode: string]:
+          | FieldsMap[keyof FieldsMap]["rest"]["record"]["get"]
+          | undefined;
+      }>;
+      totalCount: string | null;
+    };
   };
   PostRecords: {
     method: "POST";
     endpoint: "records";
     requestParameters: {
       app: string | number;
-      records: Array<OmitTypes<KintoneRecord>>;
+      records: Array<{
+        [
+          fieldCode: string
+        ]: FieldsMap[keyof FieldsMap]["rest"]["record"]["add"];
+      }>;
     };
     responseProperties: {
       ids: string[];
@@ -69,7 +94,11 @@ type RecordRestApiMap = {
       app: string | number;
       records: Array<
         {
-          record?: OmitTypes<KintoneRecord>;
+          record?: {
+            [
+              fieldCode: string
+            ]: FieldsMap[keyof FieldsMap]["rest"]["record"]["add"];
+          };
           revision?: string | number;
         } & (
           | { id: string | number }
@@ -112,7 +141,13 @@ type RecordRestApiMap = {
       id: string;
     };
     responseProperties: {
-      records: KintoneRecord[];
+      records: Array<{
+        $id: FieldsMap["ID"]["rest"]["record"]["get"];
+        $revision: FieldsMap["Revision"]["rest"]["record"]["get"];
+        [fieldCode: string]:
+          | FieldsMap[keyof FieldsMap]["rest"]["record"]["get"]
+          | undefined;
+      }>;
       next: boolean;
     };
   };
