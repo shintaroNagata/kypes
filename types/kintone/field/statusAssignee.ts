@@ -8,6 +8,19 @@ type StatusAssigneeField = {
       add: never;
       update: never;
     };
+    form: {
+      property: {
+        get: {
+          type: "STATUS_ASSIGNEE";
+          code: string;
+          label: string;
+          enabled: boolean;
+        };
+        add: never;
+        update: never;
+      };
+      layout: { get: never; update: never };
+    };
   };
   page: {
     record: {

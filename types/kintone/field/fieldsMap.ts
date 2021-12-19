@@ -25,6 +25,12 @@ import { DateTimeField } from "./dateTime";
 import { UserSelectField } from "./userSelect";
 import { OrganizationSelectField } from "./organizationSelect";
 import { GroupSelectField } from "./groupSelect";
+import { GroupField } from "./group";
+import { ReferenceTableField } from "./referenceTable";
+import { LookupField } from "./lookup";
+import { LabelField } from "./label";
+import { HRField } from "./hr";
+import { SpacerField } from "./spacer";
 
 type MetaFieldsMap = {
   ID: IDField;
@@ -57,78 +63,85 @@ type NormalFieldsMap = {
   UserSelect: UserSelectField;
   OrganizationSelect: OrganizationSelectField;
   GroupSelect: GroupSelectField;
+  Lookup: LookupField;
 };
 
-type SubtableMap = {
-  Subtable: {
-    rest: {
-      record: {
+type AppearanceFieldsMap = {
+  Group: GroupField;
+  ReferenceTable: ReferenceTableField;
+  Label: LabelField;
+  HR: HRField;
+  Spacer: SpacerField;
+};
+
+type Subtable<Structure extends { [fieldCode: string]: unknown }> = {
+  rest: {
+    record: {
+      get: {
+        type: "SUBTABLE";
+        value: Array<{
+          id: string;
+          value: Structure;
+        }>;
+      };
+      add: {
+        value: Array<{
+          id?: string | null;
+          value?: Structure;
+        }>;
+      };
+      update: {
+        value: Array<{
+          id?: string | null;
+          value?: Structure;
+        }>;
+      };
+    };
+    form: {
+      property: {
         get: {
           type: "SUBTABLE";
-          value: Array<{
-            id: string;
-            value: {
-              [fieldCode: string]:
-                | NormalFieldsMap[keyof NormalFieldsMap]["rest"]["record"]["get"]
-                | undefined;
-            };
-          }>;
+          code: string;
+          label: string;
+          noLabel: boolean;
+          fields: Structure;
         };
         add: {
-          value: Array<{
-            id?: string | null;
-            value?: {
-              [
-                fieldCode: string
-              ]: NormalFieldsMap[keyof NormalFieldsMap]["rest"]["record"]["add"];
-            };
-          }>;
+          type: "SUBTABLE";
+          code: string;
+          label?: string;
+          noLabel?: boolean;
+          fields: Structure;
         };
         update: {
-          value: Array<{
-            id?: string | null;
-            value?: {
-              [
-                fieldCode: string
-              ]: NormalFieldsMap[keyof NormalFieldsMap]["rest"]["record"]["update"];
-            };
-          }>;
+          type: "SUBTABLE";
+          code?: string;
+          label?: string;
+          noLabel?: boolean;
+          fields?: Structure;
         };
       };
     };
-    page: {
-      record: {
-        get: {
-          type: "SUBTABLE";
-          value: Array<{
-            id: string | null;
-            value: {
-              [fieldCode: string]:
-                | NormalFieldsMap[keyof NormalFieldsMap]["rest"]["record"]["get"]
-                | undefined;
-            };
-          }>;
-        };
-        set: {
-          type: "SUBTABLE";
-          value: Array<{
-            value: {
-              [fieldCode: string]:
-                | NormalFieldsMap[keyof NormalFieldsMap]["rest"]["record"]["get"];
-            };
-          }>;
-        };
+  };
+  page: {
+    record: {
+      get: {
+        type: "SUBTABLE";
+        value: Array<{
+          id: string | null;
+          value: Structure;
+        }>;
       };
-      supported: {
-        change: true;
-        createPage: true;
-        disabled: false;
-        error: false;
+      set: {
+        type: "SUBTABLE";
+        value: Array<{
+          value: Structure;
+        }>;
       };
     };
   };
 };
+type FieldsMap = MetaFieldsMap & NormalFieldsMap & AppearanceFieldsMap;
+type InSubtableFieldsMap = NormalFieldsMap;
 
-type FieldsMap = MetaFieldsMap & NormalFieldsMap & SubtableMap;
-
-export { FieldsMap };
+export { FieldsMap, Subtable, InSubtableFieldsMap };

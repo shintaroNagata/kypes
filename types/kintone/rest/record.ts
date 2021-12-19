@@ -1,4 +1,11 @@
-import { FieldsMap } from "../field";
+import { FieldsMap, InSubtableFieldsMap, Subtable } from "../field";
+
+type FieldList = FieldsMap[keyof FieldsMap]["rest"]["record"];
+type InSubtableFieldList =
+  InSubtableFieldsMap[keyof InSubtableFieldsMap]["rest"]["record"];
+
+type IDField = FieldsMap["ID"]["rest"]["record"];
+type RevisionField = FieldsMap["ID"]["rest"]["record"];
 
 type RecordRestApiMap = {
   GetRecord: {
@@ -7,10 +14,13 @@ type RecordRestApiMap = {
     requestParameters: { app: string | number; id: string | number };
     responseProperties: {
       record: {
-        $id: FieldsMap["ID"]["rest"]["record"]["get"];
-        $revision: FieldsMap["Revision"]["rest"]["record"]["get"];
+        $id: IDField["get"];
+        $revision: RevisionField["get"];
         [fieldCode: string]:
-          | FieldsMap[keyof FieldsMap]["rest"]["record"]["get"]
+          | FieldList["get"]
+          | Subtable<{
+              [fieldCode: string]: InSubtableFieldList["get"] | undefined;
+            }>
           | undefined;
       };
     };
@@ -21,9 +31,9 @@ type RecordRestApiMap = {
     requestParameters: {
       app: string | number;
       record?: {
-        [
-          fieldCode: string
-        ]: FieldsMap[keyof FieldsMap]["rest"]["record"]["add"];
+        [fieldCode: string]:
+          | FieldList["add"]
+          | Subtable<{ [fieldCode: string]: InSubtableFieldList["add"] }>;
       };
     };
     responseProperties: {
@@ -37,9 +47,9 @@ type RecordRestApiMap = {
     requestParameters: {
       app: string | number;
       record?: {
-        [
-          fieldCode: string
-        ]: FieldsMap[keyof FieldsMap]["rest"]["record"]["update"];
+        [fieldCode: string]:
+          | FieldList["update"]
+          | Subtable<{ [fieldCode: string]: InSubtableFieldList["update"] }>;
       };
       revision?: string | number;
     } & (
@@ -62,10 +72,13 @@ type RecordRestApiMap = {
     };
     responseProperties: {
       records: Array<{
-        $id: FieldsMap["ID"]["rest"]["record"]["get"];
-        $revision: FieldsMap["Revision"]["rest"]["record"]["get"];
+        $id: IDField["get"];
+        $revision: RevisionField["get"];
         [fieldCode: string]:
-          | FieldsMap[keyof FieldsMap]["rest"]["record"]["get"]
+          | FieldList["get"]
+          | Subtable<{
+              [fieldCode: string]: InSubtableFieldList["get"] | undefined;
+            }>
           | undefined;
       }>;
       totalCount: string | null;
@@ -77,9 +90,9 @@ type RecordRestApiMap = {
     requestParameters: {
       app: string | number;
       records: Array<{
-        [
-          fieldCode: string
-        ]: FieldsMap[keyof FieldsMap]["rest"]["record"]["add"];
+        [fieldCode: string]:
+          | FieldList["add"]
+          | Subtable<{ [fieldCode: string]: InSubtableFieldList["add"] }>;
       }>;
     };
     responseProperties: {
@@ -95,9 +108,11 @@ type RecordRestApiMap = {
       records: Array<
         {
           record?: {
-            [
-              fieldCode: string
-            ]: FieldsMap[keyof FieldsMap]["rest"]["record"]["add"];
+            [fieldCode: string]:
+              | FieldList["update"]
+              | Subtable<{
+                  [fieldCode: string]: InSubtableFieldList["update"];
+                }>;
           };
           revision?: string | number;
         } & (
@@ -142,10 +157,13 @@ type RecordRestApiMap = {
     };
     responseProperties: {
       records: Array<{
-        $id: FieldsMap["ID"]["rest"]["record"]["get"];
-        $revision: FieldsMap["Revision"]["rest"]["record"]["get"];
+        $id: IDField["get"];
+        $revision: RevisionField["get"];
         [fieldCode: string]:
-          | FieldsMap[keyof FieldsMap]["rest"]["record"]["get"]
+          | FieldList["get"]
+          | Subtable<{
+              [fieldCode: string]: InSubtableFieldList["get"] | undefined;
+            }>
           | undefined;
       }>;
       next: boolean;

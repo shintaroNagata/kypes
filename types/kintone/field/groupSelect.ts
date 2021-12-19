@@ -12,6 +12,49 @@ type GroupSelectField = {
         value: Array<{ code: string }>;
       };
     };
+    form: {
+      property: {
+        get: {
+          type: "GROUP_SELECT";
+          code: string;
+          label: string;
+          noLabel: boolean;
+          required: boolean;
+          defaultValue: Array<{ code: string; type: "GROUP" }>;
+          entities: Array<{ code: string; type: "GROUP" }>;
+        };
+        add: {
+          type: "GROUP_SELECT";
+          code: string;
+          label: string;
+          noLabel?: boolean;
+          required?: boolean;
+          defaultValue?: Array<{ code: string; type: "GROUP" }>;
+          entities?: Array<{ code: string; type: "GROUP" }>;
+        };
+        update: {
+          type: "GROUP_SELECT";
+          code?: string;
+          label?: string;
+          noLabel?: boolean;
+          required?: boolean;
+          defaultValue?: Array<{ code: string; type: "GROUP" }>;
+          entities?: Array<{ code: string; type: "GROUP" }>;
+        };
+      };
+      layout: {
+        get: {
+          type: "GROUP_SELECT";
+          code: string;
+          size: { width: string };
+        };
+        update: {
+          type: "GROUP_SELECT";
+          code: string;
+          size?: { width?: string };
+        };
+      };
+    };
   };
   page: {
     record: {

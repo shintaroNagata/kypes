@@ -10,6 +10,35 @@ type UpdatedTimeField = {
       };
       update: never;
     };
+    form: {
+      property: {
+        get: {
+          type: "UPDATED_TIME";
+          code: string;
+          label: string;
+          noLabel: boolean;
+        };
+        add: never;
+        update: {
+          type: "UPDATED_TIME";
+          code?: string;
+          label?: string;
+          noLabel?: boolean;
+        };
+      };
+      layout: {
+        get: {
+          type: "UPDATED_TIME";
+          code: string;
+          size: { width: string };
+        };
+        update: {
+          type: "UPDATED_TIME";
+          code: string;
+          size?: { width?: string };
+        };
+      };
+    };
   };
   page: {
     record: {

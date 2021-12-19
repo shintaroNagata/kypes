@@ -8,6 +8,14 @@ type StatusField = {
       add: never;
       update: never;
     };
+    form: {
+      property: {
+        get: { type: "STATUS"; code: string; label: string; enabled: boolean };
+        add: never;
+        update: never;
+      };
+      layout: { get: never; update: never };
+    };
   };
   page: {
     record: {

@@ -1,1 +1,1 @@
-export { FieldsMap } from "./fieldsMap";
+export { FieldsMap, Subtable, InSubtableFieldsMap } from "./fieldsMap";

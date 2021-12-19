@@ -10,6 +10,27 @@ type ModifierField = {
       };
       update: never;
     };
+    form: {
+      property: {
+        get: {
+          type: "MODIFIER";
+          code: string;
+          label: string;
+          noLabel: boolean;
+        };
+        add: never;
+        update: {
+          type: "MODIFIER";
+          code?: string;
+          label?: string;
+          noLabel?: boolean;
+        };
+      };
+      layout: {
+        get: { type: "MODIFIER"; code: string; size: { width: string } };
+        update: { type: "MODIFIER"; code: string; size?: { width?: string } };
+      };
+    };
   };
   page: {
     record: {

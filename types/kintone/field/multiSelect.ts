@@ -12,6 +12,55 @@ type MultiSelectField = {
         value: string[];
       };
     };
+    form: {
+      property: {
+        get: {
+          type: "MULTI_SELECT";
+          code: string;
+          label: string;
+          noLabel: boolean;
+          required: boolean;
+          defaultValue: string[];
+          options: {
+            [optionName: string]: { label: string; index: string } | undefined;
+          };
+        };
+        add: {
+          type: "MULTI_SELECT";
+          code: string;
+          label: string;
+          noLabel?: boolean;
+          required?: boolean;
+          defaultValue?: string[];
+          options: {
+            [optionName: string]: { label: string; index: string | number };
+          };
+        };
+        update: {
+          type: "MULTI_SELECT";
+          code?: string;
+          label?: string;
+          noLabel?: boolean;
+          required?: boolean;
+          defaultValue?: string[];
+          options?: {
+            [optionName: string]: { label?: string; index: string | number };
+          };
+        };
+      };
+      layout: {
+        get: {
+          type: "MULTI_SELECT";
+          code: string;
+          size: { width: string };
+        };
+        update: {
+          type: "MULTI_SELECT";
+          code: string;
+          size?: { width?: string };
+        };
+      };
+    };
   };
   page: {
     record: {

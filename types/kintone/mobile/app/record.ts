@@ -1,4 +1,8 @@
-import { FieldsMap } from "../../field";
+import { FieldsMap, Subtable, InSubtableFieldsMap } from "../../field";
+
+type FieldList = FieldsMap[keyof FieldsMap]["page"];
+type InSubtableFieldList =
+  InSubtableFieldsMap[keyof InSubtableFieldsMap]["page"];
 
 type SetField<
   Page extends {
@@ -21,13 +25,22 @@ declare global {
     function get(): {
       record: {
         [fieldCode: string]:
-          | FieldsMap[keyof FieldsMap]["page"]["record"]["get"]
+          | FieldList["record"]["get"]
+          | Subtable<{
+              [fieldCode: string]:
+                | InSubtableFieldList["record"]["get"]
+                | undefined;
+            }>["page"]["record"]["get"]
           | undefined;
       };
     } | null;
     function set(recordObject: {
       record: {
-        [fieldCode: string]: SetField<FieldsMap[keyof FieldsMap]["page"]>;
+        [fieldCode: string]:
+          | SetField<FieldList>
+          | Subtable<{
+              [fieldCode: string]: SetField<InSubtableFieldList>;
+            }>["page"]["record"]["set"];
       };
     }): void;
     function setFieldShown(fieldCode: string, isShown: boolean): void;

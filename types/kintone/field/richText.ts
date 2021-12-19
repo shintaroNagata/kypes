@@ -1,4 +1,5 @@
 type RichTextField = {
+  inSubtable: true;
   rest: {
     record: {
       get: {
@@ -10,6 +11,46 @@ type RichTextField = {
       };
       update: {
         value: string;
+      };
+    };
+    form: {
+      property: {
+        get: {
+          type: "RICH_TEXT";
+          code: string;
+          label: string;
+          noLabel: boolean;
+          required: boolean;
+          defaultValue: string;
+        };
+        add: {
+          type: "RICH_TEXT";
+          code: string;
+          label: string;
+          noLabel?: boolean;
+          required?: boolean;
+          defaultValue?: string;
+        };
+        update: {
+          type: "RICH_TEXT";
+          code?: string;
+          label?: string;
+          noLabel?: boolean;
+          required?: boolean;
+          defaultValue?: string;
+        };
+      };
+      layout: {
+        get: {
+          type: "RICH_TEXT";
+          code: string;
+          size: { width: string; innerHeight: string };
+        };
+        update: {
+          type: "RICH_TEXT";
+          code: string;
+          size?: { width?: string; innerHeight?: string };
+        };
       };
     };
   };

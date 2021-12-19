@@ -21,6 +21,38 @@ type FileField = {
         }>;
       };
     };
+    form: {
+      property: {
+        get: {
+          type: "FILE";
+          code: string;
+          label: string;
+          noLabel: boolean;
+          required: boolean;
+          thumbnailSize: "50" | "150" | "250" | "500";
+        };
+        add: {
+          type: "FILE";
+          code: string;
+          label: string;
+          noLabel?: boolean;
+          required?: boolean;
+          thumbnailSize?: 50 | 150 | 250 | 500 | "50" | "150" | "250" | "500";
+        };
+        update: {
+          type: "FILE";
+          code?: string;
+          label?: string;
+          noLabel?: boolean;
+          required?: boolean;
+          thumbnailSize?: 50 | 150 | 250 | 500 | "50" | "150" | "250" | "500";
+        };
+      };
+      layout: {
+        get: { type: "FILE"; code: string; size: { width: string } };
+        update: { type: "FILE"; code: string; size?: { width?: string } };
+      };
+    };
   };
   page: {
     record: {

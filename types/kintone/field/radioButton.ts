@@ -12,6 +12,58 @@ type RadioButtonField = {
         value: string;
       };
     };
+    form: {
+      property: {
+        get: {
+          type: "RADIO_BUTTON";
+          code: string;
+          label: string;
+          noLabel: boolean;
+          required: boolean;
+          defaultValue: string;
+          options: {
+            [optionName: string]: { label: string; index: string } | undefined;
+          };
+          align: "HORIZONTAL" | "VERTICAL";
+        };
+        add: {
+          type: "RADIO_BUTTON";
+          code: string;
+          label: string;
+          noLabel?: boolean;
+          required?: boolean;
+          defaultValue?: string;
+          options: {
+            [optionName: string]: { label: string; index: string | number };
+          };
+          align?: "HORIZONTAL" | "VERTICAL";
+        };
+        update: {
+          type: "RADIO_BUTTON";
+          code?: string;
+          label?: string;
+          noLabel?: boolean;
+          required?: boolean;
+          defaultValue?: string;
+          options?: {
+            [optionName: string]: { label?: string; index: string | number };
+          };
+          align?: "HORIZONTAL" | "VERTICAL";
+        };
+      };
+      layout: {
+        get: {
+          type: "RADIO_BUTTON";
+          code: string;
+          size: { width: string };
+        };
+        update: {
+          type: "RADIO_BUTTON";
+          code: string;
+          size?: { width?: string };
+        };
+      };
+    };
   };
   page: {
     record: {

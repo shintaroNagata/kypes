@@ -12,6 +12,50 @@ type LinkField = {
         value: string | undefined;
       };
     };
+    form: {
+      property: {
+        get: {
+          type: "LINK";
+          code: string;
+          label: string;
+          noLabel: boolean;
+          required: boolean;
+          defaultValue: string;
+          unique: boolean;
+          minLength: string;
+          maxLength: string;
+          protocol: "WEB" | "CALL" | "MAIL";
+        };
+        add: {
+          type: "LINK";
+          code: string;
+          label: string;
+          noLabel?: boolean;
+          required?: boolean;
+          defaultValue?: string;
+          unique?: boolean;
+          minLength?: string | number;
+          maxLength?: string | number;
+          protocol: "WEB" | "CALL" | "MAIL";
+        };
+        update: {
+          type: "LINK";
+          code?: string;
+          label?: string;
+          noLabel?: boolean;
+          required?: boolean;
+          defaultValue?: string;
+          unique?: boolean;
+          minLength?: string | number;
+          maxLength?: string | number;
+          protocol?: "WEB" | "CALL" | "MAIL";
+        };
+      };
+      layout: {
+        get: { type: "LINK"; code: string; size: { width: string } };
+        update: { type: "LINK"; code: string; size?: { width?: string } };
+      };
+    };
   };
   page: {
     record: {

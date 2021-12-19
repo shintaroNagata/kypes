@@ -10,6 +10,27 @@ type CreatedTimeField = {
       };
       update: never;
     };
+    form: {
+      property: {
+        get: {
+          type: "CREATED_TIME";
+          code: string;
+          label: string;
+          noLabel: boolean;
+        };
+        add: never;
+        update: {
+          type: "CREATED_TIME";
+          code?: string;
+          label?: string;
+          noLabel?: boolean;
+        };
+      };
+      layout: {
+        get: { type: "CREATOR"; code: string; size: { width: string } };
+        update: { type: "CREATOR"; code: string; size?: { width?: string } };
+      };
+    };
   };
   page: {
     record: {

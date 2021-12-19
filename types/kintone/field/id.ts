@@ -8,6 +8,10 @@ type IDField = {
       add: never;
       update: never;
     };
+    form: {
+      property: { get: never; add: never; update: never };
+      layout: { get: never; update: never };
+    };
   };
   page: {
     record: {

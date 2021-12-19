@@ -12,6 +12,44 @@ type DateTimeField = {
         value: string | undefined;
       };
     };
+    form: {
+      property: {
+        get: {
+          type: "DATETIME";
+          code: string;
+          label: string;
+          noLabel: boolean;
+          required: boolean;
+          defaultValue: string;
+          unique: boolean;
+          defaultNowValue: boolean;
+        };
+        add: {
+          type: "DATETIME";
+          code: string;
+          label: string;
+          noLabel?: boolean;
+          required?: boolean;
+          defaultValue?: string;
+          unique?: boolean;
+          defaultNowValue?: boolean;
+        };
+        update: {
+          type: "DATETIME";
+          code?: string;
+          label?: string;
+          noLabel?: boolean;
+          required?: boolean;
+          defaultValue?: string;
+          unique?: boolean;
+          defaultNowValue?: boolean;
+        };
+      };
+      layout: {
+        get: { type: "DATETIME"; code: string; size: { width: string } };
+        update: { type: "DATETIME"; code: string; size?: { width?: string } };
+      };
+    };
   };
   page: {
     record: {
