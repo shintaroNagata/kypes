@@ -5,7 +5,7 @@ type InSubtableFieldList =
   InSubtableFieldsMap[keyof InSubtableFieldsMap]["rest"]["record"];
 
 type IDField = FieldsMap["ID"]["rest"]["record"];
-type RevisionField = FieldsMap["ID"]["rest"]["record"];
+type RevisionField = FieldsMap["Revision"]["rest"]["record"];
 
 type RecordRestApiMap = {
   GetRecord: {
