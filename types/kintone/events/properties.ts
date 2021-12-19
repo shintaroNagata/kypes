@@ -106,13 +106,7 @@ type AppRecordIndexEditChangeProperties = {
       | undefined;
   };
   changes: {
-    field:
-      | ChangeEventSupported<FieldList>["record"]["get"]
-      | Subtable<{
-          [
-            fieldCode: string
-          ]: ChangeEventSupported<InSubtableFieldList>["record"]["get"];
-        }>["page"]["record"]["get"];
+    field: ChangeEventSupported<FieldList>["record"]["get"];
   };
 };
 
@@ -222,11 +216,13 @@ type AppRecordCreateChangeProperties = {
     field:
       | ChangeEventSupported<FieldList>["record"]["get"]
       | Subtable<{
-          [
-            fieldCode: string
-          ]: ChangeEventSupported<InSubtableFieldList>["record"]["get"];
+          [fieldCode: string]: InSubtableFieldList["record"]["get"];
         }>["page"]["record"]["get"];
-    row: any;
+    row:
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"];
+        }>["page"]["record"]["get"]["value"][number]
+      | null;
   };
 };
 
@@ -287,11 +283,13 @@ type AppRecordEditChangeProperties = {
     field:
       | ChangeEventSupported<FieldList>["record"]["get"]
       | Subtable<{
-          [
-            fieldCode: string
-          ]: ChangeEventSupported<InSubtableFieldList>["record"]["get"];
+          [fieldCode: string]: InSubtableFieldList["record"]["get"];
         }>["page"]["record"]["get"];
-    row: any;
+    row:
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"];
+        }>["page"]["record"]["get"]["value"][number]
+      | null;
   };
 };
 
@@ -463,11 +461,13 @@ type MobileAppRecordCreateChangeProperties = {
     field:
       | ChangeEventSupported<FieldList>["record"]["get"]
       | Subtable<{
-          [
-            fieldCode: string
-          ]: ChangeEventSupported<InSubtableFieldList>["record"]["get"];
+          [fieldCode: string]: InSubtableFieldList["record"]["get"];
         }>["page"]["record"]["get"];
-    row: any;
+    row:
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"];
+        }>["page"]["record"]["get"]["value"][number]
+      | null;
   };
 };
 
@@ -526,11 +526,13 @@ type MobileAppRecordEditChangeProperties = {
     field:
       | ChangeEventSupported<FieldList>["record"]["get"]
       | Subtable<{
-          [
-            fieldCode: string
-          ]: ChangeEventSupported<InSubtableFieldList>["record"]["get"];
+          [fieldCode: string]: InSubtableFieldList["record"]["get"];
         }>["page"]["record"]["get"];
-    row: any;
+    row:
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"];
+        }>["page"]["record"]["get"]["value"][number]
+      | null;
   };
 };
 
