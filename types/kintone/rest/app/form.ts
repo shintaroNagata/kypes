@@ -1,3 +1,9 @@
+import { FieldsMap, InSubtableFieldsMap, Subtable } from "../../field";
+
+type FieldList = FieldsMap[keyof FieldsMap]["rest"]["form"];
+type InSubtableFieldList =
+  InSubtableFieldsMap[keyof InSubtableFieldsMap]["rest"]["form"];
+
 type FormRestApiMap = {
   GetAppFormFields: {
     method: "GET";
@@ -9,12 +15,10 @@ type FormRestApiMap = {
     responseProperties: {
       properties: {
         [fieldCode: string]:
-          | {
-              type: string;
-              code: string;
-              label: string;
-              [propertyName: string]: any;
-            }
+          | FieldList["property"]["get"]
+          | Subtable<{
+              [fieldCode: string]: InSubtableFieldList["property"]["get"];
+            }>["rest"]["form"]["property"]["get"]
           | undefined;
       };
       revision: string;
@@ -30,12 +34,10 @@ type FormRestApiMap = {
     responseProperties: {
       properties: {
         [fieldCode: string]:
-          | {
-              type: string;
-              code: string;
-              label: string;
-              [propertyName: string]: any;
-            }
+          | FieldList["property"]["get"]
+          | Subtable<{
+              [fieldCode: string]: InSubtableFieldList["property"]["get"];
+            }>["rest"]["form"]["property"]["get"]
           | undefined;
       };
       revision: string;
@@ -47,12 +49,11 @@ type FormRestApiMap = {
     requestParameters: {
       app: string | number;
       properties: {
-        [fieldCode: string]: {
-          type: string;
-          code: string;
-          label?: string;
-          [propertyName: string]: any;
-        };
+        [fieldCode: string]:
+          | FieldList["property"]["add"]
+          | Subtable<{
+              [fieldCode: string]: InSubtableFieldList["property"]["add"];
+            }>["rest"]["form"]["property"]["add"];
       };
       revision?: string | number;
     };
@@ -66,12 +67,11 @@ type FormRestApiMap = {
     requestParameters: {
       app: string | number;
       properties: {
-        [fieldCode: string]: {
-          type: string;
-          code: string;
-          label?: string;
-          [propertyName: string]: any;
-        };
+        [fieldCode: string]:
+          | FieldList["property"]["update"]
+          | Subtable<{
+              [fieldCode: string]: InSubtableFieldList["property"]["update"];
+            }>["rest"]["form"]["property"]["update"];
       };
       revision?: string | number;
     };
@@ -101,31 +101,19 @@ type FormRestApiMap = {
       layout: Array<
         | {
             type: "ROW";
-            fields: Array<{
-              type: string;
-              code?: string;
-              [propertyName: string]: any;
-            }>;
+            fields: Array<FieldList["layout"]["get"]>;
           }
         | {
             type: "SUBTABLE";
             code: string;
-            fields: Array<{
-              type: string;
-              code?: string;
-              [propertyName: string]: any;
-            }>;
+            fields: Array<InSubtableFieldList["layout"]["get"]>;
           }
         | {
             type: "GROUP";
             code: string;
             layout: Array<{
               type: "ROW";
-              fields: Array<{
-                type: string;
-                code?: string;
-                [propertyName: string]: any;
-              }>;
+              fields: Array<FieldList["layout"]["get"]>;
             }>;
           }
       >;
@@ -142,31 +130,19 @@ type FormRestApiMap = {
       layout: Array<
         | {
             type: "ROW";
-            fields: Array<{
-              type: string;
-              code?: string;
-              [propertyName: string]: any;
-            }>;
+            fields: Array<FieldList["layout"]["get"]>;
           }
         | {
             type: "SUBTABLE";
             code: string;
-            fields: Array<{
-              type: string;
-              code?: string;
-              [propertyName: string]: any;
-            }>;
+            fields: Array<InSubtableFieldList["layout"]["get"]>;
           }
         | {
             type: "GROUP";
             code: string;
             layout: Array<{
               type: "ROW";
-              fields: Array<{
-                type: string;
-                code?: string;
-                [propertyName: string]: any;
-              }>;
+              fields: Array<FieldList["layout"]["get"]>;
             }>;
           }
       >;
@@ -181,31 +157,19 @@ type FormRestApiMap = {
       layout: Array<
         | {
             type: "ROW";
-            fields?: Array<{
-              type: string;
-              code?: string;
-              [propertyName: string]: any;
-            }>;
+            fields?: Array<FieldList["layout"]["update"]>;
           }
         | {
             type: "SUBTABLE";
             code: string;
-            fields?: Array<{
-              type: string;
-              code?: string;
-              [propertyName: string]: any;
-            }>;
+            fields?: Array<InSubtableFieldList["layout"]["update"]>;
           }
         | {
             type: "GROUP";
             code: string;
             layout?: Array<{
               type: "ROW";
-              fields?: Array<{
-                type: string;
-                code?: string;
-                [propertyName: string]: any;
-              }>;
+              fields?: Array<FieldList["layout"]["update"]>;
             }>;
           }
       >;

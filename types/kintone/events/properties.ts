@@ -1,4 +1,28 @@
-import type { KintoneRecord, KintoneField } from "../types";
+import { FieldsMap, InSubtableFieldsMap, Subtable } from "../field";
+
+type FieldList = FieldsMap[keyof FieldsMap]["page"];
+type InSubtableFieldList =
+  InSubtableFieldsMap[keyof InSubtableFieldsMap]["page"];
+
+type ChangeEventSupported<
+  FieldMap extends {
+    supported: { change: boolean };
+  }
+> = FieldMap extends unknown
+  ? FieldMap["supported"]["change"] extends true
+    ? FieldMap
+    : never
+  : never;
+
+type CreatePageSupported<
+  FieldMap extends {
+    supported: { createPage: boolean };
+  }
+> = FieldMap extends unknown
+  ? FieldMap["supported"]["createPage"] extends true
+    ? FieldMap
+    : never
+  : never;
 
 type AppRecordIndexShowProperties = {
   appId: number;
@@ -10,7 +34,16 @@ type AppRecordIndexShowProperties = {
       offset: number;
       size: number;
       date: null;
-      records: KintoneRecord[];
+      records: Array<{
+        [fieldCode: string]:
+          | FieldList["record"]["get"]
+          | Subtable<{
+              [fieldCode: string]:
+                | InSubtableFieldList["record"]["get"]
+                | undefined;
+            }>["page"]["record"]["get"]
+          | undefined;
+      }>;
     }
   | {
       viewType: "calendar";
@@ -18,7 +51,16 @@ type AppRecordIndexShowProperties = {
       size: null;
       date: `${number}-${string}`;
       records: {
-        [date in `${number}-${string}-${string}`]: KintoneRecord[];
+        [date in `${number}-${string}-${string}`]: Array<{
+          [fieldCode: string]:
+            | FieldList["record"]["get"]
+            | Subtable<{
+                [fieldCode: string]:
+                  | InSubtableFieldList["record"]["get"]
+                  | undefined;
+              }>["page"]["record"]["get"]
+            | undefined;
+        }>;
       };
     }
   | {
@@ -26,113 +68,267 @@ type AppRecordIndexShowProperties = {
       offset: number;
       size: number;
       date: null;
-      records: KintoneRecord[];
+      records: Array<{
+        [fieldCode: string]:
+          | FieldList["record"]["get"]
+          | Subtable<{
+              [fieldCode: string]:
+                | InSubtableFieldList["record"]["get"]
+                | undefined;
+            }>["page"]["record"]["get"]
+          | undefined;
+      }>;
     }
 );
 
 type AppRecordIndexEditShowProperties = {
   appId: number;
   recordId: string;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | FieldList["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"] | undefined;
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 
 type AppRecordIndexEditChangeProperties = {
   appId: string;
   recordId: string;
-  record: KintoneRecord;
-  changes: { field: KintoneField };
+  record: {
+    [fieldCode: string]:
+      | FieldList["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"] | undefined;
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
+  changes: {
+    field: ChangeEventSupported<FieldList>["record"]["get"];
+  };
 };
 
 type AppRecordIndexEditSubmitProperties = {
   appId: string;
   recordId: string;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | FieldList["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"] | undefined;
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 type AppRecordIndexEditSubmitSuccessProperties = {
   appId: number;
   recordId: string;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | FieldList["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"] | undefined;
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 
 type AppRecordIndexDeleteSubmitProperties = {
   appId: number;
   recordId: number;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | FieldList["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"] | undefined;
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 
 type AppRecordDetailShowProperties = {
   appId: number;
   recordId: number;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | FieldList["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"] | undefined;
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 type AppRecordDetailDeleteSubmitProperties = {
   appId: number;
   recordId: number;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | FieldList["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"] | undefined;
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 type AppRecordDetailProcessProceedProperties = {
   action: { value: string };
   status: { value: string };
   nextStatus: { value: string };
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | FieldList["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"] | undefined;
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 
 type AppRecordCreateShowProperties = {
   appId: number;
   reuse: boolean;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | CreatePageSupported<FieldList>["record"]["get"]
+      | Subtable<{
+          [
+            fieldCode: string
+          ]: CreatePageSupported<InSubtableFieldList>["record"]["get"];
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 type AppRecordCreateChangeProperties = {
   appId: number;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | CreatePageSupported<FieldList>["record"]["get"]
+      | Subtable<{
+          [
+            fieldCode: string
+          ]: CreatePageSupported<InSubtableFieldList>["record"]["get"];
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
   changes: {
-    field: KintoneField;
-    row: any;
+    field:
+      | ChangeEventSupported<FieldList>["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"];
+        }>["page"]["record"]["get"];
+    row:
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"];
+        }>["page"]["record"]["get"]["value"][number]
+      | null;
   };
 };
 
 type AppRecordCreateSubmitProperties = {
   appId: number;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | CreatePageSupported<FieldList>["record"]["get"]
+      | Subtable<{
+          [
+            fieldCode: string
+          ]: CreatePageSupported<InSubtableFieldList>["record"]["get"];
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 
 type AppRecordCreateSubmitSuccessProperties = {
   appId: number;
   recordId: string;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | CreatePageSupported<FieldList>["record"]["get"]
+      | Subtable<{
+          [
+            fieldCode: string
+          ]: CreatePageSupported<InSubtableFieldList>["record"]["get"];
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 
 type AppRecordEditShowProperties = {
   appId: number;
   recordId: number;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | FieldList["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"] | undefined;
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 
 type AppRecordEditChangeProperties = {
   appId: number;
   recordId: number;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | FieldList["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"] | undefined;
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
   changes: {
-    field: KintoneField;
-    row: any;
+    field:
+      | ChangeEventSupported<FieldList>["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"];
+        }>["page"]["record"]["get"];
+    row:
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"];
+        }>["page"]["record"]["get"]["value"][number]
+      | null;
   };
 };
 
 type AppRecordEditSubmitProperties = {
   appId: number;
   recordId: number;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | FieldList["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"] | undefined;
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 type AppRecordEditSubmitSuccessProperties = {
   appId: number;
   recordId: string;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | FieldList["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"] | undefined;
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 
 type AppRecordPrintShowProperties = {
   appId: number;
   recordId: number;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | FieldList["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"] | undefined;
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 
 type AppReportShowProperties = { appId: number };
@@ -150,7 +346,16 @@ type MobileAppRecordIndexShowProperties = {
       offset: number;
       size: number;
       date: null;
-      records: KintoneRecord[];
+      records: Array<{
+        [fieldCode: string]:
+          | FieldList["record"]["get"]
+          | Subtable<{
+              [fieldCode: string]:
+                | InSubtableFieldList["record"]["get"]
+                | undefined;
+            }>["page"]["record"]["get"]
+          | undefined;
+      }>;
     }
   | {
       viewType: "calendar";
@@ -158,7 +363,16 @@ type MobileAppRecordIndexShowProperties = {
       size: null;
       date: `${number}-${string}`;
       records: {
-        [date in `${number}-${string}-${string}`]: KintoneRecord[];
+        [date in `${number}-${string}-${string}`]: Array<{
+          [fieldCode: string]:
+            | FieldList["record"]["get"]
+            | Subtable<{
+                [fieldCode: string]:
+                  | InSubtableFieldList["record"]["get"]
+                  | undefined;
+              }>["page"]["record"]["get"]
+            | undefined;
+        }>;
       };
     }
   | {
@@ -166,74 +380,185 @@ type MobileAppRecordIndexShowProperties = {
       offset: number;
       size: number;
       date: null;
-      records: KintoneRecord[];
+      records: Array<{
+        [fieldCode: string]:
+          | FieldList["record"]["get"]
+          | Subtable<{
+              [fieldCode: string]:
+                | InSubtableFieldList["record"]["get"]
+                | undefined;
+            }>["page"]["record"]["get"]
+          | undefined;
+      }>;
     }
 );
 
 type MobileAppRecordDetailShowProperties = {
   appId: number;
   recordId: number;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | FieldList["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"] | undefined;
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 type MobileAppRecordDetailDeleteSubmitProperties = {
   appId: number;
   recordId: number;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | FieldList["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"] | undefined;
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 type MobileAppRecordDetailProcessProceedProperties = {
   action: { value: string };
   status: { value: string };
   nextStatus: { value: string };
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | FieldList["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"] | undefined;
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 
 type MobileAppRecordCreateShowProperties = {
   appId: number;
   reuse: boolean;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | CreatePageSupported<FieldList>["record"]["get"]
+      | Subtable<{
+          [
+            fieldCode: string
+          ]: CreatePageSupported<InSubtableFieldList>["record"]["get"];
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 type MobileAppRecordCreateChangeProperties = {
   appId: number;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | CreatePageSupported<FieldList>["record"]["get"]
+      | Subtable<{
+          [
+            fieldCode: string
+          ]: CreatePageSupported<InSubtableFieldList>["record"]["get"];
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
   changes: {
-    field: KintoneField;
-    row: any;
+    field:
+      | ChangeEventSupported<FieldList>["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"];
+        }>["page"]["record"]["get"];
+    row:
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"];
+        }>["page"]["record"]["get"]["value"][number]
+      | null;
   };
 };
 
 type MobileAppRecordCreateSubmitProperties = {
   appId: number;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | CreatePageSupported<FieldList>["record"]["get"]
+      | Subtable<{
+          [
+            fieldCode: string
+          ]: CreatePageSupported<InSubtableFieldList>["record"]["get"];
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 type MobileAppRecordCreateSubmitSuccessProperties = {
   appId: number;
   recordId: string;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | CreatePageSupported<FieldList>["record"]["get"]
+      | Subtable<{
+          [
+            fieldCode: string
+          ]: CreatePageSupported<InSubtableFieldList>["record"]["get"];
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 
 type MobileAppRecordEditShowProperties = {
   appId: number;
   recordId: number;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | FieldList["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"] | undefined;
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 type MobileAppRecordEditChangeProperties = {
   appId: number;
   recordId: number;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | FieldList["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"] | undefined;
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
   changes: {
-    field: KintoneField;
-    row: any;
+    field:
+      | ChangeEventSupported<FieldList>["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"];
+        }>["page"]["record"]["get"];
+    row:
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"];
+        }>["page"]["record"]["get"]["value"][number]
+      | null;
   };
 };
+
 type MobileAppRecordEditSubmitProperties = {
   appId: number;
   recordId: number;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | FieldList["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"] | undefined;
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 type MobileAppRecordEditSubmitSuccessProperties = {
   appId: number;
   recordId: string;
-  record: KintoneRecord;
+  record: {
+    [fieldCode: string]:
+      | FieldList["record"]["get"]
+      | Subtable<{
+          [fieldCode: string]: InSubtableFieldList["record"]["get"] | undefined;
+        }>["page"]["record"]["get"]
+      | undefined;
+  };
 };
 
 type MobileAppReportShowProperties = { appId: number };

@@ -1,22 +1,42 @@
-import { KintoneRecord } from "../types";
+import { FieldsMap, InSubtableFieldsMap, Subtable } from "../field";
 
-type OmitTypes<Record extends KintoneRecord> = {
-  [fieldCode in keyof Record]?: Omit<NonNullable<Record[fieldCode]>, "type">;
-};
+type FieldList = FieldsMap[keyof FieldsMap]["rest"]["record"];
+type InSubtableFieldList =
+  InSubtableFieldsMap[keyof InSubtableFieldsMap]["rest"]["record"];
+
+type IDField = FieldsMap["ID"]["rest"]["record"];
+type RevisionField = FieldsMap["Revision"]["rest"]["record"];
 
 type RecordRestApiMap = {
   GetRecord: {
     method: "GET";
     endpoint: "record";
     requestParameters: { app: string | number; id: string | number };
-    responseProperties: { record: KintoneRecord };
+    responseProperties: {
+      record: {
+        $id: IDField["get"];
+        $revision: RevisionField["get"];
+        [fieldCode: string]:
+          | FieldList["get"]
+          | Subtable<{
+              [fieldCode: string]: InSubtableFieldList["get"] | undefined;
+            }>["rest"]["record"]["get"]
+          | undefined;
+      };
+    };
   };
   PostRecord: {
     method: "POST";
     endpoint: "record";
     requestParameters: {
       app: string | number;
-      record?: OmitTypes<KintoneRecord>;
+      record?: {
+        [fieldCode: string]:
+          | FieldList["add"]
+          | Subtable<{
+              [fieldCode: string]: InSubtableFieldList["add"];
+            }>["rest"]["record"]["add"];
+      };
     };
     responseProperties: {
       id: string;
@@ -28,7 +48,13 @@ type RecordRestApiMap = {
     endpoint: "record";
     requestParameters: {
       app: string | number;
-      record?: OmitTypes<KintoneRecord>;
+      record?: {
+        [fieldCode: string]:
+          | FieldList["update"]
+          | Subtable<{
+              [fieldCode: string]: InSubtableFieldList["update"];
+            }>["rest"]["record"]["update"];
+      };
       revision?: string | number;
     } & (
       | { id: string | number }
@@ -48,14 +74,32 @@ type RecordRestApiMap = {
       query?: string;
       totalCount?: true;
     };
-    responseProperties: { records: KintoneRecord[]; totalCount: string | null };
+    responseProperties: {
+      records: Array<{
+        $id: IDField["get"];
+        $revision: RevisionField["get"];
+        [fieldCode: string]:
+          | FieldList["get"]
+          | Subtable<{
+              [fieldCode: string]: InSubtableFieldList["get"] | undefined;
+            }>["rest"]["record"]["get"]
+          | undefined;
+      }>;
+      totalCount: string | null;
+    };
   };
   PostRecords: {
     method: "POST";
     endpoint: "records";
     requestParameters: {
       app: string | number;
-      records: Array<OmitTypes<KintoneRecord>>;
+      records: Array<{
+        [fieldCode: string]:
+          | FieldList["add"]
+          | Subtable<{
+              [fieldCode: string]: InSubtableFieldList["add"];
+            }>["rest"]["record"]["add"];
+      }>;
     };
     responseProperties: {
       ids: string[];
@@ -69,7 +113,13 @@ type RecordRestApiMap = {
       app: string | number;
       records: Array<
         {
-          record?: OmitTypes<KintoneRecord>;
+          record?: {
+            [fieldCode: string]:
+              | FieldList["update"]
+              | Subtable<{
+                  [fieldCode: string]: InSubtableFieldList["update"];
+                }>["rest"]["record"]["update"];
+          };
           revision?: string | number;
         } & (
           | { id: string | number }
@@ -112,7 +162,16 @@ type RecordRestApiMap = {
       id: string;
     };
     responseProperties: {
-      records: KintoneRecord[];
+      records: Array<{
+        $id: IDField["get"];
+        $revision: RevisionField["get"];
+        [fieldCode: string]:
+          | FieldList["get"]
+          | Subtable<{
+              [fieldCode: string]: InSubtableFieldList["get"] | undefined;
+            }>["rest"]["record"]["get"]
+          | undefined;
+      }>;
       next: boolean;
     };
   };
