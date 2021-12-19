@@ -20,7 +20,7 @@ type RecordRestApiMap = {
           | FieldList["get"]
           | Subtable<{
               [fieldCode: string]: InSubtableFieldList["get"] | undefined;
-            }>
+            }>["rest"]["record"]["get"]
           | undefined;
       };
     };
@@ -33,7 +33,9 @@ type RecordRestApiMap = {
       record?: {
         [fieldCode: string]:
           | FieldList["add"]
-          | Subtable<{ [fieldCode: string]: InSubtableFieldList["add"] }>;
+          | Subtable<{
+              [fieldCode: string]: InSubtableFieldList["add"];
+            }>["rest"]["record"]["add"];
       };
     };
     responseProperties: {
@@ -49,7 +51,9 @@ type RecordRestApiMap = {
       record?: {
         [fieldCode: string]:
           | FieldList["update"]
-          | Subtable<{ [fieldCode: string]: InSubtableFieldList["update"] }>;
+          | Subtable<{
+              [fieldCode: string]: InSubtableFieldList["update"];
+            }>["rest"]["record"]["update"];
       };
       revision?: string | number;
     } & (
@@ -78,7 +82,7 @@ type RecordRestApiMap = {
           | FieldList["get"]
           | Subtable<{
               [fieldCode: string]: InSubtableFieldList["get"] | undefined;
-            }>
+            }>["rest"]["record"]["get"]
           | undefined;
       }>;
       totalCount: string | null;
@@ -92,7 +96,9 @@ type RecordRestApiMap = {
       records: Array<{
         [fieldCode: string]:
           | FieldList["add"]
-          | Subtable<{ [fieldCode: string]: InSubtableFieldList["add"] }>;
+          | Subtable<{
+              [fieldCode: string]: InSubtableFieldList["add"];
+            }>["rest"]["record"]["add"];
       }>;
     };
     responseProperties: {
@@ -112,7 +118,7 @@ type RecordRestApiMap = {
               | FieldList["update"]
               | Subtable<{
                   [fieldCode: string]: InSubtableFieldList["update"];
-                }>;
+                }>["rest"]["record"]["update"];
           };
           revision?: string | number;
         } & (
@@ -163,7 +169,7 @@ type RecordRestApiMap = {
           | FieldList["get"]
           | Subtable<{
               [fieldCode: string]: InSubtableFieldList["get"] | undefined;
-            }>
+            }>["rest"]["record"]["get"]
           | undefined;
       }>;
       next: boolean;
