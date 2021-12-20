@@ -6,12 +6,15 @@
   "types": "./lib/namespaces/index.d.ts",
   "scripts": {
     "lint": "eslint types",
+    "clean": "rimraf lib",
+    "prebuild": "npm run clean",
     "build": "tsc"
   },
   "devDependencies": {
     "@cybozu/eslint-config": "^16.0.0",
     "eslint": "^8.2.0",
     "prettier": "^2.4.1",
+    "rimraf": "^3.0.2",
     "typescript": "^4.5.2"
   }
 }
