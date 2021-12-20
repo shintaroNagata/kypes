@@ -6,7 +6,7 @@ import {
   Urls,
   UrlFromPath,
   WithQuery,
-} from "../rest";
+} from "../../types/rest";
 
 declare global {
   namespace kintone {
