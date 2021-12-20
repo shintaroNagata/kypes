@@ -1,4 +1,8 @@
-import { FieldsMap, Subtable, InSubtableFieldsMap } from "../field";
+import {
+  FieldsMap,
+  Subtable,
+  InSubtableFieldsMap,
+} from "../../../../types/field";
 
 type FieldList = FieldsMap[keyof FieldsMap]["page"];
 type InSubtableFieldList =
@@ -20,7 +24,7 @@ type SetField<
   : never;
 
 declare global {
-  namespace kintone.app.record {
+  namespace kintone.mobile.app.record {
     function getId(): number | null;
     function get(): {
       record: {
@@ -46,7 +50,6 @@ declare global {
     function setFieldShown(fieldCode: string, isShown: boolean): void;
     function setGroupFieldOpen(fieldCode: string, isOpen: boolean): void;
     function getFieldElement(fieldCode: string): HTMLElement | null;
-    function getHeaderMenuSpaceElement(): HTMLElement | null;
     function getSpaceElement(id: string): HTMLElement | null;
   }
 }

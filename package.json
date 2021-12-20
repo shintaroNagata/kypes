@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "author": "shintaroNagata <cybozu.nagata@gmail.com>",
   "license": "MIT",
-  "types": "./lib/index.d.ts",
+  "types": "./lib/namespaces/index.d.ts",
   "scripts": {
     "lint": "eslint types",
     "build": "tsc"
