@@ -1,4 +1,4 @@
-import { Event, EventTypes } from "../../../types/events";
+import { Event, EventTypes } from "../../types/events";
 
 declare global {
   namespace kintone.events {
