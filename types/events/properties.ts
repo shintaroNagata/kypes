@@ -1,4 +1,4 @@
-import { FieldsMap, InSubtableFieldsMap, Subtable } from "../../../types/field";
+import { FieldsMap, InSubtableFieldsMap, Subtable } from "../field";
 
 type FieldList = FieldsMap[keyof FieldsMap]["page"];
 type InSubtableFieldList =
