@@ -1,5 +1,4 @@
 type RichTextField = {
-  inSubtable: true;
   rest: {
     record: {
       get: {
