@@ -113,13 +113,16 @@ type AppRecordIndexEditChangeProperties = {
 type AppRecordIndexEditSubmitProperties = {
   appId: string;
   recordId: string;
+  error: string;
   record: {
     [fieldCode: string]:
-      | FieldList["record"]["get"]
+      (| FieldList["record"]["get"]
       | Subtable<{
-          [fieldCode: string]: InSubtableFieldList["record"]["get"] | undefined;
+          [fieldCode: string]: (InSubtableFieldList["record"]["get"] &
+          {error: string}) |
+          undefined;
         }>["page"]["record"]["get"]
-      | undefined;
+      | undefined) & ({error: string});
   };
 };
 type AppRecordIndexEditSubmitSuccessProperties = {
@@ -138,6 +141,7 @@ type AppRecordIndexEditSubmitSuccessProperties = {
 type AppRecordIndexDeleteSubmitProperties = {
   appId: number;
   recordId: number;
+  error: string;
   record: {
     [fieldCode: string]:
       | FieldList["record"]["get"]
@@ -163,6 +167,7 @@ type AppRecordDetailShowProperties = {
 type AppRecordDetailDeleteSubmitProperties = {
   appId: number;
   recordId: number;
+  error: string;
   record: {
     [fieldCode: string]:
       | FieldList["record"]["get"]
@@ -228,15 +233,15 @@ type AppRecordCreateChangeProperties = {
 
 type AppRecordCreateSubmitProperties = {
   appId: number;
+  error: string;
   record: {
     [fieldCode: string]:
-      | CreatePageSupported<FieldList>["record"]["get"]
+      (| CreatePageSupported<FieldList>["record"]["get"]
       | Subtable<{
-          [
-            fieldCode: string
-          ]: CreatePageSupported<InSubtableFieldList>["record"]["get"];
+          [fieldCode: string]: CreatePageSupported<InSubtableFieldList>["record"]["get"] &
+          {error :string};
         }>["page"]["record"]["get"]
-      | undefined;
+      | undefined) & {error :string};
   };
 };
 
@@ -296,13 +301,14 @@ type AppRecordEditChangeProperties = {
 type AppRecordEditSubmitProperties = {
   appId: number;
   recordId: number;
+  error: string;
   record: {
     [fieldCode: string]:
-      | FieldList["record"]["get"]
+      (| FieldList["record"]["get"]
       | Subtable<{
-          [fieldCode: string]: InSubtableFieldList["record"]["get"] | undefined;
+          [fieldCode: string]: (InSubtableFieldList["record"]["get"] & {error: string}) | undefined;
         }>["page"]["record"]["get"]
-      | undefined;
+      | undefined) & {error: string};
   };
 };
 type AppRecordEditSubmitSuccessProperties = {
