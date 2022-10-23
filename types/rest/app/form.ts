@@ -18,8 +18,7 @@ type FormRestApiMap = {
           | FieldList["property"]["get"]
           | Subtable<{
               [fieldCode: string]: InSubtableFieldList["property"]["get"];
-            }>["rest"]["form"]["property"]["get"]
-          | undefined;
+            }>["rest"]["form"]["property"]["get"];
       };
       revision: string;
     };
@@ -37,8 +36,7 @@ type FormRestApiMap = {
           | FieldList["property"]["get"]
           | Subtable<{
               [fieldCode: string]: InSubtableFieldList["property"]["get"];
-            }>["rest"]["form"]["property"]["get"]
-          | undefined;
+            }>["rest"]["form"]["property"]["get"];
       };
       revision: string;
     };
@@ -175,9 +173,7 @@ type FormRestApiMap = {
       >;
       revision?: string | number;
     };
-    responseProperties: {
-      revision: string;
-    };
+    responseProperties: { revision: string };
   };
 };
 

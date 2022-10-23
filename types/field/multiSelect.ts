@@ -21,9 +21,7 @@ type MultiSelectField = {
           noLabel: boolean;
           required: boolean;
           defaultValue: string[];
-          options: {
-            [optionName: string]: { label: string; index: string } | undefined;
-          };
+          options: { [optionName: string]: { label: string; index: string } };
         };
         add: {
           type: "MULTI_SELECT";

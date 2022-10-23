@@ -9,32 +9,27 @@ type StatusRestApiMap = {
     responseProperties: {
       enable: boolean;
       states: {
-        [stateName: string]:
-          | {
-              name: string;
-              index: string;
-              assignee: {
-                type: "ONE" | "ALL" | "ANY";
-                entities: Array<{
-                  entity:
-                    | {
-                        type:
-                          | "USER"
-                          | "GROUP"
-                          | "ORGANIZATION"
-                          | "FIELD_ENTITY"
-                          | "CUSTOM_FIELD";
-                        code: string;
-                      }
-                    | {
-                        type: "CREATOR";
-                        code: null;
-                      };
-                  includeSubs: boolean;
-                }>;
-              };
-            }
-          | undefined;
+        [stateName: string]: {
+          name: string;
+          index: string;
+          assignee: {
+            type: "ONE" | "ALL" | "ANY";
+            entities: Array<{
+              entity:
+                | {
+                    type:
+                      | "USER"
+                      | "GROUP"
+                      | "ORGANIZATION"
+                      | "FIELD_ENTITY"
+                      | "CUSTOM_FIELD";
+                    code: string;
+                  }
+                | { type: "CREATOR"; code: null };
+              includeSubs: boolean;
+            }>;
+          };
+        };
       } | null;
       actions: Array<{
         name: string;
@@ -72,10 +67,7 @@ type StatusRestApiMap = {
                           | "CUSTOM_FIELD";
                         code: string;
                       }
-                    | {
-                        type: "CREATOR";
-                        code: null;
-                      };
+                    | { type: "CREATOR"; code: null };
                   includeSubs: boolean;
                 }>;
               };
@@ -114,9 +106,7 @@ type StatusRestApiMap = {
                       | "CUSTOM_FIELD";
                     code: string;
                   }
-                | {
-                    type: "CREATOR";
-                  };
+                | { type: "CREATOR" };
               includeSubs?: boolean;
             }>;
           };

@@ -9,7 +9,7 @@ type ReportsRestApiMap = {
     responseProperties: {
       reports: {
         [reportName: string]:
-          | ((
+          | (
               | {
                   chartType: "BAR" | "COLUMN" | "AREA" | "SPLINE_AREA";
                   chartMode: "NORMAL" | "STACKED" | "PERCENTAGE";
@@ -39,13 +39,8 @@ type ReportsRestApiMap = {
                   | undefined;
               }>;
               aggregations: Array<
-                | {
-                    type: "SUM" | "AVERAGE" | "MAX" | "MIN";
-                    code: string;
-                  }
-                | {
-                    type: "COUNT";
-                  }
+                | { type: "SUM" | "AVERAGE" | "MAX" | "MIN"; code: string }
+                | { type: "COUNT" }
               >;
               filterCond: string;
               sorts: Array<{
@@ -70,11 +65,7 @@ type ReportsRestApiMap = {
                         | "MAR_JUN_SEP_DEC";
                       dayOfMonth: string;
                     }
-                  | {
-                      every: "MONTH";
-                      time: string;
-                      dayOfMonth: string;
-                    }
+                  | { every: "MONTH"; time: string; dayOfMonth: string }
                   | {
                       every: "WEEK";
                       time: string;
@@ -87,17 +78,13 @@ type ReportsRestApiMap = {
                         | "FRIDAY"
                         | "SATURDAY";
                     }
-                  | {
-                      every: "DAY";
-                      time: string;
-                    }
+                  | { every: "DAY"; time: string }
                   | {
                       every: "HOUR";
                       minute: "0" | "10" | "20" | "30" | "40" | "50";
                     };
               } | null;
-            })
-          | undefined;
+            };
       };
       revision: string;
     };
@@ -112,7 +99,7 @@ type ReportsRestApiMap = {
     responseProperties: {
       reports: {
         [reportName: string]:
-          | ((
+          | (
               | {
                   chartType: "BAR" | "COLUMN" | "AREA" | "SPLINE_AREA";
                   chartMode: "NORMAL" | "STACKED" | "PERCENTAGE";
@@ -142,13 +129,8 @@ type ReportsRestApiMap = {
                   | undefined;
               }>;
               aggregations: Array<
-                | {
-                    type: "SUM" | "AVERAGE" | "MAX" | "MIN";
-                    code: string;
-                  }
-                | {
-                    type: "COUNT";
-                  }
+                | { type: "SUM" | "AVERAGE" | "MAX" | "MIN"; code: string }
+                | { type: "COUNT" }
               >;
               filterCond: string;
               sorts: Array<{
@@ -173,11 +155,7 @@ type ReportsRestApiMap = {
                         | "MAR_JUN_SEP_DEC";
                       dayOfMonth: string;
                     }
-                  | {
-                      every: "MONTH";
-                      time: string;
-                      dayOfMonth: string;
-                    }
+                  | { every: "MONTH"; time: string; dayOfMonth: string }
                   | {
                       every: "WEEK";
                       time: string;
@@ -190,17 +168,13 @@ type ReportsRestApiMap = {
                         | "FRIDAY"
                         | "SATURDAY";
                     }
-                  | {
-                      every: "DAY";
-                      time: string;
-                    }
+                  | { every: "DAY"; time: string }
                   | {
                       every: "HOUR";
                       minute: "0" | "10" | "20" | "30" | "40" | "50";
                     };
               } | null;
-            })
-          | undefined;
+            };
       };
       revision: string;
     };
@@ -216,9 +190,7 @@ type ReportsRestApiMap = {
               chartType: "BAR" | "COLUMN" | "AREA" | "SPLINE_AREA";
               chartMode: "NORMAL" | "STACKED" | "PERCENTAGE";
             }
-          | {
-              chartType: "PIE" | "LINE" | "PIVOT_TABLE" | "TABLE" | "SPLINE";
-            }
+          | { chartType: "PIE" | "LINE" | "PIVOT_TABLE" | "TABLE" | "SPLINE" }
         ) & {
           name?: string;
           index: string | number;
@@ -234,13 +206,8 @@ type ReportsRestApiMap = {
               | "MINUTE";
           }>;
           aggregations?: Array<
-            | {
-                type: "SUM" | "AVERAGE" | "MAX" | "MIN";
-                code: string;
-              }
-            | {
-                type: "COUNT";
-              }
+            | { type: "SUM" | "AVERAGE" | "MAX" | "MIN"; code: string }
+            | { type: "COUNT" }
           >;
           filterCond?: string;
           sorts?: Array<{
@@ -265,11 +232,7 @@ type ReportsRestApiMap = {
                     | "MAR_JUN_SEP_DEC";
                   dayOfMonth: string;
                 }
-              | {
-                  every: "MONTH";
-                  time: string;
-                  dayOfMonth: string;
-                }
+              | { every: "MONTH"; time: string; dayOfMonth: string }
               | {
                   every: "WEEK";
                   time: string;
@@ -282,10 +245,7 @@ type ReportsRestApiMap = {
                     | "FRIDAY"
                     | "SATURDAY";
                 }
-              | {
-                  every: "DAY";
-                  time: string;
-                }
+              | { every: "DAY"; time: string }
               | {
                   every: "HOUR";
                   minute: "0" | "10" | "20" | "30" | "40" | "50";
@@ -297,13 +257,7 @@ type ReportsRestApiMap = {
     };
     responseProperties: {
       revision: string;
-      reports: {
-        [reportName: string]:
-          | {
-              id: string;
-            }
-          | undefined;
-      };
+      reports: { [reportName: string]: { id: string } };
     };
   };
 };

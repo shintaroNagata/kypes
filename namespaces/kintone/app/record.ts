@@ -27,11 +27,8 @@ declare global {
         [fieldCode: string]:
           | FieldList["record"]["get"]
           | Subtable<{
-              [fieldCode: string]:
-                | InSubtableFieldList["record"]["get"]
-                | undefined;
-            }>["page"]["record"]["get"]
-          | undefined;
+              [fieldCode: string]: InSubtableFieldList["record"]["get"];
+            }>["page"]["record"]["get"];
       };
     } | null;
     function set(recordObject: {

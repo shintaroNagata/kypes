@@ -9,7 +9,7 @@ type ViewsRestApiMap = {
     responseProperties: {
       views: {
         [viewName: string]:
-          | ({
+          | {
               name: string;
               id: string;
               index: string;
@@ -21,19 +21,14 @@ type ViewsRestApiMap = {
                   builtinType: "ASSIGNEE" | undefined;
                   fields: string[];
                 }
-              | {
-                  type: "CALENDAR";
-                  date: string;
-                  title: string;
-                }
+              | { type: "CALENDAR"; date: string; title: string }
               | {
                   type: "CUSTOM";
                   html: string;
                   pager: boolean;
                   device: "DESKTOP" | "ANY";
                 }
-            ))
-          | undefined;
+            );
       };
       revision: string;
     };
@@ -48,7 +43,7 @@ type ViewsRestApiMap = {
     responseProperties: {
       views: {
         [viewName: string]:
-          | ({
+          | {
               name: string;
               id: string;
               index: string;
@@ -60,19 +55,14 @@ type ViewsRestApiMap = {
                   builtinType: "ASSIGNEE" | undefined;
                   fields: string[];
                 }
-              | {
-                  type: "CALENDAR";
-                  date: string;
-                  title: string;
-                }
+              | { type: "CALENDAR"; date: string; title: string }
               | {
                   type: "CUSTOM";
                   html: string;
                   pager: boolean;
                   device: "DESKTOP" | "ANY";
                 }
-            ))
-          | undefined;
+            );
       };
       revision: string;
     };
@@ -94,11 +84,7 @@ type ViewsRestApiMap = {
               type: "LIST";
               fields?: string[];
             }
-          | {
-              type: "CALENDAR";
-              date?: string;
-              title?: string;
-            }
+          | { type: "CALENDAR"; date?: string; title?: string }
           | {
               type: "CUSTOM";
               html?: string;
@@ -111,11 +97,7 @@ type ViewsRestApiMap = {
     };
     responseProperties: {
       revision: string;
-      views: {
-        [viewName: string]: {
-          id: string;
-        };
-      };
+      views: { [viewName: string]: { id: string } };
     };
   };
 };

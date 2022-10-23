@@ -19,9 +19,8 @@ type RecordRestApiMap = {
         [fieldCode: string]:
           | FieldList["get"]
           | Subtable<{
-              [fieldCode: string]: InSubtableFieldList["get"] | undefined;
-            }>["rest"]["record"]["get"]
-          | undefined;
+              [fieldCode: string]: InSubtableFieldList["get"];
+            }>["rest"]["record"]["get"];
       };
     };
   };
@@ -81,9 +80,8 @@ type RecordRestApiMap = {
         [fieldCode: string]:
           | FieldList["get"]
           | Subtable<{
-              [fieldCode: string]: InSubtableFieldList["get"] | undefined;
-            }>["rest"]["record"]["get"]
-          | undefined;
+              [fieldCode: string]: InSubtableFieldList["get"];
+            }>["rest"]["record"]["get"];
       }>;
       totalCount: string | null;
     };
@@ -168,9 +166,8 @@ type RecordRestApiMap = {
         [fieldCode: string]:
           | FieldList["get"]
           | Subtable<{
-              [fieldCode: string]: InSubtableFieldList["get"] | undefined;
-            }>["rest"]["record"]["get"]
-          | undefined;
+              [fieldCode: string]: InSubtableFieldList["get"];
+            }>["rest"]["record"]["get"];
       }>;
       next: boolean;
     };

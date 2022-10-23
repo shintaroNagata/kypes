@@ -5,7 +5,7 @@ declare global {
       method: "GET" | "POST" | "PUT" | "DELETE",
       headers: Record<string, string>,
       data: Record<string, string> | string
-    ): Promise<[string, number, Record<string, string | undefined>]>;
+    ): Promise<[string, number, Record<string, string>]>;
 
     function proxy(
       url: string,
@@ -15,7 +15,7 @@ declare global {
       successCallback: (
         responseBody: string,
         statusCode: number,
-        responseHeader: Record<string, string | undefined>
+        responseHeader: Record<string, string>
       ) => void,
       failureCallback?: (errorResponseBody: string) => void
     ): void;
@@ -29,7 +29,7 @@ declare global {
         format: "RAW";
         value: unknown;
       }
-    ): Promise<[string, number, Record<string, string | undefined>]>;
+    ): Promise<[string, number, Record<string, string>]>;
     function upload(
       url: string,
       method: "POST" | "PUT",
@@ -41,7 +41,7 @@ declare global {
       successCallback: (
         responseBody: string,
         statusCode: number,
-        responseHeader: Record<string, string | undefined>
+        responseHeader: Record<string, string>
       ) => void,
       failureCallback?: (errorResponseBody: string) => void
     ): void;
