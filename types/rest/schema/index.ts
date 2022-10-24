@@ -2,6 +2,7 @@ import { Endpoints } from "../http";
 import { Schema as RecordApiSchema } from "./record";
 import { Schema as BulkRequestApiSchema } from "./bulkRequest";
 import { Schema as AppApiSchema } from "./app";
+import { Schema as SpaceApiSchema } from "./space";
 import {
   FindApi as FindApiInternal,
   FindEndpoint as FindEndpointInternal,
@@ -9,7 +10,8 @@ import {
 
 type KintoneRestApiSchema = RecordApiSchema &
   BulkRequestApiSchema &
-  AppApiSchema;
+  AppApiSchema &
+  SpaceApiSchema;
 
 // schema check
 type DefinedEndpoints = keyof KintoneRestApiSchema;

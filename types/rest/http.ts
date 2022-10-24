@@ -42,15 +42,15 @@ type Endpoints =
   | "preview/record/acl"
   | "field/acl"
   | "preview/field/acl"
-  | "record/acl/evaluate";
-// | "space"
-// | "space/body"
-// | "space/members"
-// | "space/thread"
-// | "space/thread/comment"
-// | "template/space"
-// | "guests"
-// | "space/guests";
+  | "record/acl/evaluate"
+  | "space"
+  | "space/body"
+  | "space/members"
+  | "space/thread"
+  | "space/thread/comment"
+  | "template/space"
+  | "guests"
+  | "space/guests";
 
 type PathFor<Endpoint extends string> = `/k/v1/${Endpoint}.json`;
 type UrlFor<Endpoint extends string> =
