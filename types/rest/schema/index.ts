@@ -1,4 +1,4 @@
-import { Endpoints } from "../endpoint";
+import { Endpoints } from "../http";
 import { Schema as RecordApiSchema } from "./record";
 import { Schema as BulkRequestApiSchema } from "./bulkRequest";
 import {

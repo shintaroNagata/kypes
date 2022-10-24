@@ -1,5 +1,4 @@
-import { Endpoints } from "../endpoint";
-import { Methods } from "../http";
+import { Endpoints, Methods } from "../http";
 import { ApiSchema, EndpointsSchema } from "./types";
 
 type FindEndpoint<Schema, Endpoint> = Schema extends EndpointsSchema

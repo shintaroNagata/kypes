@@ -1,4 +1,4 @@
-import { Endpoints } from "../endpoint";
+import { Endpoints } from "../temporal";
 import { Methods } from "../http";
 
 interface ApiSchema {
