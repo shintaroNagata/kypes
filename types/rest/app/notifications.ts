@@ -2,10 +2,10 @@ type NotificationsRestApiMap = {
   GetAppNotificationsGeneral: {
     method: "GET";
     endpoint: "app/notifications/general";
-    requestParameters: {
+    parameters: {
       app: string | number;
     };
-    responseProperties: {
+    response: {
       notifications: Array<{
         entity: {
           type: "USER" | "GROUP" | "ORGANIZATION" | "FIELD_ENTITY";
@@ -25,10 +25,10 @@ type NotificationsRestApiMap = {
   GetPreviewAppNotificationsGeneral: {
     method: "GET";
     endpoint: "preview/app/notifications/general";
-    requestParameters: {
+    parameters: {
       app: string | number;
     };
-    responseProperties: {
+    response: {
       notifications: Array<{
         entity: {
           type: "USER" | "GROUP" | "ORGANIZATION" | "FIELD_ENTITY";
@@ -48,7 +48,7 @@ type NotificationsRestApiMap = {
   PutPreviewAppNotificationsGeneral: {
     method: "PUT";
     endpoint: "preview/app/notifications/general";
-    requestParameters: {
+    parameters: {
       app: string;
       notifications?: Array<{
         entity: {
@@ -65,16 +65,16 @@ type NotificationsRestApiMap = {
       notifyToCommenter?: boolean;
       revision?: string | number;
     };
-    responseProperties: { revision: string };
+    response: { revision: string };
   };
   GetAppNotificationsPerRecord: {
     method: "GET";
     endpoint: "app/notifications/perRecord";
-    requestParameters: {
+    parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
-    responseProperties: {
+    response: {
       notifications: Array<{
         filterCond: string;
         title: string;
@@ -92,11 +92,11 @@ type NotificationsRestApiMap = {
   GetPreviewAppNotificationsPerRecord: {
     method: "GET";
     endpoint: "preview/app/notifications/perRecord";
-    requestParameters: {
+    parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
-    responseProperties: {
+    response: {
       notifications: Array<{
         filterCond: string;
         title: string;
@@ -114,7 +114,7 @@ type NotificationsRestApiMap = {
   PutPreviewAppNotificationsPerRecord: {
     method: "PUT";
     endpoint: "preview/app/notifications/perRecord";
-    requestParameters: {
+    parameters: {
       app: string | number;
       notifications: Array<{
         filterCond?: string;
@@ -129,16 +129,16 @@ type NotificationsRestApiMap = {
       }>;
       revision?: string | number;
     };
-    responseProperties: { revision: string };
+    response: { revision: string };
   };
   GetAppNotificationsReminder: {
     method: "GET";
     endpoint: "app/notifications/reminder";
-    requestParameters: {
+    parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
-    responseProperties: {
+    response: {
       notifications: Array<{
         timing:
           | {
@@ -168,11 +168,11 @@ type NotificationsRestApiMap = {
   GetPreviewAppNotificationsReminder: {
     method: "GET";
     endpoint: "preview/app/notifications/reminder";
-    requestParameters: {
+    parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
-    responseProperties: {
+    response: {
       notifications: Array<{
         timing:
           | {
@@ -202,7 +202,7 @@ type NotificationsRestApiMap = {
   PutPreviewAppNotificationsReminder: {
     method: "PUT";
     endpoint: "preview/app/notifications/reminder";
-    requestParameters: {
+    parameters: {
       app: string | number;
       notifications?: Array<{
         timing:
@@ -229,7 +229,7 @@ type NotificationsRestApiMap = {
       timezone?: string;
       revision?: string | number;
     };
-    responseProperties: {
+    response: {
       revision: string;
     };
   };

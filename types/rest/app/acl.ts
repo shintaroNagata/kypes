@@ -2,8 +2,8 @@ type AclRestApiMap = {
   GetAppAcl: {
     method: "GET";
     endpoint: "app/acl";
-    requestParameters: { app: string | number };
-    responseProperties: {
+    parameters: { app: string | number };
+    response: {
       rights: Array<
         {
           appEditable: boolean;
@@ -35,8 +35,8 @@ type AclRestApiMap = {
   GetPreviewAppAcl: {
     method: "GET";
     endpoint: "preview/app/acl";
-    requestParameters: { app: string | number };
-    responseProperties: {
+    parameters: { app: string | number };
+    response: {
       rights: Array<
         {
           appEditable: boolean;
@@ -68,7 +68,7 @@ type AclRestApiMap = {
   PutPreviewAppAcl: {
     method: "PUT";
     endpoint: "preview/app/acl";
-    requestParameters: {
+    parameters: {
       app: string | number;
       revision?: string;
       rights: Array<
@@ -96,16 +96,16 @@ type AclRestApiMap = {
         )
       >;
     };
-    responseProperties: { revision: string };
+    response: { revision: string };
   };
   GetRecordAcl: {
     method: "GET";
     endpoint: "record/acl";
-    requestParameters: {
+    parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
-    responseProperties: {
+    response: {
       rights: Array<{
         filterCond: string;
         entities: Array<{
@@ -125,11 +125,11 @@ type AclRestApiMap = {
   GetPreviewRecordAcl: {
     method: "GET";
     endpoint: "preview/record/acl";
-    requestParameters: {
+    parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
-    responseProperties: {
+    response: {
       rights: Array<{
         filterCond: string;
         entities: Array<{
@@ -149,7 +149,7 @@ type AclRestApiMap = {
   PutPreviewRecordAcl: {
     method: "PUT";
     endpoint: "preview/record/acl";
-    requestParameters: {
+    parameters: {
       app: string | number;
       rights: Array<{
         filterCond?: string;
@@ -166,18 +166,18 @@ type AclRestApiMap = {
       }>;
       revision?: string | number;
     };
-    responseProperties: {
+    response: {
       revision: string;
     };
   };
   GetRecordAclEvaluate: {
     method: "GET";
     endpoint: "record/acl/evaluate";
-    requestParameters: {
+    parameters: {
       app: string | number;
       ids: Array<string | number>;
     };
-    responseProperties: {
+    response: {
       rights: Array<{
         id: string;
         record: {
@@ -194,8 +194,8 @@ type AclRestApiMap = {
   GetFieldAcl: {
     method: "GET";
     endpoint: "field/acl";
-    requestParameters: { app: string | number };
-    responseProperties: {
+    parameters: { app: string | number };
+    response: {
       rights: Array<{
         code: string;
         entities: Array<{
@@ -213,8 +213,8 @@ type AclRestApiMap = {
   GetPreviewFieldAcl: {
     method: "GET";
     endpoint: "preview/field/acl";
-    requestParameters: { app: string | number };
-    responseProperties: {
+    parameters: { app: string | number };
+    response: {
       rights: Array<{
         code: string;
         entities: Array<{
@@ -232,7 +232,7 @@ type AclRestApiMap = {
   PutPreviewFieldAcl: {
     method: "PUT";
     endpoint: "preview/field/acl";
-    requestParameters: {
+    parameters: {
       app: string | number;
       rights: Array<{
         code: string;
@@ -247,7 +247,7 @@ type AclRestApiMap = {
       }>;
       revision?: string | number;
     };
-    responseProperties: {
+    response: {
       revision: string;
     };
   };

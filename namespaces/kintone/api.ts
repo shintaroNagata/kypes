@@ -1,7 +1,7 @@
 import {
   EnableMethods,
-  RequestParameters,
-  ResponseProperties,
+  Parameters,
+  Response,
   Paths,
   Urls,
   UrlFromPath,
@@ -21,8 +21,8 @@ declare global {
     function api<Path extends Paths, Method extends EnableMethods<Path>>(
       pathOrUrl: Path,
       method: Method,
-      params: RequestParameters<Path, Method>
-    ): Promise<ResponseProperties<Path, Method>>;
+      params: Parameters<Path, Method>
+    ): Promise<Response<Path, Method>>;
 
     /**
      * REST APIs with the GET, POST, PUT, DELETE method can be used.
@@ -35,8 +35,8 @@ declare global {
     function api<Url extends Urls, Method extends EnableMethods<Url>>(
       pathOrUrl: Url,
       method: Method,
-      params: RequestParameters<Url, Method>
-    ): Promise<ResponseProperties<Url, Method>>;
+      params: Parameters<Url, Method>
+    ): Promise<Response<Url, Method>>;
 
     /**
      * REST APIs with the GET, POST, PUT, DELETE method can be used.
@@ -53,7 +53,7 @@ declare global {
       pathOrUrl: Url,
       method: Method,
       params: Record<string, never>
-    ): Promise<ResponseProperties<Url, Method>>;
+    ): Promise<Response<Url, Method>>;
 
     /**
      * REST APIs with the GET, POST, PUT, DELETE method can be used.
@@ -70,8 +70,8 @@ declare global {
     function api<Path extends Paths, Method extends EnableMethods<Path>>(
       pathOrUrl: Path,
       method: Method,
-      params: RequestParameters<Path, Method>,
-      successCallback: (response: ResponseProperties<Path, Method>) => void,
+      params: Parameters<Path, Method>,
+      successCallback: (response: Response<Path, Method>) => void,
       failureCallback?: (errorResponse: any) => void
     ): void;
 
@@ -90,8 +90,8 @@ declare global {
     function api<Url extends Urls, Method extends EnableMethods<Url>>(
       pathOrUrl: Url,
       method: Method,
-      params: RequestParameters<Url, Method>,
-      successCallback: (response: ResponseProperties<Url, Method>) => void,
+      params: Parameters<Url, Method>,
+      successCallback: (response: Response<Url, Method>) => void,
       failureCallback?: (errorResponse: any) => void
     ): void;
 
@@ -114,7 +114,7 @@ declare global {
       pathOrUrl: Url,
       method: Method,
       params: Record<string, never>,
-      successCallback: (response: ResponseProperties<Url, Method>) => void,
+      successCallback: (response: Response<Url, Method>) => void,
       failureCallback?: (errorResponse: any) => void
     ): void;
   }
@@ -141,7 +141,7 @@ declare global {
      */
     function urlForGet<Path extends Paths>(
       path: Path,
-      params: RequestParameters<Path, "GET">,
+      params: Parameters<Path, "GET">,
       detectGuestSpace?: boolean
     ): WithQuery<UrlFromPath<Path>>;
 
@@ -159,13 +159,7 @@ declare global {
        */
       running: number;
     }>;
-    export {
-      url,
-      urlForGet,
-      getConcurrencyLimit,
-      RequestParameters,
-      ResponseProperties,
-    };
+    export { url, urlForGet, getConcurrencyLimit, Parameters, Response };
   }
 }
 

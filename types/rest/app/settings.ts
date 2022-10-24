@@ -2,11 +2,11 @@ type SettingsRestApiMap = {
   GetAppSettings: {
     method: "GET";
     endpoint: "app/settings";
-    requestParameters: {
+    parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
-    responseProperties: {
+    response: {
       name: string;
       description: string;
       icon:
@@ -40,11 +40,11 @@ type SettingsRestApiMap = {
   GetPreviewAppSettings: {
     method: "GET";
     endpoint: "preview/app/settings";
-    requestParameters: {
+    parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
-    responseProperties: {
+    response: {
       name: string;
       description: string;
       icon:
@@ -78,7 +78,7 @@ type SettingsRestApiMap = {
   PutPreviewAppSettings: {
     method: "PUT";
     endpoint: "preview/app/settings";
-    requestParameters: {
+    parameters: {
       app: string | number;
       name?: string;
       description?: string;
@@ -106,7 +106,7 @@ type SettingsRestApiMap = {
         | "CLIPS";
       revision?: string | number;
     };
-    responseProperties: {
+    response: {
       revision: string;
     };
   };

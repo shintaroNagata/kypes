@@ -16,7 +16,7 @@ type BulkRequestApiParameterInternal<Api extends EnableBulkRequestApi> =
     ? {
         method: Api["method"];
         api: `/k/v1/${Api["endpoint"]}.json`;
-        payload: Api["requestParameters"];
+        payload: Api["parameters"];
       }
     : never;
 
@@ -27,10 +27,10 @@ type BulkRequestRestApiMap = {
   BulkRequest: {
     method: "POST";
     endpoint: "bulkRequest";
-    requestParameters: {
+    parameters: {
       requests: BulkRequestApiParameter[];
     };
-    responseProperties: { results: any[] };
+    response: { results: any[] };
   };
 };
 

@@ -2,8 +2,8 @@ type CustomizeRestApiMap = {
   GetAppCustomize: {
     method: "GET";
     endpoint: "app/customize";
-    requestParameters: { app: string | number };
-    responseProperties: {
+    parameters: { app: string | number };
+    response: {
       scope: "ALL" | "ADMIN" | "NONE";
       desktop: {
         js: Array<
@@ -75,8 +75,8 @@ type CustomizeRestApiMap = {
   GetPreviewAppCustomize: {
     method: "GET";
     endpoint: "preview/app/customize";
-    requestParameters: { app: string | number };
-    responseProperties: {
+    parameters: { app: string | number };
+    response: {
       scope: "ALL" | "ADMIN" | "NONE";
       desktop: {
         js: Array<
@@ -148,7 +148,7 @@ type CustomizeRestApiMap = {
   PutPreviewAppCustomize: {
     method: "PUT";
     endpoint: "preview/app/customize";
-    requestParameters: {
+    parameters: {
       app: string | number;
       scope?: "ALL" | "ADMIN" | "NONE";
       desktop?: {
@@ -205,7 +205,7 @@ type CustomizeRestApiMap = {
       };
       revision?: string | number;
     };
-    responseProperties: {
+    response: {
       revision: string;
     };
   };

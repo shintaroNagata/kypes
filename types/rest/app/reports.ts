@@ -2,11 +2,11 @@ type ReportsRestApiMap = {
   GetAppReports: {
     method: "GET";
     endpoint: "app/reports";
-    requestParameters: {
+    parameters: {
       app: string;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
-    responseProperties: {
+    response: {
       reports: {
         [reportName: string]:
           | (
@@ -92,11 +92,11 @@ type ReportsRestApiMap = {
   GetPreviewAppReports: {
     method: "GET";
     endpoint: "preview/app/reports";
-    requestParameters: {
+    parameters: {
       app: string;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
-    responseProperties: {
+    response: {
       reports: {
         [reportName: string]:
           | (
@@ -182,7 +182,7 @@ type ReportsRestApiMap = {
   PutPreviewAppReports: {
     method: "PUT";
     endpoint: "preview/app/reports";
-    requestParameters: {
+    parameters: {
       app: string | number;
       reports: {
         [reportName: string]: (
@@ -255,7 +255,7 @@ type ReportsRestApiMap = {
       };
       revision?: string | number;
     };
-    responseProperties: {
+    response: {
       revision: string;
       reports: { [reportName: string]: { id: string } };
     };

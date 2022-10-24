@@ -11,8 +11,8 @@ type RecordRestApiMap = {
   GetRecord: {
     method: "GET";
     endpoint: "record";
-    requestParameters: { app: string | number; id: string | number };
-    responseProperties: {
+    parameters: { app: string | number; id: string | number };
+    response: {
       record: {
         $id: IDField["get"];
         $revision: RevisionField["get"];
@@ -27,7 +27,7 @@ type RecordRestApiMap = {
   PostRecord: {
     method: "POST";
     endpoint: "record";
-    requestParameters: {
+    parameters: {
       app: string | number;
       record?: {
         [fieldCode: string]:
@@ -37,7 +37,7 @@ type RecordRestApiMap = {
             }>["rest"]["record"]["add"];
       };
     };
-    responseProperties: {
+    response: {
       id: string;
       revision: string;
     };
@@ -45,7 +45,7 @@ type RecordRestApiMap = {
   PutRecord: {
     method: "PUT";
     endpoint: "record";
-    requestParameters: {
+    parameters: {
       app: string | number;
       record?: {
         [fieldCode: string]:
@@ -59,7 +59,7 @@ type RecordRestApiMap = {
       | { id: string | number }
       | { updateKey: { field: string; value: string } }
     );
-    responseProperties: {
+    response: {
       id: string;
       revision: string;
     };
@@ -67,13 +67,13 @@ type RecordRestApiMap = {
   GetRecords: {
     method: "GET";
     endpoint: "records";
-    requestParameters: {
+    parameters: {
       app: string | number;
       fields?: string[];
       query?: string;
       totalCount?: true;
     };
-    responseProperties: {
+    response: {
       records: Array<{
         $id: IDField["get"];
         $revision: RevisionField["get"];
@@ -89,7 +89,7 @@ type RecordRestApiMap = {
   PostRecords: {
     method: "POST";
     endpoint: "records";
-    requestParameters: {
+    parameters: {
       app: string | number;
       records: Array<{
         [fieldCode: string]:
@@ -99,7 +99,7 @@ type RecordRestApiMap = {
             }>["rest"]["record"]["add"];
       }>;
     };
-    responseProperties: {
+    response: {
       ids: string[];
       revisions: string[];
     };
@@ -107,7 +107,7 @@ type RecordRestApiMap = {
   PutRecords: {
     method: "PUT";
     endpoint: "records";
-    requestParameters: {
+    parameters: {
       app: string | number;
       records: Array<
         {
@@ -125,30 +125,30 @@ type RecordRestApiMap = {
         )
       >;
     };
-    responseProperties: {
+    response: {
       records: Array<{ id: string; revision: string }>;
     };
   };
   DeleteRecords: {
     method: "DELETE";
     endpoint: "records";
-    requestParameters: {
+    parameters: {
       app: string | number;
       ids: Array<string | number>;
       revisions?: Array<string | number>;
     };
-    responseProperties: Record<string, never>;
+    response: Record<string, never>;
   };
   PostRecordsCursor: {
     method: "POST";
     endpoint: "records/cursor";
-    requestParameters: {
+    parameters: {
       app: string | number;
       fields?: string[];
       query?: string;
       size?: string | number;
     };
-    responseProperties: {
+    response: {
       id: string;
       totalCount: string;
     };
@@ -156,10 +156,10 @@ type RecordRestApiMap = {
   GetRecordsCursor: {
     method: "GET";
     endpoint: "records/cursor";
-    requestParameters: {
+    parameters: {
       id: string;
     };
-    responseProperties: {
+    response: {
       records: Array<{
         $id: IDField["get"];
         $revision: RevisionField["get"];
@@ -175,15 +175,15 @@ type RecordRestApiMap = {
   DeleteRecordsCursor: {
     method: "DELETE";
     endpoint: "records/cursor";
-    requestParameters: {
+    parameters: {
       id: string;
     };
-    responseProperties: Record<string, never>;
+    response: Record<string, never>;
   };
   PostRecordComment: {
     method: "POST";
     endpoint: "record/comment";
-    requestParameters: {
+    parameters: {
       app: string | number;
       record: string | number;
       comment: {
@@ -194,31 +194,31 @@ type RecordRestApiMap = {
         }>;
       };
     };
-    responseProperties: {
+    response: {
       id: string;
     };
   };
   DeleteRecordComment: {
     method: "DELETE";
     endpoint: "record/comment";
-    requestParameters: {
+    parameters: {
       app: string | number;
       record: string | number;
       comment: string | number;
     };
-    responseProperties: Record<string, never>;
+    response: Record<string, never>;
   };
   GetRecordComments: {
     method: "GET";
     endpoint: "record/comments";
-    requestParameters: {
+    parameters: {
       app: string | number;
       record: string | number;
       order?: "asc" | "desc";
       offset?: number;
       limit?: number;
     };
-    responseProperties: {
+    response: {
       comments: Array<{
         id: string;
         text: string;
@@ -239,30 +239,30 @@ type RecordRestApiMap = {
   PutRecordAssignees: {
     method: "PUT";
     endpoint: "record/assignees";
-    requestParameters: {
+    parameters: {
       app: string | number;
       id: string | number;
       assignees: string[];
       revision?: string | number;
     };
-    responseProperties: { revision: string };
+    response: { revision: string };
   };
   PutRecordStatus: {
     method: "PUT";
     endpoint: "record/status";
-    requestParameters: {
+    parameters: {
       action: string;
       app: string | number;
       assignee?: string;
       id: string | number;
       revision?: string | number;
     };
-    responseProperties: { revision: string };
+    response: { revision: string };
   };
   PutRecordsStatus: {
     method: "PUT";
     endpoint: "records/status";
-    requestParameters: {
+    parameters: {
       app: string | number;
       records: Array<{
         action: string;
@@ -271,7 +271,7 @@ type RecordRestApiMap = {
         revision?: string | number;
       }>;
     };
-    responseProperties: { records: Array<{ id: string; revision: string }> };
+    response: { records: Array<{ id: string; revision: string }> };
   };
 };
 

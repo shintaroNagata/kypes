@@ -2,8 +2,8 @@ type SpaceRestApiMap = {
   GetSpace: {
     method: "GET";
     endpoint: "space";
-    requestParameters: { id: string | number };
-    responseProperties: {
+    parameters: { id: string | number };
+    response: {
       id: string;
       name: string;
       defaultThread: string;
@@ -51,13 +51,13 @@ type SpaceRestApiMap = {
   DeleteSpace: {
     method: "DELETE";
     endpoint: "space";
-    requestParameters: { id: string };
-    responseProperties: Record<string, never>;
+    parameters: { id: string };
+    response: Record<string, never>;
   };
   PostTemplateSpace: {
     method: "POST";
     endpoint: "template/space";
-    requestParameters: {
+    parameters: {
       id: string | number;
       name: string;
       members: Array<
@@ -81,29 +81,29 @@ type SpaceRestApiMap = {
       isGuest?: boolean;
       fixedMember?: boolean;
     };
-    responseProperties: {
+    response: {
       id: string;
     };
   };
   PutSpaceBody: {
     method: "PUT";
     endpoint: "space/body";
-    requestParameters: {
+    parameters: {
       id: string | number;
       body: string;
     };
-    responseProperties: Record<string, never>;
+    response: Record<string, never>;
   };
   PutSpaceThread: {
     method: "PUT";
     endpoint: "space/thread";
-    requestParameters: { id: string | number; name?: string; body?: string };
-    responseProperties: Record<string, never>;
+    parameters: { id: string | number; name?: string; body?: string };
+    response: Record<string, never>;
   };
   PostSpaceThreadComment: {
     method: "POST";
     endpoint: "space/thread/comment";
-    requestParameters: {
+    parameters: {
       space: string | number;
       thread: string | number;
       comment: {
@@ -118,15 +118,15 @@ type SpaceRestApiMap = {
         }>;
       };
     };
-    responseProperties: { id: string };
+    response: { id: string };
   };
   GetSpaceMembers: {
     method: "GET";
     endpoint: "space/members";
-    requestParameters: {
+    parameters: {
       id: string | number;
     };
-    responseProperties: {
+    response: {
       members: Array<
         | {
             entity: {
@@ -157,7 +157,7 @@ type SpaceRestApiMap = {
   PutSpaceMembers: {
     method: "PUT";
     endpoint: "space/members";
-    requestParameters: {
+    parameters: {
       id: string | number;
       members: Array<
         | {
@@ -177,12 +177,12 @@ type SpaceRestApiMap = {
           }
       >;
     };
-    responseProperties: Record<string, never>;
+    response: Record<string, never>;
   };
   PostGuests: {
     method: "POST";
     endpoint: "guests";
-    requestParameters: {
+    parameters: {
       guests: Array<{
         code: string;
         password: string;
@@ -198,21 +198,21 @@ type SpaceRestApiMap = {
         callto?: string;
       }>;
     };
-    responseProperties: Record<string, never>;
+    response: Record<string, never>;
   };
   DeleteGuests: {
     method: "DELETE";
     endpoint: "guests";
-    requestParameters: {
+    parameters: {
       guests: string[];
     };
-    responseProperties: Record<string, never>;
+    response: Record<string, never>;
   };
   PutSpaceGuests: {
     method: "PUT";
     endpoint: "space/guests";
-    requestParameters: { id: string | number; guests: string[] };
-    responseProperties: Record<string, never>;
+    parameters: { id: string | number; guests: string[] };
+    response: Record<string, never>;
   };
 };
 

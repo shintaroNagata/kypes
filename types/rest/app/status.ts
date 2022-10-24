@@ -2,11 +2,11 @@ type StatusRestApiMap = {
   GetAppStatus: {
     method: "GET";
     endpoint: "app/status";
-    requestParameters: {
+    parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
-    responseProperties: {
+    response: {
       enable: boolean;
       states: {
         [stateName: string]: {
@@ -43,11 +43,11 @@ type StatusRestApiMap = {
   GetPreviewAppStatus: {
     method: "GET";
     endpoint: "preview/app/status";
-    requestParameters: {
+    parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
-    responseProperties: {
+    response: {
       enable: boolean;
       states: {
         [stateName: string]:
@@ -86,7 +86,7 @@ type StatusRestApiMap = {
   PutPreviewAppStatus: {
     method: "PUT";
     endpoint: "preview/app/status";
-    requestParameters: {
+    parameters: {
       app: string | number;
       enable?: boolean;
       states?: {
@@ -120,7 +120,7 @@ type StatusRestApiMap = {
       }>;
       revision?: string | number;
     };
-    responseProperties: { revision: string };
+    response: { revision: string };
   };
 };
 

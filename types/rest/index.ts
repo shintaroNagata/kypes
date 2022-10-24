@@ -2,8 +2,8 @@ import { Methods, PathFor, UrlFor, WithQuery, EndpointOf } from "./http";
 import {
   Endpoints,
   EnableMethods as EnableMethodsInternal,
-  RequestParameters as RequestParametersInternal,
-  ResponseProperties as ResponsePropertiesInternal,
+  Parameters as ParametersInternal,
+  Response as ResponseInternal,
 } from "./restApiMap";
 
 type Paths = PathFor<Endpoints>;
@@ -16,15 +16,15 @@ type EnableMethods<PathOrUrl extends string> = EnableMethodsInternal<
   EndpointOf<PathOrUrl>
 >;
 
-type RequestParameters<
+type Parameters<
   PathOrUrl extends string,
   Method extends Methods
-> = RequestParametersInternal<EndpointOf<PathOrUrl>, Method>;
+> = ParametersInternal<EndpointOf<PathOrUrl>, Method>;
 
-type ResponseProperties<
+type Response<
   PathOrUrl extends string,
   Method extends Methods
-> = ResponsePropertiesInternal<EndpointOf<PathOrUrl>, Method>;
+> = ResponseInternal<EndpointOf<PathOrUrl>, Method>;
 
 export {
   Paths,
@@ -32,6 +32,6 @@ export {
   UrlFromPath,
   WithQuery,
   EnableMethods,
-  RequestParameters,
-  ResponseProperties,
+  Parameters,
+  Response,
 };

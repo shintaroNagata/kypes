@@ -8,11 +8,11 @@ type FormRestApiMap = {
   GetAppFormFields: {
     method: "GET";
     endpoint: "app/form/fields";
-    requestParameters: {
+    parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
-    responseProperties: {
+    response: {
       properties: {
         [fieldCode: string]:
           | FieldList["property"]["get"]
@@ -26,11 +26,11 @@ type FormRestApiMap = {
   GetPreviewAppFormFields: {
     method: "GET";
     endpoint: "preview/app/form/fields";
-    requestParameters: {
+    parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
-    responseProperties: {
+    response: {
       properties: {
         [fieldCode: string]:
           | FieldList["property"]["get"]
@@ -44,7 +44,7 @@ type FormRestApiMap = {
   PostPreviewAppFormFields: {
     method: "POST";
     endpoint: "preview/app/form/fields";
-    requestParameters: {
+    parameters: {
       app: string | number;
       properties: {
         [fieldCode: string]:
@@ -55,14 +55,14 @@ type FormRestApiMap = {
       };
       revision?: string | number;
     };
-    responseProperties: {
+    response: {
       revision: string;
     };
   };
   PutPreviewAppFormFields: {
     method: "PUT";
     endpoint: "preview/app/form/fields";
-    requestParameters: {
+    parameters: {
       app: string | number;
       properties: {
         [fieldCode: string]:
@@ -73,29 +73,29 @@ type FormRestApiMap = {
       };
       revision?: string | number;
     };
-    responseProperties: {
+    response: {
       revision: string;
     };
   };
   DeletePreviewAppFormFields: {
     method: "DELETE";
     endpoint: "preview/app/form/fields";
-    requestParameters: {
+    parameters: {
       app: string | number;
       fields: string[];
       revision?: string | number;
     };
-    responseProperties: {
+    response: {
       revision?: string;
     };
   };
   GetAppFormLayout: {
     method: "GET";
     endpoint: "app/form/layout";
-    requestParameters: {
+    parameters: {
       app: string | number;
     };
-    responseProperties: {
+    response: {
       layout: Array<
         | {
             type: "ROW";
@@ -121,10 +121,10 @@ type FormRestApiMap = {
   GetPreviewAppFormLayout: {
     method: "GET";
     endpoint: "preview/app/form/layout";
-    requestParameters: {
+    parameters: {
       app: string | number;
     };
-    responseProperties: {
+    response: {
       layout: Array<
         | {
             type: "ROW";
@@ -150,7 +150,7 @@ type FormRestApiMap = {
   PutPreviewAppFormLayout: {
     method: "PUT";
     endpoint: "preview/app/form/layout";
-    requestParameters: {
+    parameters: {
       app: string | number;
       layout: Array<
         | {
@@ -173,7 +173,7 @@ type FormRestApiMap = {
       >;
       revision?: string | number;
     };
-    responseProperties: { revision: string };
+    response: { revision: string };
   };
 };
 

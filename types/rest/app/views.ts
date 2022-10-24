@@ -2,11 +2,11 @@ type ViewsRestApiMap = {
   GetAppViews: {
     method: "GET";
     endpoint: "app/views";
-    requestParameters: {
+    parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
-    responseProperties: {
+    response: {
       views: {
         [viewName: string]:
           | {
@@ -36,11 +36,11 @@ type ViewsRestApiMap = {
   GetPreviewAppViews: {
     method: "GET";
     endpoint: "preview/app/views";
-    requestParameters: {
+    parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
-    responseProperties: {
+    response: {
       views: {
         [viewName: string]:
           | {
@@ -70,7 +70,7 @@ type ViewsRestApiMap = {
   PutPreviewAppViews: {
     method: "PUT";
     endpoint: "preview/app/views";
-    requestParameters: {
+    parameters: {
       app: string | number;
       views: {
         [viewName: string]: {
@@ -95,7 +95,7 @@ type ViewsRestApiMap = {
       };
       revision?: string | number;
     };
-    responseProperties: {
+    response: {
       revision: string;
       views: { [viewName: string]: { id: string } };
     };

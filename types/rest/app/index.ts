@@ -13,10 +13,10 @@ type AppRestApiMap = FormRestApiMap &
     GetApp: {
       method: "GET";
       endpoint: "app";
-      requestParameters: {
+      parameters: {
         id: string | number;
       };
-      responseProperties: {
+      response: {
         appId: string;
         code: string;
         name: string;
@@ -38,7 +38,7 @@ type AppRestApiMap = FormRestApiMap &
     GetApps: {
       method: "GET";
       endpoint: "apps";
-      requestParameters: {
+      parameters: {
         ids?: Array<string | number>;
         codes?: string[];
         name?: string;
@@ -46,7 +46,7 @@ type AppRestApiMap = FormRestApiMap &
         limit?: string | number;
         offset?: string | number;
       };
-      responseProperties: {
+      response: {
         apps: Array<{
           appId: string;
           code: string;
@@ -70,10 +70,10 @@ type AppRestApiMap = FormRestApiMap &
     PostPreviewApp: {
       method: "POST";
       endpoint: "preview/app";
-      requestParameters:
+      parameters:
         | { name: string }
         | { name: string; space: string | number; thread: string | number };
-      responseProperties: { app: string; revision: string };
+      response: { app: string; revision: string };
     };
   } & SettingsRestApiMap &
   StatusRestApiMap &
@@ -85,8 +85,8 @@ type AppRestApiMap = FormRestApiMap &
     GetPreviewAppDeploy: {
       method: "GET";
       endpoint: "preview/app/deploy";
-      requestParameters: { apps: Array<string | number> };
-      responseProperties: {
+      parameters: { apps: Array<string | number> };
+      response: {
         apps: Array<{
           app: string;
           status: "PROCESSING" | "SUCCESS" | "FAIL" | "CANCEL";
@@ -96,14 +96,14 @@ type AppRestApiMap = FormRestApiMap &
     PostPreviewAppDeploy: {
       method: "POST";
       endpoint: "preview/app/deploy";
-      requestParameters: {
+      parameters: {
         apps: Array<{
           app: string | number;
           revision?: string | number;
         }>;
         revert?: boolean;
       };
-      responseProperties: Record<string, never>;
+      response: Record<string, never>;
     };
   };
 

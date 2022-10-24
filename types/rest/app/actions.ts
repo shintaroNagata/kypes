@@ -2,11 +2,11 @@ type ActionsRestApiMap = {
   GetAppActions: {
     method: "GET";
     endpoint: "app/actions";
-    requestParameters: {
+    parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
-    responseProperties: {
+    response: {
       actions: {
         [actionName: string]: {
           name: string;
@@ -29,11 +29,11 @@ type ActionsRestApiMap = {
   GetPreviewAppActions: {
     method: "GET";
     endpoint: "preview/app/actions";
-    requestParameters: {
+    parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
-    responseProperties: {
+    response: {
       actions: {
         [actionName: string]: {
           name: string;
@@ -56,7 +56,7 @@ type ActionsRestApiMap = {
   PutPreviewAppActions: {
     method: "PUT";
     endpoint: "preview/app/actions";
-    requestParameters: {
+    parameters: {
       app: string | number;
       actions: {
         [actionName: string]: {
@@ -75,7 +75,7 @@ type ActionsRestApiMap = {
       };
       revision?: string | number;
     };
-    responseProperties: {
+    response: {
       actions: { [actionName: string]: { id: string } };
       revision: string;
     };

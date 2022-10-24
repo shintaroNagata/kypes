@@ -7,8 +7,8 @@ import { SpaceRestApiMap } from "./space";
 type RestApiMapEntryFormat = {
   method: Methods;
   endpoint: string;
-  requestParameters: Record<string, unknown>;
-  responseProperties: Record<string, any>;
+  parameters: Record<string, unknown>;
+  response: Record<string, any>;
 };
 type RestApiMap = RecordRestApiMap &
   BulkRequestRestApiMap &
@@ -33,32 +33,24 @@ type EnableMethods<Endpoint extends string> = Endpoint extends Endpoints
   ? ExtractRestApiMapEntry<RestApiMapEntries, Endpoint, Methods>["method"]
   : RestApiMapEntryFormat["method"];
 
-type RequestParameters<
+type Parameters<
   Endpoint extends string,
   Method extends Methods
 > = Endpoint extends Endpoints
-  ? ExtractRestApiMapEntry<
-      RestApiMapEntries,
-      Endpoint,
-      Method
-    >["requestParameters"]
-  : RestApiMapEntryFormat["requestParameters"];
+  ? ExtractRestApiMapEntry<RestApiMapEntries, Endpoint, Method>["parameters"]
+  : RestApiMapEntryFormat["parameters"];
 
-type ResponseProperties<
+type Response<
   Endpoint extends string,
   Method extends Methods
 > = Endpoint extends Endpoints
-  ? ExtractRestApiMapEntry<
-      RestApiMapEntries,
-      Endpoint,
-      Method
-    >["responseProperties"]
-  : RestApiMapEntryFormat["responseProperties"];
+  ? ExtractRestApiMapEntry<RestApiMapEntries, Endpoint, Method>["response"]
+  : RestApiMapEntryFormat["response"];
 
 export {
   ExtractRestApiMapEntry,
   Endpoints,
   EnableMethods,
-  RequestParameters,
-  ResponseProperties,
+  Parameters,
+  Response,
 };
