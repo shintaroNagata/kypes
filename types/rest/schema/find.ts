@@ -8,7 +8,7 @@ type FindEndpoint<Schema, Endpoint> = Schema extends EndpointsSchema
     : never
   : never;
 
-type FindApi<Schema, Method, Endpoint> = Method extends Methods
+type FindApi<Schema, Endpoint, Method> = Method extends Methods
   ? Extract<FindEndpoint<Schema, Endpoint>[Method], ApiSchema>
   : never;
 

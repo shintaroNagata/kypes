@@ -1,9 +1,4 @@
-import {
-  FindApi,
-  FindEndpoint,
-  RecordApiSchema,
-  BulkRequestApiSchema,
-} from "./schema";
+import { FindApi, FindEndpoint } from "./schema";
 
 type Endpoints =
   | "record"
@@ -57,30 +52,16 @@ type Endpoints =
 // | "guests"
 // | "space/guests";
 
-type KintoneRestApiSchema = RecordApiSchema & BulkRequestApiSchema;
-
-// schema check
-type DefinedEndpoints = keyof KintoneRestApiSchema;
-type CheckEndpoints<DefinedEndpoint> = [DefinedEndpoint] extends [Endpoints]
-  ? [Endpoints] extends [DefinedEndpoint]
-    ? true
-    : false
-  : false;
-const _check: CheckEndpoints<DefinedEndpoints> = true;
-
-type EnableMethods<Endpoint extends Endpoints> = keyof FindEndpoint<
-  KintoneRestApiSchema,
-  Endpoint
->;
+type EnableMethods<Endpoint extends Endpoints> = keyof FindEndpoint<Endpoint>;
 
 type Parameters<
   Endpoint extends Endpoints,
   Method extends EnableMethods<Endpoint>
-> = FindApi<KintoneRestApiSchema, Method, Endpoint>["parameters"];
+> = FindApi<Endpoint, Method>["parameters"];
 
 type Response<
   Endpoint extends Endpoints,
   Method extends EnableMethods<Endpoint>
-> = FindApi<KintoneRestApiSchema, Method, Endpoint>["response"];
+> = FindApi<Endpoint, Method>["response"];
 
 export { Parameters, Response, EnableMethods, Endpoints };
