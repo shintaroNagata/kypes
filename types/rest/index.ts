@@ -1,10 +1,16 @@
-import { Methods, PathFor, UrlFor, WithQuery, EndpointOf } from "./http";
 import {
+  Methods,
+  PathFor,
+  UrlFor,
+  WithQuery,
+  EndpointOf,
   Endpoints,
+} from "./http";
+import {
   EnableMethods as EnableMethodsInternal,
   Parameters as ParametersInternal,
   Response as ResponseInternal,
-} from "./restApiMap";
+} from "./temporal";
 
 type Paths = PathFor<Endpoints>;
 type Urls = UrlFor<Endpoints>;

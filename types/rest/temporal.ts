@@ -1,16 +1,6 @@
-import { Endpoints } from "./http";
-import { FindApi, FindEndpoint } from "./schema";
+import { FindApi, EnableMethods } from "./schema";
 
-type EnableMethods<Endpoint extends Endpoints> = keyof FindEndpoint<Endpoint>;
-
-type Parameters<
-  Endpoint extends Endpoints,
-  Method extends EnableMethods<Endpoint>
-> = FindApi<Endpoint, Method>["parameters"];
-
-type Response<
-  Endpoint extends Endpoints,
-  Method extends EnableMethods<Endpoint>
-> = FindApi<Endpoint, Method>["response"];
+type Parameters<Endpoint, Method> = FindApi<Endpoint, Method>["parameters"];
+type Response<Endpoint, Method> = FindApi<Endpoint, Method>["response"];
 
 export { Parameters, Response, EnableMethods };

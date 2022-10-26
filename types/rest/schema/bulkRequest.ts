@@ -1,31 +1,39 @@
-import { RecordApiSchema } from ".";
-import { FindApi, FindEndpoint } from "./find";
+import { ApiSchema } from "./types";
+import { KeyOfUnion } from "./utility";
+import { Schema as RecordApiSchema } from "./record";
 
-type EnableEndpoints =
+type SupportedEndpoints =
   | "record"
   | "records"
   | "record/assignees"
   | "record/status"
   | "records/status";
+type SupportedMethods = "POST" | "PUT" | "DELETE";
 
-type EnableMethods<Endpoint> = keyof FindEndpoint<RecordApiSchema, Endpoint>;
-
-type BuildBulkRequestParameters<
-  Method,
-  Endpoint extends string
-> = Endpoint extends EnableEndpoints
-  ? Method extends EnableMethods<Endpoint>
-    ? {
-        method: Method;
-        api: `/k/v1/${Endpoint}.json`;
-        payload: FindApi<RecordApiSchema, Method, Endpoint>["parameters"];
-      }
-    : never
+type GetEndpointSchema<Endpoint> = Endpoint extends SupportedEndpoints
+  ? RecordApiSchema[Endpoint]
+  : Endpoint extends string
+  ? RecordApiSchema[SupportedEndpoints]
   : never;
+type EnableMethods<Endpoint> = KeyOfUnion<GetEndpointSchema<Endpoint>>;
+
+type BuildBulkRequestParameters<Endpoint, Method> =
+  Endpoint extends SupportedEndpoints
+    ? Method extends EnableMethods<Endpoint>
+      ? {
+          method: Method;
+          api: `/k/v1/${Endpoint}.json`;
+          payload: Extract<
+            GetEndpointSchema<Endpoint>[Method],
+            ApiSchema
+          >["parameters"];
+        }
+      : never
+    : never;
 
 type BulkRequestParameters = BuildBulkRequestParameters<
-  "POST" | "PUT" | "DELETE",
-  "record" | "records" | "record/assignees" | "record/status" | "records/status"
+  SupportedEndpoints,
+  SupportedMethods
 >;
 
 type BulkRequestSchema = {

@@ -1,35 +1,26 @@
 import { Endpoints } from "../http";
+import { ApiSchema } from "./types";
+import { KeyOfUnion } from "./utility";
 import { Schema as RecordApiSchema } from "./record";
 import { Schema as BulkRequestApiSchema } from "./bulkRequest";
 import { Schema as AppApiSchema } from "./app";
 import { Schema as SpaceApiSchema } from "./space";
-import {
-  FindApi as FindApiInternal,
-  FindEndpoint as FindEndpointInternal,
-} from "./find";
 
 type KintoneRestApiSchema = RecordApiSchema &
   BulkRequestApiSchema &
   AppApiSchema &
   SpaceApiSchema;
 
-// schema check
-type DefinedEndpoints = keyof KintoneRestApiSchema;
-type CheckEndpoints<DefinedEndpoint> = [DefinedEndpoint] extends [Endpoints]
-  ? [Endpoints] extends [DefinedEndpoint]
-    ? true
-    : false
-  : false;
-const _check: CheckEndpoints<DefinedEndpoints> = true;
+type GetEndpointSchema<Endpoint> = Endpoint extends Endpoints
+  ? KintoneRestApiSchema[Endpoint]
+  : Endpoint extends string
+  ? KintoneRestApiSchema[Endpoints]
+  : never;
 
-type FindApi<Endpoint, Method> = FindApiInternal<
-  KintoneRestApiSchema,
-  Endpoint,
-  Method
->;
-type FindEndpoint<Endpoint> = FindEndpointInternal<
-  KintoneRestApiSchema,
-  Endpoint
->;
+type EnableMethods<Endpoint> = KeyOfUnion<GetEndpointSchema<Endpoint>>;
 
-export { FindApi, FindEndpoint };
+type FindApi<Endpoint, Method> = Method extends EnableMethods<Endpoint>
+  ? Extract<GetEndpointSchema<Endpoint>[Method], ApiSchema>
+  : never;
+
+export { FindApi, EnableMethods };
