@@ -13,8 +13,6 @@ type KintoneRestApiSchema = RecordApiSchema &
 
 type GetEndpointSchema<Endpoint> = Endpoint extends Endpoints
   ? KintoneRestApiSchema[Endpoint]
-  : Endpoint extends string
-  ? KintoneRestApiSchema[Endpoints]
   : never;
 
 type EnableMethods<Endpoint> = KeyOfUnion<GetEndpointSchema<Endpoint>>;

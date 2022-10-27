@@ -1,5 +1,3 @@
-type Methods = "GET" | "POST" | "PUT" | "DELETE";
-type Domain = "cybozu.com" | "kintone.com" | "cybozu.cn";
 type Endpoints =
   | "record"
   | "records"
@@ -51,21 +49,17 @@ type Endpoints =
   | "template/space"
   | "guests"
   | "space/guests";
+type Methods = "GET" | "PUT" | "POST" | "DELETE";
+type Domains = "cybozu.com" | "kintone.com" | "cybozu.cn";
 
-type PathFor<Endpoint extends string> = `/k/v1/${Endpoint}.json`;
-type UrlFor<Endpoint extends string> =
-  | `https://${string}.${Domain}/k/v1/${Endpoint}.json`
-  | `https://${string}.${Domain}/k/guest/${number}/v1/${Endpoint}.json`;
-type WithQuery<Url extends string> = `${Url}?${string}`;
+type PathFor<Endpoint> = Endpoint extends string
+  ? `/k/v1/${Endpoint}.json`
+  : never;
+type UrlFor<Endpoint> = Endpoint extends string
+  ?
+      | `https://${string}.${Domains}/k/v1/${Endpoint}.json`
+      | `https://${string}.${Domains}/k/guest/${number}/v1/${Endpoint}.json`
+  : never;
+type WithQuery<Url> = Url extends string ? `${Url}?${string}` : never;
 
-type EndpointOf<PathOrUrl extends string> = PathOrUrl extends PathFor<
-  infer Endpoint
->
-  ? Endpoint
-  : PathOrUrl extends UrlFor<infer Endpoint>
-  ? Endpoint
-  : PathOrUrl extends WithQuery<UrlFor<infer Endpoint>>
-  ? Endpoint
-  : string;
-
-export { Methods, PathFor, UrlFor, WithQuery, EndpointOf, Endpoints };
+export { Methods, Endpoints, PathFor, UrlFor, WithQuery };
