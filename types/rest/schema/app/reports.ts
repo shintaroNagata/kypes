@@ -1,7 +1,5 @@
-type ReportsRestApiMap = {
-  GetAppReports: {
-    method: "GET";
-    endpoint: "app/reports";
+type AppReportsSchema = {
+  GET: {
     parameters: {
       app: string;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -89,9 +87,9 @@ type ReportsRestApiMap = {
       revision: string;
     };
   };
-  GetPreviewAppReports: {
-    method: "GET";
-    endpoint: "preview/app/reports";
+};
+type PreviewAppReportsSchema = {
+  GET: {
     parameters: {
       app: string;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -179,9 +177,7 @@ type ReportsRestApiMap = {
       revision: string;
     };
   };
-  PutPreviewAppReports: {
-    method: "PUT";
-    endpoint: "preview/app/reports";
+  PUT: {
     parameters: {
       app: string | number;
       reports: {
@@ -262,4 +258,9 @@ type ReportsRestApiMap = {
   };
 };
 
-export { ReportsRestApiMap };
+type Schema = {
+  "app/reports": AppReportsSchema;
+  "preview/app/reports": PreviewAppReportsSchema;
+};
+
+export { Schema };

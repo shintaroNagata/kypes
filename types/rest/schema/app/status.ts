@@ -1,7 +1,5 @@
-type StatusRestApiMap = {
-  GetAppStatus: {
-    method: "GET";
-    endpoint: "app/status";
+type AppStatusSchema = {
+  GET: {
     parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -40,9 +38,9 @@ type StatusRestApiMap = {
       revision: string;
     };
   };
-  GetPreviewAppStatus: {
-    method: "GET";
-    endpoint: "preview/app/status";
+};
+type PreviewAppStatusSchema = {
+  GET: {
     parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -83,9 +81,7 @@ type StatusRestApiMap = {
       revision: string;
     };
   };
-  PutPreviewAppStatus: {
-    method: "PUT";
-    endpoint: "preview/app/status";
+  PUT: {
     parameters: {
       app: string | number;
       enable?: boolean;
@@ -124,4 +120,9 @@ type StatusRestApiMap = {
   };
 };
 
-export { StatusRestApiMap };
+type Schema = {
+  "app/status": AppStatusSchema;
+  "preview/app/status": PreviewAppStatusSchema;
+};
+
+export { Schema };

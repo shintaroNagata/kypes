@@ -1,7 +1,5 @@
-type ViewsRestApiMap = {
-  GetAppViews: {
-    method: "GET";
-    endpoint: "app/views";
+type AppViewsSchema = {
+  GET: {
     parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -33,9 +31,9 @@ type ViewsRestApiMap = {
       revision: string;
     };
   };
-  GetPreviewAppViews: {
-    method: "GET";
-    endpoint: "preview/app/views";
+};
+type PreviewAppViewsSchema = {
+  GET: {
     parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -67,9 +65,7 @@ type ViewsRestApiMap = {
       revision: string;
     };
   };
-  PutPreviewAppViews: {
-    method: "PUT";
-    endpoint: "preview/app/views";
+  PUT: {
     parameters: {
       app: string | number;
       views: {
@@ -102,4 +98,9 @@ type ViewsRestApiMap = {
   };
 };
 
-export { ViewsRestApiMap };
+type Schema = {
+  "app/views": AppViewsSchema;
+  "preview/app/views": PreviewAppViewsSchema;
+};
+
+export { Schema };

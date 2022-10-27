@@ -1,4 +1,4 @@
-import { FieldsMap, InSubtableFieldsMap, Subtable } from "../field";
+import { FieldsMap, InSubtableFieldsMap, Subtable } from "../../field";
 
 type FieldList = FieldsMap[keyof FieldsMap]["rest"]["record"];
 type InSubtableFieldList =
@@ -7,10 +7,8 @@ type InSubtableFieldList =
 type IDField = FieldsMap["ID"]["rest"]["record"];
 type RevisionField = FieldsMap["Revision"]["rest"]["record"];
 
-type RecordRestApiMap = {
-  GetRecord: {
-    method: "GET";
-    endpoint: "record";
+type RecordSchema = {
+  GET: {
     parameters: { app: string | number; id: string | number };
     response: {
       record: {
@@ -24,9 +22,7 @@ type RecordRestApiMap = {
       };
     };
   };
-  PostRecord: {
-    method: "POST";
-    endpoint: "record";
+  POST: {
     parameters: {
       app: string | number;
       record?: {
@@ -42,9 +38,7 @@ type RecordRestApiMap = {
       revision: string;
     };
   };
-  PutRecord: {
-    method: "PUT";
-    endpoint: "record";
+  PUT: {
     parameters: {
       app: string | number;
       record?: {
@@ -64,9 +58,10 @@ type RecordRestApiMap = {
       revision: string;
     };
   };
-  GetRecords: {
-    method: "GET";
-    endpoint: "records";
+};
+
+type RecordsSchema = {
+  GET: {
     parameters: {
       app: string | number;
       fields?: string[];
@@ -86,9 +81,7 @@ type RecordRestApiMap = {
       totalCount: string | null;
     };
   };
-  PostRecords: {
-    method: "POST";
-    endpoint: "records";
+  POST: {
     parameters: {
       app: string | number;
       records: Array<{
@@ -104,9 +97,7 @@ type RecordRestApiMap = {
       revisions: string[];
     };
   };
-  PutRecords: {
-    method: "PUT";
-    endpoint: "records";
+  PUT: {
     parameters: {
       app: string | number;
       records: Array<
@@ -125,13 +116,9 @@ type RecordRestApiMap = {
         )
       >;
     };
-    response: {
-      records: Array<{ id: string; revision: string }>;
-    };
+    response: { records: Array<{ id: string; revision: string }> };
   };
-  DeleteRecords: {
-    method: "DELETE";
-    endpoint: "records";
+  DELETE: {
     parameters: {
       app: string | number;
       ids: Array<string | number>;
@@ -139,26 +126,11 @@ type RecordRestApiMap = {
     };
     response: Record<string, never>;
   };
-  PostRecordsCursor: {
-    method: "POST";
-    endpoint: "records/cursor";
-    parameters: {
-      app: string | number;
-      fields?: string[];
-      query?: string;
-      size?: string | number;
-    };
-    response: {
-      id: string;
-      totalCount: string;
-    };
-  };
-  GetRecordsCursor: {
-    method: "GET";
-    endpoint: "records/cursor";
-    parameters: {
-      id: string;
-    };
+};
+
+type RecordsCursorSchema = {
+  GET: {
+    parameters: { id: string };
     response: {
       records: Array<{
         $id: IDField["get"];
@@ -172,17 +144,20 @@ type RecordRestApiMap = {
       next: boolean;
     };
   };
-  DeleteRecordsCursor: {
-    method: "DELETE";
-    endpoint: "records/cursor";
+  POST: {
     parameters: {
-      id: string;
+      app: string | number;
+      fields?: string[];
+      query?: string;
+      size?: string | number;
     };
-    response: Record<string, never>;
+    response: { id: string; totalCount: string };
   };
-  PostRecordComment: {
-    method: "POST";
-    endpoint: "record/comment";
+  DELETE: { parameters: { id: string }; response: Record<string, never> };
+};
+
+type RecordCommentSchema = {
+  POST: {
     parameters: {
       app: string | number;
       record: string | number;
@@ -194,13 +169,9 @@ type RecordRestApiMap = {
         }>;
       };
     };
-    response: {
-      id: string;
-    };
+    response: { id: string };
   };
-  DeleteRecordComment: {
-    method: "DELETE";
-    endpoint: "record/comment";
+  DELETE: {
     parameters: {
       app: string | number;
       record: string | number;
@@ -208,9 +179,9 @@ type RecordRestApiMap = {
     };
     response: Record<string, never>;
   };
-  GetRecordComments: {
-    method: "GET";
-    endpoint: "record/comments";
+};
+type RecordCommentsSchema = {
+  GET: {
     parameters: {
       app: string | number;
       record: string | number;
@@ -236,9 +207,9 @@ type RecordRestApiMap = {
       newer: boolean;
     };
   };
-  PutRecordAssignees: {
-    method: "PUT";
-    endpoint: "record/assignees";
+};
+type RecordAssigneesSchema = {
+  PUT: {
     parameters: {
       app: string | number;
       id: string | number;
@@ -247,9 +218,9 @@ type RecordRestApiMap = {
     };
     response: { revision: string };
   };
-  PutRecordStatus: {
-    method: "PUT";
-    endpoint: "record/status";
+};
+type RecordStatusSchema = {
+  PUT: {
     parameters: {
       action: string;
       app: string | number;
@@ -259,9 +230,9 @@ type RecordRestApiMap = {
     };
     response: { revision: string };
   };
-  PutRecordsStatus: {
-    method: "PUT";
-    endpoint: "records/status";
+};
+type RecordsStatusSchema = {
+  PUT: {
     parameters: {
       app: string | number;
       records: Array<{
@@ -275,4 +246,15 @@ type RecordRestApiMap = {
   };
 };
 
-export { RecordRestApiMap };
+type Schema = {
+  record: RecordSchema;
+  records: RecordsSchema;
+  "records/cursor": RecordsCursorSchema;
+  "record/comment": RecordCommentSchema;
+  "record/comments": RecordCommentsSchema;
+  "record/assignees": RecordAssigneesSchema;
+  "record/status": RecordStatusSchema;
+  "records/status": RecordsStatusSchema;
+};
+
+export { Schema };

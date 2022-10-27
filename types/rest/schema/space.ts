@@ -1,7 +1,5 @@
-type SpaceRestApiMap = {
-  GetSpace: {
-    method: "GET";
-    endpoint: "space";
+type SpaceSchema = {
+  GET: {
     parameters: { id: string | number };
     response: {
       id: string;
@@ -48,81 +46,19 @@ type SpaceRestApiMap = {
       showRelatedLinkList: boolean | null;
     };
   };
-  DeleteSpace: {
-    method: "DELETE";
-    endpoint: "space";
-    parameters: { id: string };
-    response: Record<string, never>;
-  };
-  PostTemplateSpace: {
-    method: "POST";
-    endpoint: "template/space";
-    parameters: {
-      id: string | number;
-      name: string;
-      members: Array<
-        | {
-            entity: {
-              type: "USER" | "GROUP";
-              code: string;
-            };
-            isAdmin?: boolean;
-          }
-        | {
-            entity: {
-              type: "ORGANIZATION";
-              code: string;
-            };
-            isAdmin?: boolean;
-            includeSubs?: boolean;
-          }
-      >;
-      isPrivate?: boolean;
-      isGuest?: boolean;
-      fixedMember?: boolean;
-    };
-    response: {
-      id: string;
-    };
-  };
-  PutSpaceBody: {
-    method: "PUT";
-    endpoint: "space/body";
+  DELETE: { parameters: { id: string }; response: Record<string, never> };
+};
+type SpaceBodySchema = {
+  PUT: {
     parameters: {
       id: string | number;
       body: string;
     };
     response: Record<string, never>;
   };
-  PutSpaceThread: {
-    method: "PUT";
-    endpoint: "space/thread";
-    parameters: { id: string | number; name?: string; body?: string };
-    response: Record<string, never>;
-  };
-  PostSpaceThreadComment: {
-    method: "POST";
-    endpoint: "space/thread/comment";
-    parameters: {
-      space: string | number;
-      thread: string | number;
-      comment: {
-        text?: string;
-        mentions?: Array<{
-          code: string;
-          type: "USER" | "GROUP" | "ORGANIZATION";
-        }>;
-        files?: Array<{
-          fileKey: string;
-          width: string | number;
-        }>;
-      };
-    };
-    response: { id: string };
-  };
-  GetSpaceMembers: {
-    method: "GET";
-    endpoint: "space/members";
+};
+type SpaceMembersSchema = {
+  GET: {
     parameters: {
       id: string | number;
     };
@@ -154,9 +90,7 @@ type SpaceRestApiMap = {
       >;
     };
   };
-  PutSpaceMembers: {
-    method: "PUT";
-    endpoint: "space/members";
+  PUT: {
     parameters: {
       id: string | number;
       members: Array<
@@ -179,9 +113,64 @@ type SpaceRestApiMap = {
     };
     response: Record<string, never>;
   };
-  PostGuests: {
-    method: "POST";
-    endpoint: "guests";
+};
+type SpaceThreadSchema = {
+  PUT: {
+    parameters: { id: string | number; name?: string; body?: string };
+    response: Record<string, never>;
+  };
+};
+type SpaceThreadCommentSchema = {
+  POST: {
+    parameters: {
+      space: string | number;
+      thread: string | number;
+      comment: {
+        text?: string;
+        mentions?: Array<{
+          code: string;
+          type: "USER" | "GROUP" | "ORGANIZATION";
+        }>;
+        files?: Array<{
+          fileKey: string;
+          width: string | number;
+        }>;
+      };
+    };
+    response: { id: string };
+  };
+};
+type TemplateSpaceSchema = {
+  POST: {
+    parameters: {
+      id: string | number;
+      name: string;
+      members: Array<
+        | {
+            entity: {
+              type: "USER" | "GROUP";
+              code: string;
+            };
+            isAdmin?: boolean;
+          }
+        | {
+            entity: {
+              type: "ORGANIZATION";
+              code: string;
+            };
+            isAdmin?: boolean;
+            includeSubs?: boolean;
+          }
+      >;
+      isPrivate?: boolean;
+      isGuest?: boolean;
+      fixedMember?: boolean;
+    };
+    response: { id: string };
+  };
+};
+type GuestsSchema = {
+  POST: {
     parameters: {
       guests: Array<{
         code: string;
@@ -200,20 +189,29 @@ type SpaceRestApiMap = {
     };
     response: Record<string, never>;
   };
-  DeleteGuests: {
-    method: "DELETE";
-    endpoint: "guests";
+  DELETE: {
     parameters: {
       guests: string[];
     };
     response: Record<string, never>;
   };
-  PutSpaceGuests: {
-    method: "PUT";
-    endpoint: "space/guests";
+};
+type SpaceGuestsSchema = {
+  PUT: {
     parameters: { id: string | number; guests: string[] };
     response: Record<string, never>;
   };
 };
 
-export { SpaceRestApiMap };
+type Schema = {
+  space: SpaceSchema;
+  "space/body": SpaceBodySchema;
+  "space/members": SpaceMembersSchema;
+  "space/thread": SpaceThreadSchema;
+  "space/thread/comment": SpaceThreadCommentSchema;
+  "template/space": TemplateSpaceSchema;
+  guests: GuestsSchema;
+  "space/guests": SpaceGuestsSchema;
+};
+
+export { Schema };

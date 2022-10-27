@@ -1,7 +1,5 @@
-type NotificationsRestApiMap = {
-  GetAppNotificationsGeneral: {
-    method: "GET";
-    endpoint: "app/notifications/general";
+type AppNotificationsGeneralSchema = {
+  GET: {
     parameters: {
       app: string | number;
     };
@@ -22,9 +20,9 @@ type NotificationsRestApiMap = {
       revision: string;
     };
   };
-  GetPreviewAppNotificationsGeneral: {
-    method: "GET";
-    endpoint: "preview/app/notifications/general";
+};
+type PreviewAppNotificationsGeneralSchema = {
+  GET: {
     parameters: {
       app: string | number;
     };
@@ -45,9 +43,7 @@ type NotificationsRestApiMap = {
       revision: string;
     };
   };
-  PutPreviewAppNotificationsGeneral: {
-    method: "PUT";
-    endpoint: "preview/app/notifications/general";
+  PUT: {
     parameters: {
       app: string;
       notifications?: Array<{
@@ -67,9 +63,9 @@ type NotificationsRestApiMap = {
     };
     response: { revision: string };
   };
-  GetAppNotificationsPerRecord: {
-    method: "GET";
-    endpoint: "app/notifications/perRecord";
+};
+type AppNotificationsPerRecordSchema = {
+  GET: {
     parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -89,9 +85,9 @@ type NotificationsRestApiMap = {
       revision: string;
     };
   };
-  GetPreviewAppNotificationsPerRecord: {
-    method: "GET";
-    endpoint: "preview/app/notifications/perRecord";
+};
+type PreviewAppNotificationsPerRecordSchema = {
+  GET: {
     parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -111,9 +107,7 @@ type NotificationsRestApiMap = {
       revision: string;
     };
   };
-  PutPreviewAppNotificationsPerRecord: {
-    method: "PUT";
-    endpoint: "preview/app/notifications/perRecord";
+  PUT: {
     parameters: {
       app: string | number;
       notifications: Array<{
@@ -131,9 +125,9 @@ type NotificationsRestApiMap = {
     };
     response: { revision: string };
   };
-  GetAppNotificationsReminder: {
-    method: "GET";
-    endpoint: "app/notifications/reminder";
+};
+type AppNotificationsReminderSchema = {
+  GET: {
     parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -165,9 +159,9 @@ type NotificationsRestApiMap = {
       revision: string;
     };
   };
-  GetPreviewAppNotificationsReminder: {
-    method: "GET";
-    endpoint: "preview/app/notifications/reminder";
+};
+type PreviewAppNotificationsReminderSchema = {
+  GET: {
     parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -199,9 +193,7 @@ type NotificationsRestApiMap = {
       revision: string;
     };
   };
-  PutPreviewAppNotificationsReminder: {
-    method: "PUT";
-    endpoint: "preview/app/notifications/reminder";
+  PUT: {
     parameters: {
       app: string | number;
       notifications?: Array<{
@@ -235,4 +227,13 @@ type NotificationsRestApiMap = {
   };
 };
 
-export { NotificationsRestApiMap };
+type Schema = {
+  "app/notifications/general": AppNotificationsGeneralSchema;
+  "preview/app/notifications/general": PreviewAppNotificationsGeneralSchema;
+  "app/notifications/perRecord": AppNotificationsPerRecordSchema;
+  "preview/app/notifications/perRecord": PreviewAppNotificationsPerRecordSchema;
+  "app/notifications/reminder": AppNotificationsReminderSchema;
+  "preview/app/notifications/reminder": PreviewAppNotificationsReminderSchema;
+};
+
+export { Schema };

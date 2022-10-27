@@ -1,7 +1,5 @@
-type ActionsRestApiMap = {
-  GetAppActions: {
-    method: "GET";
-    endpoint: "app/actions";
+type AppActionsSchema = {
+  GET: {
     parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -26,9 +24,9 @@ type ActionsRestApiMap = {
       revision: string;
     };
   };
-  GetPreviewAppActions: {
-    method: "GET";
-    endpoint: "preview/app/actions";
+};
+type PreviewAppActionsSchema = {
+  GET: {
     parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -53,9 +51,7 @@ type ActionsRestApiMap = {
       revision: string;
     };
   };
-  PutPreviewAppActions: {
-    method: "PUT";
-    endpoint: "preview/app/actions";
+  PUT: {
     parameters: {
       app: string | number;
       actions: {
@@ -82,4 +78,9 @@ type ActionsRestApiMap = {
   };
 };
 
-export { ActionsRestApiMap };
+type Schema = {
+  "app/actions": AppActionsSchema;
+  "preview/app/actions": PreviewAppActionsSchema;
+};
+
+export { Schema };

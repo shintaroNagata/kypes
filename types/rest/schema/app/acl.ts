@@ -1,7 +1,5 @@
-type AclRestApiMap = {
-  GetAppAcl: {
-    method: "GET";
-    endpoint: "app/acl";
+type AppAclSchema = {
+  GET: {
     parameters: { app: string | number };
     response: {
       rights: Array<
@@ -32,9 +30,9 @@ type AclRestApiMap = {
       revision: string;
     };
   };
-  GetPreviewAppAcl: {
-    method: "GET";
-    endpoint: "preview/app/acl";
+};
+type PreviewAppAclSchema = {
+  GET: {
     parameters: { app: string | number };
     response: {
       rights: Array<
@@ -65,9 +63,7 @@ type AclRestApiMap = {
       revision: string;
     };
   };
-  PutPreviewAppAcl: {
-    method: "PUT";
-    endpoint: "preview/app/acl";
+  PUT: {
     parameters: {
       app: string | number;
       revision?: string;
@@ -98,9 +94,9 @@ type AclRestApiMap = {
     };
     response: { revision: string };
   };
-  GetRecordAcl: {
-    method: "GET";
-    endpoint: "record/acl";
+};
+type RecordAclSchema = {
+  GET: {
     parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -122,9 +118,9 @@ type AclRestApiMap = {
       revision: string;
     };
   };
-  GetPreviewRecordAcl: {
-    method: "GET";
-    endpoint: "preview/record/acl";
+};
+type PreviewRecordAclSchema = {
+  GET: {
     parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -146,9 +142,7 @@ type AclRestApiMap = {
       revision: string;
     };
   };
-  PutPreviewRecordAcl: {
-    method: "PUT";
-    endpoint: "preview/record/acl";
+  PUT: {
     parameters: {
       app: string | number;
       rights: Array<{
@@ -170,30 +164,9 @@ type AclRestApiMap = {
       revision: string;
     };
   };
-  GetRecordAclEvaluate: {
-    method: "GET";
-    endpoint: "record/acl/evaluate";
-    parameters: {
-      app: string | number;
-      ids: Array<string | number>;
-    };
-    response: {
-      rights: Array<{
-        id: string;
-        record: {
-          viewable: boolean;
-          editable: boolean;
-          deletable: boolean;
-          fields: {
-            [fieldCode: string]: { viewable: boolean; editable: boolean };
-          };
-        };
-      }>;
-    };
-  };
-  GetFieldAcl: {
-    method: "GET";
-    endpoint: "field/acl";
+};
+type FieldAclSchema = {
+  GET: {
     parameters: { app: string | number };
     response: {
       rights: Array<{
@@ -210,9 +183,9 @@ type AclRestApiMap = {
       revision: string;
     };
   };
-  GetPreviewFieldAcl: {
-    method: "GET";
-    endpoint: "preview/field/acl";
+};
+type PreviewFieldAclSchema = {
+  GET: {
     parameters: { app: string | number };
     response: {
       rights: Array<{
@@ -229,9 +202,7 @@ type AclRestApiMap = {
       revision: string;
     };
   };
-  PutPreviewFieldAcl: {
-    method: "PUT";
-    endpoint: "preview/field/acl";
+  PUT: {
     parameters: {
       app: string | number;
       rights: Array<{
@@ -252,5 +223,36 @@ type AclRestApiMap = {
     };
   };
 };
+type RecordAclEvaluateSchema = {
+  GET: {
+    parameters: {
+      app: string | number;
+      ids: Array<string | number>;
+    };
+    response: {
+      rights: Array<{
+        id: string;
+        record: {
+          viewable: boolean;
+          editable: boolean;
+          deletable: boolean;
+          fields: {
+            [fieldCode: string]: { viewable: boolean; editable: boolean };
+          };
+        };
+      }>;
+    };
+  };
+};
 
-export { AclRestApiMap };
+type Schema = {
+  "app/acl": AppAclSchema;
+  "preview/app/acl": PreviewAppAclSchema;
+  "record/acl": RecordAclSchema;
+  "preview/record/acl": PreviewRecordAclSchema;
+  "field/acl": FieldAclSchema;
+  "preview/field/acl": PreviewFieldAclSchema;
+  "record/acl/evaluate": RecordAclEvaluateSchema;
+};
+
+export { Schema };

@@ -1,7 +1,5 @@
-type CustomizeRestApiMap = {
-  GetAppCustomize: {
-    method: "GET";
-    endpoint: "app/customize";
+type AppCustomizeSchema = {
+  GET: {
     parameters: { app: string | number };
     response: {
       scope: "ALL" | "ADMIN" | "NONE";
@@ -72,9 +70,9 @@ type CustomizeRestApiMap = {
       revision: string;
     };
   };
-  GetPreviewAppCustomize: {
-    method: "GET";
-    endpoint: "preview/app/customize";
+};
+type PreviewAppCustomizeSchema = {
+  GET: {
     parameters: { app: string | number };
     response: {
       scope: "ALL" | "ADMIN" | "NONE";
@@ -145,9 +143,7 @@ type CustomizeRestApiMap = {
       revision: string;
     };
   };
-  PutPreviewAppCustomize: {
-    method: "PUT";
-    endpoint: "preview/app/customize";
+  PUT: {
     parameters: {
       app: string | number;
       scope?: "ALL" | "ADMIN" | "NONE";
@@ -211,4 +207,9 @@ type CustomizeRestApiMap = {
   };
 };
 
-export { CustomizeRestApiMap };
+type Schema = {
+  "app/customize": AppCustomizeSchema;
+  "preview/app/customize": PreviewAppCustomizeSchema;
+};
+
+export { Schema };

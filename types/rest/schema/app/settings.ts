@@ -1,7 +1,5 @@
-type SettingsRestApiMap = {
-  GetAppSettings: {
-    method: "GET";
-    endpoint: "app/settings";
+type AppSettingsSchema = {
+  GET: {
     parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -37,9 +35,9 @@ type SettingsRestApiMap = {
       revision: string;
     };
   };
-  GetPreviewAppSettings: {
-    method: "GET";
-    endpoint: "preview/app/settings";
+};
+type PreviewAppSettingsSchema = {
+  GET: {
     parameters: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -75,9 +73,7 @@ type SettingsRestApiMap = {
       revision: string;
     };
   };
-  PutPreviewAppSettings: {
-    method: "PUT";
-    endpoint: "preview/app/settings";
+  PUT: {
     parameters: {
       app: string | number;
       name?: string;
@@ -112,4 +108,9 @@ type SettingsRestApiMap = {
   };
 };
 
-export { SettingsRestApiMap };
+type Schema = {
+  "app/settings": AppSettingsSchema;
+  "preview/app/settings": PreviewAppSettingsSchema;
+};
+
+export { Schema };
