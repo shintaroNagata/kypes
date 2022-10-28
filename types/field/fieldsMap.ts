@@ -75,21 +75,19 @@ type AppearanceFieldsMap = {
 };
 
 type Subtable<Structure extends { [fieldCode: string]: unknown }> = {
-  page: {
-    record: {
-      get: {
-        type: "SUBTABLE";
-        value: Array<{
-          id: string | null;
-          value: Structure;
-        }>;
-      };
-      set: {
-        type: "SUBTABLE";
-        value: Array<{
-          value: Structure;
-        }>;
-      };
+  record: {
+    get: {
+      type: "SUBTABLE";
+      value: Array<{
+        id: string | null;
+        value: Structure;
+      }>;
+    };
+    set: {
+      type: "SUBTABLE";
+      value: Array<{
+        value: Structure;
+      }>;
     };
   };
 };

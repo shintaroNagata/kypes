@@ -4,9 +4,8 @@ import {
   InSubtableFieldsMap,
 } from "../../../../types/field";
 
-type FieldList = FieldsMap[keyof FieldsMap]["page"];
-type InSubtableFieldList =
-  InSubtableFieldsMap[keyof InSubtableFieldsMap]["page"];
+type FieldList = FieldsMap[keyof FieldsMap];
+type InSubtableFieldList = InSubtableFieldsMap[keyof InSubtableFieldsMap];
 
 type SetField<
   Page extends {
@@ -32,7 +31,7 @@ declare global {
           | FieldList["record"]["get"]
           | Subtable<{
               [fieldCode: string]: InSubtableFieldList["record"]["get"];
-            }>["page"]["record"]["get"];
+            }>["record"]["get"];
       };
     } | null;
     function set(recordObject: {
@@ -41,7 +40,7 @@ declare global {
           | SetField<FieldList>
           | Subtable<{
               [fieldCode: string]: SetField<InSubtableFieldList>;
-            }>["page"]["record"]["set"];
+            }>["record"]["set"];
       };
     }): void;
     function setFieldShown(fieldCode: string, isShown: boolean): void;

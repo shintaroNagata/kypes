@@ -1,20 +1,18 @@
 type IDField = {
-  page: {
-    record: {
-      get: {
-        type: "__ID__";
-        value: string;
-      };
-      set: {
-        type: "__ID__";
-      };
+  record: {
+    get: {
+      type: "__ID__";
+      value: string;
     };
-    supported: {
-      change: false;
-      createPage: false;
-      disabled: false;
-      error: false;
+    set: {
+      type: "__ID__";
     };
+  };
+  supported: {
+    change: false;
+    createPage: false;
+    disabled: false;
+    error: false;
   };
 };
 

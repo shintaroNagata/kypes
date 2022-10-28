@@ -1,21 +1,19 @@
 type DateTimeField = {
-  page: {
-    record: {
-      get: {
-        type: "DATETIME";
-        value: string | undefined;
-      };
-      set: {
-        type: "DATETIME";
-        value: string | undefined;
-      };
+  record: {
+    get: {
+      type: "DATETIME";
+      value: string | undefined;
     };
-    supported: {
-      change: true;
-      createPage: true;
-      disabled: true;
-      error: true;
+    set: {
+      type: "DATETIME";
+      value: string | undefined;
     };
+  };
+  supported: {
+    change: true;
+    createPage: true;
+    disabled: true;
+    error: true;
   };
 };
 

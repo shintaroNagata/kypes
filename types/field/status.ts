@@ -1,20 +1,18 @@
 type StatusField = {
-  page: {
-    record: {
-      get: {
-        type: "STATUS";
-        value: string;
-      };
-      set: {
-        type: "STATUS";
-      };
+  record: {
+    get: {
+      type: "STATUS";
+      value: string;
     };
-    supported: {
-      change: false;
-      createPage: false;
-      disabled: false;
-      error: false;
+    set: {
+      type: "STATUS";
     };
+  };
+  supported: {
+    change: false;
+    createPage: false;
+    disabled: false;
+    error: false;
   };
 };
 

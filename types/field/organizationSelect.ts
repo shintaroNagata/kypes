@@ -1,21 +1,19 @@
 type OrganizationSelectField = {
-  page: {
-    record: {
-      get: {
-        type: "ORGANIZATION_SELECT";
-        value: Array<{ code: string; name: string }>;
-      };
-      set: {
-        type: "ORGANIZATION_SELECT";
-        value: Array<{ code: string }>;
-      };
+  record: {
+    get: {
+      type: "ORGANIZATION_SELECT";
+      value: Array<{ code: string; name: string }>;
     };
-    supported: {
-      change: true;
-      createPage: true;
-      disabled: true;
-      error: true;
+    set: {
+      type: "ORGANIZATION_SELECT";
+      value: Array<{ code: string }>;
     };
+  };
+  supported: {
+    change: true;
+    createPage: true;
+    disabled: true;
+    error: true;
   };
 };
 

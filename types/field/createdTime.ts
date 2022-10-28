@@ -1,20 +1,18 @@
 type CreatedTimeField = {
-  page: {
-    record: {
-      get: {
-        type: "CREATED_TIME";
-        value: string;
-      };
-      set: {
-        type: "CREATED_TIME";
-      };
+  record: {
+    get: {
+      type: "CREATED_TIME";
+      value: string;
     };
-    supported: {
-      change: false;
-      createPage: false;
-      disabled: false;
-      error: false;
+    set: {
+      type: "CREATED_TIME";
     };
+  };
+  supported: {
+    change: false;
+    createPage: false;
+    disabled: false;
+    error: false;
   };
 };
 

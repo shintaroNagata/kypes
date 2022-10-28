@@ -1,20 +1,18 @@
 type UpdatedTimeField = {
-  page: {
-    record: {
-      get: {
-        type: "UPDATED_TIME";
-        value: string;
-      };
-      set: {
-        type: "UPDATED_TIME";
-      };
+  record: {
+    get: {
+      type: "UPDATED_TIME";
+      value: string;
     };
-    supported: {
-      change: false;
-      createPage: false;
-      disabled: false;
-      error: false;
+    set: {
+      type: "UPDATED_TIME";
     };
+  };
+  supported: {
+    change: false;
+    createPage: false;
+    disabled: false;
+    error: false;
   };
 };
 

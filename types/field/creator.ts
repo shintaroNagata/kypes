@@ -1,20 +1,18 @@
 type CreatorField = {
-  page: {
-    record: {
-      get: {
-        type: "CREATOR";
-        value: { code: string; name: string };
-      };
-      set: {
-        type: "CREATOR";
-      };
+  record: {
+    get: {
+      type: "CREATOR";
+      value: { code: string; name: string };
     };
-    supported: {
-      change: false;
-      createPage: false;
-      disabled: false;
-      error: false;
+    set: {
+      type: "CREATOR";
     };
+  };
+  supported: {
+    change: false;
+    createPage: false;
+    disabled: false;
+    error: false;
   };
 };
 

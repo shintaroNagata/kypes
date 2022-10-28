@@ -1,21 +1,19 @@
 type MultiSelectField = {
-  page: {
-    record: {
-      get: {
-        type: "MULTI_SELECT";
-        value: string[];
-      };
-      set: {
-        type: "MULTI_SELECT";
-        value: string[];
-      };
+  record: {
+    get: {
+      type: "MULTI_SELECT";
+      value: string[];
     };
-    supported: {
-      change: true;
-      createPage: true;
-      disabled: true;
-      error: true;
+    set: {
+      type: "MULTI_SELECT";
+      value: string[];
     };
+  };
+  supported: {
+    change: true;
+    createPage: true;
+    disabled: true;
+    error: true;
   };
 };
 
