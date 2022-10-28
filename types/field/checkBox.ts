@@ -31,7 +31,9 @@ type CheckBoxField = {
           noLabel?: boolean;
           required?: boolean;
           defaultValue?: string[];
-          options: { [optionName: string]: { label: string; index: string } };
+          options: {
+            [optionName: string]: { label: string; index: string | number };
+          };
           align?: "HORIZONTAL" | "VERTICAL";
         };
         update: {
@@ -41,7 +43,9 @@ type CheckBoxField = {
           noLabel?: boolean;
           required?: boolean;
           defaultValue?: string[];
-          options?: { [optionName: string]: { label?: string; index: string } };
+          options?: {
+            [optionName: string]: { label?: string; index: string | number };
+          };
           align?: "HORIZONTAL" | "VERTICAL";
         };
       };

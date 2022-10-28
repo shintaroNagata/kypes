@@ -35,8 +35,8 @@ type LookupField = {
         };
         update: {
           type: "NUMBER" | "SINGLE_LINE_TEXT";
-          code: string;
-          label: string;
+          code?: string;
+          label?: string;
           noLabel?: boolean;
           required?: boolean;
           lookup?: {

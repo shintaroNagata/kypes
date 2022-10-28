@@ -45,10 +45,10 @@ type ReferenceTableField = {
         };
         update: {
           type: "REFERENCE_TABLE";
-          code: string;
-          label: string;
+          code?: string;
+          label?: string;
           noLabel?: boolean;
-          referenceTable: {
+          referenceTable?: {
             relatedApp?: { app: string | number } | { code: string };
             condition?: { field?: string; relatedField?: string };
             filterCond?: string;
