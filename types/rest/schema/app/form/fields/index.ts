@@ -1,8 +1,4 @@
-import { FieldsMap, InSubtableFieldsMap, Subtable } from "../../../../../field";
-
-type FieldList = FieldsMap[keyof FieldsMap]["rest"]["form"];
-type InSubtableFieldList =
-  InSubtableFieldsMap[keyof InSubtableFieldsMap]["rest"]["form"];
+import { PropertiesForGet, PropertiesForPost, PropertiesForPut } from "./types";
 
 type AppFormFieldsSchema = {
   GET: {
@@ -11,13 +7,7 @@ type AppFormFieldsSchema = {
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
     response: {
-      properties: {
-        [fieldCode: string]:
-          | FieldList["property"]["get"]
-          | Subtable<{
-              [fieldCode: string]: InSubtableFieldList["property"]["get"];
-            }>["rest"]["form"]["property"]["get"];
-      };
+      properties: PropertiesForGet;
       revision: string;
     };
   };
@@ -30,26 +20,14 @@ type PreviewAppFormFieldsSchema = {
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
     response: {
-      properties: {
-        [fieldCode: string]:
-          | FieldList["property"]["get"]
-          | Subtable<{
-              [fieldCode: string]: InSubtableFieldList["property"]["get"];
-            }>["rest"]["form"]["property"]["get"];
-      };
+      properties: PropertiesForGet;
       revision: string;
     };
   };
   POST: {
     parameters: {
       app: string | number;
-      properties: {
-        [fieldCode: string]:
-          | FieldList["property"]["add"]
-          | Subtable<{
-              [fieldCode: string]: InSubtableFieldList["property"]["add"];
-            }>["rest"]["form"]["property"]["add"];
-      };
+      properties: PropertiesForPost;
       revision?: string | number;
     };
     response: { revision: string };
@@ -57,13 +35,7 @@ type PreviewAppFormFieldsSchema = {
   PUT: {
     parameters: {
       app: string | number;
-      properties: {
-        [fieldCode: string]:
-          | FieldList["property"]["update"]
-          | Subtable<{
-              [fieldCode: string]: InSubtableFieldList["property"]["update"];
-            }>["rest"]["form"]["property"]["update"];
-      };
+      properties: PropertiesForPut;
       revision?: string | number;
     };
     response: { revision: string };

@@ -1,32 +1,10 @@
-import { FieldsMap, InSubtableFieldsMap, Subtable } from "../../../../../field";
-
-type FieldList = FieldsMap[keyof FieldsMap]["rest"]["form"];
-type InSubtableFieldList =
-  InSubtableFieldsMap[keyof InSubtableFieldsMap]["rest"]["form"];
+import { LayoutForGet, LayoutForPut } from "./types";
 
 type AppFormLayoutSchema = {
   GET: {
     parameters: { app: string | number };
     response: {
-      layout: Array<
-        | {
-            type: "ROW";
-            fields: Array<FieldList["layout"]["get"]>;
-          }
-        | {
-            type: "SUBTABLE";
-            code: string;
-            fields: Array<InSubtableFieldList["layout"]["get"]>;
-          }
-        | {
-            type: "GROUP";
-            code: string;
-            layout: Array<{
-              type: "ROW";
-              fields: Array<FieldList["layout"]["get"]>;
-            }>;
-          }
-      >;
+      layout: LayoutForGet;
       revision: string;
     };
   };
@@ -38,50 +16,14 @@ type PreviewAppFormLayoutSchema = {
       app: string | number;
     };
     response: {
-      layout: Array<
-        | {
-            type: "ROW";
-            fields: Array<FieldList["layout"]["get"]>;
-          }
-        | {
-            type: "SUBTABLE";
-            code: string;
-            fields: Array<InSubtableFieldList["layout"]["get"]>;
-          }
-        | {
-            type: "GROUP";
-            code: string;
-            layout: Array<{
-              type: "ROW";
-              fields: Array<FieldList["layout"]["get"]>;
-            }>;
-          }
-      >;
+      layout: LayoutForGet;
       revision: string;
     };
   };
   PUT: {
     parameters: {
       app: string | number;
-      layout: Array<
-        | {
-            type: "ROW";
-            fields?: Array<FieldList["layout"]["update"]>;
-          }
-        | {
-            type: "SUBTABLE";
-            code: string;
-            fields?: Array<InSubtableFieldList["layout"]["update"]>;
-          }
-        | {
-            type: "GROUP";
-            code: string;
-            layout?: Array<{
-              type: "ROW";
-              fields?: Array<FieldList["layout"]["update"]>;
-            }>;
-          }
-      >;
+      layout: LayoutForPut;
       revision?: string | number;
     };
     response: { revision: string };
