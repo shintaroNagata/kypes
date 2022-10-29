@@ -1,5 +1,4 @@
 import { ApiSchema } from "./types";
-import { KeyOfUnion } from "./utility";
 import { Schema as RecordApiSchema } from "./record";
 
 type SupportedEndpoints =
@@ -12,36 +11,40 @@ type SupportedMethods = "POST" | "PUT" | "DELETE";
 
 type GetEndpointSchema<Endpoint> = Endpoint extends SupportedEndpoints
   ? RecordApiSchema[Endpoint]
-  : Endpoint extends string
-  ? RecordApiSchema[SupportedEndpoints]
   : never;
-type EnableMethods<Endpoint> = KeyOfUnion<GetEndpointSchema<Endpoint>>;
+type EnableMethods<Endpoint> = keyof GetEndpointSchema<Endpoint>;
+type FindApi<Endpoint, Method> = Endpoint extends unknown
+  ? Method extends EnableMethods<Endpoint>
+    ? Extract<GetEndpointSchema<Endpoint>[Method], ApiSchema>
+    : never
+  : never;
 
-type BuildBulkRequestParameters<Endpoint, Method> =
-  Endpoint extends SupportedEndpoints
-    ? Method extends EnableMethods<Endpoint>
-      ? {
-          method: Method;
-          api: `/k/v1/${Endpoint}.json`;
-          payload: Extract<
-            GetEndpointSchema<Endpoint>[Method],
-            ApiSchema
-          >["parameters"];
-        }
-      : never
-    : never;
+type BuildRequest<Endpoint, Method> = Endpoint extends string
+  ? Method extends EnableMethods<Endpoint>
+    ? {
+        method: Method;
+        api: `/k/v1/${Endpoint}.json`;
+        payload: FindApi<Endpoint, Method>["parameters"];
+      }
+    : never
+  : never;
+type Request = BuildRequest<SupportedEndpoints, SupportedMethods>;
 
-type BulkRequestParameters = BuildBulkRequestParameters<
-  SupportedEndpoints,
-  SupportedMethods
->;
+type BuildSuccessResult<Endpoint, Method> = FindApi<
+  Endpoint,
+  Method
+>["response"];
+type SuccessResult = BuildSuccessResult<SupportedEndpoints, SupportedMethods>;
+type FailureResult =
+  | Record<string, never>
+  | { message: string; id: string; code: string };
 
 type BulkRequestSchema = {
   POST: {
     parameters: {
-      requests: BulkRequestParameters[];
+      requests: Request[];
     };
-    response: { results: any[] };
+    response: { results: SuccessResult[] } | { results: FailureResult[] };
   };
 };
 
