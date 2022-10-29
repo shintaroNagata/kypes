@@ -2,7 +2,7 @@ import {
   FieldsMap,
   Subtable,
   InSubtableFieldsMap,
-} from "../../../../types/field";
+} from "../../../../types/page/field";
 
 type FieldList = FieldsMap[keyof FieldsMap];
 type InSubtableFieldList = InSubtableFieldsMap[keyof InSubtableFieldsMap];
