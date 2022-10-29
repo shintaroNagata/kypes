@@ -1,39 +1,20 @@
-import { Subtable } from "../../../../field";
-import { FieldList, InSubtableFieldList } from "../../types";
+import { RecordObject } from "../../types";
 
 type ShowEvent = {
   appId: number;
   recordId: number;
-  record: {
-    [fieldCode: string]:
-      | FieldList["record"]["get"]
-      | Subtable<{
-          [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["record"]["get"];
-  };
+  record: RecordObject;
 };
 type DeleteSubmitEvent = {
   appId: number;
   recordId: number;
-  record: {
-    [fieldCode: string]:
-      | FieldList["record"]["get"]
-      | Subtable<{
-          [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["record"]["get"];
-  };
+  record: RecordObject;
 };
 type ProcessProceedEvent = {
   action: { value: string };
   status: { value: string };
   nextStatus: { value: string };
-  record: {
-    [fieldCode: string]:
-      | FieldList["record"]["get"]
-      | Subtable<{
-          [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["record"]["get"];
-  };
+  record: RecordObject;
 };
 
 type Properties = {

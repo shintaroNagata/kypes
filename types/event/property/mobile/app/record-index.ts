@@ -1,5 +1,4 @@
-import { Subtable } from "../../../../field";
-import { FieldList, InSubtableFieldList } from "../../types";
+import { RecordObject } from "../../types";
 
 type ShowEvent = {
   appId: number;
@@ -11,41 +10,21 @@ type ShowEvent = {
       offset: number;
       size: number;
       date: null;
-      records: Array<{
-        [fieldCode: string]:
-          | FieldList["record"]["get"]
-          | Subtable<{
-              [fieldCode: string]: InSubtableFieldList["record"]["get"];
-            }>["record"]["get"];
-      }>;
+      records: RecordObject[];
     }
   | {
       viewType: "calendar";
       offset: null;
       size: null;
       date: `${number}-${string}`;
-      records: {
-        [date in `${number}-${string}-${string}`]: Array<{
-          [fieldCode: string]:
-            | FieldList["record"]["get"]
-            | Subtable<{
-                [fieldCode: string]: InSubtableFieldList["record"]["get"];
-              }>["record"]["get"];
-        }>;
-      };
+      records: { [date in `${number}-${string}-${string}`]: RecordObject[] };
     }
   | {
       viewType: "custom";
       offset: number;
       size: number;
       date: null;
-      records: Array<{
-        [fieldCode: string]:
-          | FieldList["record"]["get"]
-          | Subtable<{
-              [fieldCode: string]: InSubtableFieldList["record"]["get"];
-            }>["record"]["get"];
-      }>;
+      records: RecordObject[];
     }
 );
 

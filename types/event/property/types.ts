@@ -1,4 +1,4 @@
-import { FieldsMap, InSubtableFieldsMap } from "../../field";
+import { FieldsMap, InSubtableFieldsMap, Subtable } from "../../field";
 
 type FieldList = FieldsMap[keyof FieldsMap];
 type InSubtableFieldList = InSubtableFieldsMap[keyof InSubtableFieldsMap];
@@ -23,9 +23,39 @@ type CreatePageSupported<
     : never
   : never;
 
+type RecordObject = {
+  [fieldCode: string]:
+    | FieldList["record"]["get"]
+    | Subtable<{
+        [fieldCode: string]: InSubtableFieldList["record"]["get"];
+      }>["record"]["get"];
+};
+
+type CreatePageRecordObject = {
+  [fieldCode: string]:
+    | CreatePageSupported<FieldList>["record"]["get"]
+    | Subtable<{
+        [
+          fieldCode: string
+        ]: CreatePageSupported<InSubtableFieldList>["record"]["get"];
+      }>["record"]["get"];
+};
+
+type ChangedField = ChangeEventSupported<FieldList>["record"]["get"];
+
+type ChangedSubtable = Subtable<{
+  [fieldCode: string]: InSubtableFieldList["record"]["get"];
+}>["record"]["get"];
+
+type ChangedRow =
+  | Subtable<{
+      [fieldCode: string]: InSubtableFieldList["record"]["get"];
+    }>["record"]["get"]["value"][number];
+
 export {
-  FieldList,
-  InSubtableFieldList,
-  ChangeEventSupported,
-  CreatePageSupported,
+  RecordObject,
+  CreatePageRecordObject,
+  ChangedField,
+  ChangedSubtable,
+  ChangedRow,
 };
