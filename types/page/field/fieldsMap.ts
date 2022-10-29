@@ -25,12 +25,6 @@ import { DateTimeField } from "./dateTime";
 import { UserSelectField } from "./userSelect";
 import { OrganizationSelectField } from "./organizationSelect";
 import { GroupSelectField } from "./groupSelect";
-import { GroupField } from "./group";
-import { ReferenceTableField } from "./referenceTable";
-import { LookupField } from "./lookup";
-import { LabelField } from "./label";
-import { HRField } from "./hr";
-import { SpacerField } from "./spacer";
 
 type MetaFieldsMap = {
   ID: IDField;
@@ -63,15 +57,6 @@ type NormalFieldsMap = {
   UserSelect: UserSelectField;
   OrganizationSelect: OrganizationSelectField;
   GroupSelect: GroupSelectField;
-  Lookup: LookupField;
-};
-
-type AppearanceFieldsMap = {
-  Group: GroupField;
-  ReferenceTable: ReferenceTableField;
-  Label: LabelField;
-  HR: HRField;
-  Spacer: SpacerField;
 };
 
 type Subtable<Structure extends { [fieldCode: string]: unknown }> = {
@@ -91,7 +76,7 @@ type Subtable<Structure extends { [fieldCode: string]: unknown }> = {
     };
   };
 };
-type FieldsMap = MetaFieldsMap & NormalFieldsMap & AppearanceFieldsMap;
+type FieldsMap = MetaFieldsMap & NormalFieldsMap;
 type InSubtableFieldsMap = NormalFieldsMap;
 
 export { FieldsMap, Subtable, InSubtableFieldsMap };
