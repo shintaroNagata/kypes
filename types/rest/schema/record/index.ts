@@ -1,37 +1,16 @@
-import { FieldsMap, InSubtableFieldsMap, Subtable } from "../../field";
-
-type FieldList = FieldsMap[keyof FieldsMap]["rest"]["record"];
-type InSubtableFieldList =
-  InSubtableFieldsMap[keyof InSubtableFieldsMap]["rest"]["record"];
-
-type IDField = FieldsMap["ID"]["rest"]["record"];
-type RevisionField = FieldsMap["Revision"]["rest"]["record"];
+import { RecordForGet, RecordForPost, RecordForPut } from "./types";
 
 type RecordSchema = {
   GET: {
     parameters: { app: string | number; id: string | number };
     response: {
-      record: {
-        $id: IDField["get"];
-        $revision: RevisionField["get"];
-        [fieldCode: string]:
-          | FieldList["get"]
-          | Subtable<{
-              [fieldCode: string]: InSubtableFieldList["get"];
-            }>["rest"]["record"]["get"];
-      };
+      record: RecordForGet;
     };
   };
   POST: {
     parameters: {
       app: string | number;
-      record?: {
-        [fieldCode: string]:
-          | FieldList["add"]
-          | Subtable<{
-              [fieldCode: string]: InSubtableFieldList["add"];
-            }>["rest"]["record"]["add"];
-      };
+      record?: RecordForPost;
     };
     response: {
       id: string;
@@ -41,13 +20,7 @@ type RecordSchema = {
   PUT: {
     parameters: {
       app: string | number;
-      record?: {
-        [fieldCode: string]:
-          | FieldList["update"]
-          | Subtable<{
-              [fieldCode: string]: InSubtableFieldList["update"];
-            }>["rest"]["record"]["update"];
-      };
+      record?: RecordForPut;
       revision?: string | number;
     } & (
       | { id: string | number }
@@ -69,28 +42,14 @@ type RecordsSchema = {
       totalCount?: true;
     };
     response: {
-      records: Array<{
-        $id: IDField["get"];
-        $revision: RevisionField["get"];
-        [fieldCode: string]:
-          | FieldList["get"]
-          | Subtable<{
-              [fieldCode: string]: InSubtableFieldList["get"];
-            }>["rest"]["record"]["get"];
-      }>;
+      records: RecordForGet[];
       totalCount: string | null;
     };
   };
   POST: {
     parameters: {
       app: string | number;
-      records: Array<{
-        [fieldCode: string]:
-          | FieldList["add"]
-          | Subtable<{
-              [fieldCode: string]: InSubtableFieldList["add"];
-            }>["rest"]["record"]["add"];
-      }>;
+      records: RecordForPost[];
     };
     response: {
       ids: string[];
@@ -102,13 +61,7 @@ type RecordsSchema = {
       app: string | number;
       records: Array<
         {
-          record?: {
-            [fieldCode: string]:
-              | FieldList["update"]
-              | Subtable<{
-                  [fieldCode: string]: InSubtableFieldList["update"];
-                }>["rest"]["record"]["update"];
-          };
+          record?: RecordForPut;
           revision?: string | number;
         } & (
           | { id: string | number }
@@ -132,15 +85,7 @@ type RecordsCursorSchema = {
   GET: {
     parameters: { id: string };
     response: {
-      records: Array<{
-        $id: IDField["get"];
-        $revision: RevisionField["get"];
-        [fieldCode: string]:
-          | FieldList["get"]
-          | Subtable<{
-              [fieldCode: string]: InSubtableFieldList["get"];
-            }>["rest"]["record"]["get"];
-      }>;
+      records: RecordForGet[];
       next: boolean;
     };
   };

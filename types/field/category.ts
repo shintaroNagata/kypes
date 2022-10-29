@@ -1,44 +1,19 @@
 type CategoryField = {
-  rest: {
-    record: {
-      get: {
-        type: "CATEGORY";
-        value: string[];
-      };
-      add: never;
-      update: never;
+  record: {
+    get: {
+      type: "CATEGORY";
+      value: string[];
     };
-    form: {
-      property: {
-        get: {
-          type: "CATEGORY";
-          code: string;
-          label: string;
-          enabled: boolean;
-        };
-        add: never;
-        update: never;
-      };
-      layout: { get: never; update: never };
+    set: {
+      type: "CATEGORY";
+      value: string[];
     };
   };
-  page: {
-    record: {
-      get: {
-        type: "CATEGORY";
-        value: string[];
-      };
-      set: {
-        type: "CATEGORY";
-        value: string[];
-      };
-    };
-    supported: {
-      change: false;
-      createPage: true;
-      disabled: true;
-      error: true;
-    };
+  supported: {
+    change: false;
+    createPage: true;
+    disabled: true;
+    error: true;
   };
 };
 

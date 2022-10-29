@@ -1,8 +1,7 @@
 import { FieldsMap, InSubtableFieldsMap, Subtable } from "../field";
 
-type FieldList = FieldsMap[keyof FieldsMap]["page"];
-type InSubtableFieldList =
-  InSubtableFieldsMap[keyof InSubtableFieldsMap]["page"];
+type FieldList = FieldsMap[keyof FieldsMap];
+type InSubtableFieldList = InSubtableFieldsMap[keyof InSubtableFieldsMap];
 
 type ChangeEventSupported<
   FieldMap extends {
@@ -39,7 +38,7 @@ type AppRecordIndexShowProperties = {
           | FieldList["record"]["get"]
           | Subtable<{
               [fieldCode: string]: InSubtableFieldList["record"]["get"];
-            }>["page"]["record"]["get"];
+            }>["record"]["get"];
       }>;
     }
   | {
@@ -53,7 +52,7 @@ type AppRecordIndexShowProperties = {
             | FieldList["record"]["get"]
             | Subtable<{
                 [fieldCode: string]: InSubtableFieldList["record"]["get"];
-              }>["page"]["record"]["get"];
+              }>["record"]["get"];
         }>;
       };
     }
@@ -67,7 +66,7 @@ type AppRecordIndexShowProperties = {
           | FieldList["record"]["get"]
           | Subtable<{
               [fieldCode: string]: InSubtableFieldList["record"]["get"];
-            }>["page"]["record"]["get"];
+            }>["record"]["get"];
       }>;
     }
 );
@@ -80,7 +79,7 @@ type AppRecordIndexEditShowProperties = {
       | FieldList["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 
@@ -92,7 +91,7 @@ type AppRecordIndexEditChangeProperties = {
       | FieldList["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
   changes: {
     field: ChangeEventSupported<FieldList>["record"]["get"];
@@ -107,7 +106,7 @@ type AppRecordIndexEditSubmitProperties = {
       | FieldList["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 type AppRecordIndexEditSubmitSuccessProperties = {
@@ -118,7 +117,7 @@ type AppRecordIndexEditSubmitSuccessProperties = {
       | FieldList["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 
@@ -130,7 +129,7 @@ type AppRecordIndexDeleteSubmitProperties = {
       | FieldList["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 
@@ -142,7 +141,7 @@ type AppRecordDetailShowProperties = {
       | FieldList["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 type AppRecordDetailDeleteSubmitProperties = {
@@ -153,7 +152,7 @@ type AppRecordDetailDeleteSubmitProperties = {
       | FieldList["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 type AppRecordDetailProcessProceedProperties = {
@@ -165,7 +164,7 @@ type AppRecordDetailProcessProceedProperties = {
       | FieldList["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 
@@ -179,7 +178,7 @@ type AppRecordCreateShowProperties = {
           [
             fieldCode: string
           ]: CreatePageSupported<InSubtableFieldList>["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 type AppRecordCreateChangeProperties = {
@@ -191,18 +190,18 @@ type AppRecordCreateChangeProperties = {
           [
             fieldCode: string
           ]: CreatePageSupported<InSubtableFieldList>["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
   changes: {
     field:
       | ChangeEventSupported<FieldList>["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
     row:
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"]["value"][number]
+        }>["record"]["get"]["value"][number]
       | null;
   };
 };
@@ -216,7 +215,7 @@ type AppRecordCreateSubmitProperties = {
           [
             fieldCode: string
           ]: CreatePageSupported<InSubtableFieldList>["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 
@@ -230,7 +229,7 @@ type AppRecordCreateSubmitSuccessProperties = {
           [
             fieldCode: string
           ]: CreatePageSupported<InSubtableFieldList>["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 
@@ -242,7 +241,7 @@ type AppRecordEditShowProperties = {
       | FieldList["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 
@@ -254,18 +253,18 @@ type AppRecordEditChangeProperties = {
       | FieldList["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
   changes: {
     field:
       | ChangeEventSupported<FieldList>["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
     row:
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"]["value"][number]
+        }>["record"]["get"]["value"][number]
       | null;
   };
 };
@@ -278,7 +277,7 @@ type AppRecordEditSubmitProperties = {
       | FieldList["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 type AppRecordEditSubmitSuccessProperties = {
@@ -289,7 +288,7 @@ type AppRecordEditSubmitSuccessProperties = {
       | FieldList["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 
@@ -301,7 +300,7 @@ type AppRecordPrintShowProperties = {
       | FieldList["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 
@@ -325,7 +324,7 @@ type MobileAppRecordIndexShowProperties = {
           | FieldList["record"]["get"]
           | Subtable<{
               [fieldCode: string]: InSubtableFieldList["record"]["get"];
-            }>["page"]["record"]["get"];
+            }>["record"]["get"];
       }>;
     }
   | {
@@ -339,7 +338,7 @@ type MobileAppRecordIndexShowProperties = {
             | FieldList["record"]["get"]
             | Subtable<{
                 [fieldCode: string]: InSubtableFieldList["record"]["get"];
-              }>["page"]["record"]["get"];
+              }>["record"]["get"];
         }>;
       };
     }
@@ -353,7 +352,7 @@ type MobileAppRecordIndexShowProperties = {
           | FieldList["record"]["get"]
           | Subtable<{
               [fieldCode: string]: InSubtableFieldList["record"]["get"];
-            }>["page"]["record"]["get"];
+            }>["record"]["get"];
       }>;
     }
 );
@@ -366,7 +365,7 @@ type MobileAppRecordDetailShowProperties = {
       | FieldList["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 type MobileAppRecordDetailDeleteSubmitProperties = {
@@ -377,7 +376,7 @@ type MobileAppRecordDetailDeleteSubmitProperties = {
       | FieldList["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 type MobileAppRecordDetailProcessProceedProperties = {
@@ -389,7 +388,7 @@ type MobileAppRecordDetailProcessProceedProperties = {
       | FieldList["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 
@@ -403,7 +402,7 @@ type MobileAppRecordCreateShowProperties = {
           [
             fieldCode: string
           ]: CreatePageSupported<InSubtableFieldList>["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 type MobileAppRecordCreateChangeProperties = {
@@ -415,18 +414,18 @@ type MobileAppRecordCreateChangeProperties = {
           [
             fieldCode: string
           ]: CreatePageSupported<InSubtableFieldList>["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
   changes: {
     field:
       | ChangeEventSupported<FieldList>["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
     row:
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"]["value"][number]
+        }>["record"]["get"]["value"][number]
       | null;
   };
 };
@@ -440,7 +439,7 @@ type MobileAppRecordCreateSubmitProperties = {
           [
             fieldCode: string
           ]: CreatePageSupported<InSubtableFieldList>["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 type MobileAppRecordCreateSubmitSuccessProperties = {
@@ -453,7 +452,7 @@ type MobileAppRecordCreateSubmitSuccessProperties = {
           [
             fieldCode: string
           ]: CreatePageSupported<InSubtableFieldList>["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 
@@ -465,7 +464,7 @@ type MobileAppRecordEditShowProperties = {
       | FieldList["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 type MobileAppRecordEditChangeProperties = {
@@ -476,18 +475,18 @@ type MobileAppRecordEditChangeProperties = {
       | FieldList["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
   changes: {
     field:
       | ChangeEventSupported<FieldList>["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
     row:
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"]["value"][number]
+        }>["record"]["get"]["value"][number]
       | null;
   };
 };
@@ -500,7 +499,7 @@ type MobileAppRecordEditSubmitProperties = {
       | FieldList["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 type MobileAppRecordEditSubmitSuccessProperties = {
@@ -511,7 +510,7 @@ type MobileAppRecordEditSubmitSuccessProperties = {
       | FieldList["record"]["get"]
       | Subtable<{
           [fieldCode: string]: InSubtableFieldList["record"]["get"];
-        }>["page"]["record"]["get"];
+        }>["record"]["get"];
   };
 };
 

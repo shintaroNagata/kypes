@@ -1,34 +1,18 @@
 type RevisionField = {
-  rest: {
-    record: {
-      get: {
-        type: "__REVISION__";
-        value: string;
-      };
-      add: never;
-      update: never;
+  record: {
+    get: {
+      type: "__REVISION__";
+      value: string;
     };
-    form: {
-      property: { get: never; add: never; update: never };
-      layout: { get: never; update: never };
+    set: {
+      type: "__REVISION__";
     };
   };
-  page: {
-    record: {
-      get: {
-        type: "__REVISION__";
-        value: string;
-      };
-      set: {
-        type: "__REVISION__";
-      };
-    };
-    supported: {
-      change: false;
-      createPage: false;
-      disabled: false;
-      error: false;
-    };
+  supported: {
+    change: false;
+    createPage: false;
+    disabled: false;
+    error: false;
   };
 };
 

@@ -75,69 +75,19 @@ type AppearanceFieldsMap = {
 };
 
 type Subtable<Structure extends { [fieldCode: string]: unknown }> = {
-  rest: {
-    record: {
-      get: {
-        type: "SUBTABLE";
-        value: Array<{
-          id: string;
-          value: Structure;
-        }>;
-      };
-      add: {
-        value: Array<{
-          id?: string | null;
-          value?: Structure;
-        }>;
-      };
-      update: {
-        value: Array<{
-          id?: string | null;
-          value?: Structure;
-        }>;
-      };
+  record: {
+    get: {
+      type: "SUBTABLE";
+      value: Array<{
+        id: string | null;
+        value: Structure;
+      }>;
     };
-    form: {
-      property: {
-        get: {
-          type: "SUBTABLE";
-          code: string;
-          label: string;
-          noLabel: boolean;
-          fields: Structure;
-        };
-        add: {
-          type: "SUBTABLE";
-          code: string;
-          label?: string;
-          noLabel?: boolean;
-          fields: Structure;
-        };
-        update: {
-          type: "SUBTABLE";
-          code?: string;
-          label?: string;
-          noLabel?: boolean;
-          fields?: Structure;
-        };
-      };
-    };
-  };
-  page: {
-    record: {
-      get: {
-        type: "SUBTABLE";
-        value: Array<{
-          id: string | null;
-          value: Structure;
-        }>;
-      };
-      set: {
-        type: "SUBTABLE";
-        value: Array<{
-          value: Structure;
-        }>;
-      };
+    set: {
+      type: "SUBTABLE";
+      value: Array<{
+        value: Structure;
+      }>;
     };
   };
 };
