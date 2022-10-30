@@ -1,4 +1,4 @@
-import { ChangedField, RecordObject } from "../types";
+import { ChangedField, RecordObject } from "../../../field";
 
 type ShowEvent = {
   appId: number;

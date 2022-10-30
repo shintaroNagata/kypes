@@ -3,7 +3,7 @@ import {
   ChangedField,
   ChangedRow,
   ChangedSubtable,
-} from "../types";
+} from "../../../field";
 
 type ShowEvent = {
   appId: number;
