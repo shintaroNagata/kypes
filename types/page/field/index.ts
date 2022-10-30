@@ -1,4 +1,3 @@
-export { FieldsMap, Subtable, InSubtableFieldsMap } from "./fieldsMap";
 export {
   RecordObject,
   SetRecordObject,
