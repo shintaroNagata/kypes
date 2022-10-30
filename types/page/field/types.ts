@@ -207,8 +207,6 @@ type FiledValue = {
     set: {
       type: "CHECK_BOX";
       value: string[];
-      disabled?: boolean;
-      error?: string | null;
     };
   };
   MULTI_SELECT: {
