@@ -1,4 +1,4 @@
-type FiledValue = {
+type FieldValue = {
   __ID__: {
     get: {
       type: "__ID__";
@@ -366,13 +366,13 @@ type CreatePageSupportedFieldTypes =
 
 type RecordObject = {
   [fieldCode: string]:
-    | FiledValue[FieldTypes]["get"]
+    | FieldValue[FieldTypes]["get"]
     | {
         type: "SUBTABLE";
         value: Array<{
           id: string | null;
           value: {
-            [fieldCode: string]: FiledValue[InSubtableFieldTypes]["get"];
+            [fieldCode: string]: FieldValue[InSubtableFieldTypes]["get"];
           };
         }>;
       };
@@ -380,13 +380,13 @@ type RecordObject = {
 
 type CreatePageRecordObject = {
   [fieldCode: string]:
-    | FiledValue[CreatePageSupportedFieldTypes]["get"]
+    | FieldValue[CreatePageSupportedFieldTypes]["get"]
     | {
         type: "SUBTABLE";
         value: Array<{
           id: string | null;
           value: {
-            [fieldCode: string]: FiledValue[CreatePageSupportedFieldTypes &
+            [fieldCode: string]: FieldValue[CreatePageSupportedFieldTypes &
               InSubtableFieldTypes]["get"];
           };
         }>;
@@ -394,7 +394,7 @@ type CreatePageRecordObject = {
 };
 
 type SetField<FieldType> = FieldType extends FieldTypes
-  ? FiledValue[FieldType]["set"] &
+  ? FieldValue[FieldType]["set"] &
       (FieldType extends SetActionSupportedFieldTypes
         ? { disabled: boolean; error: string | null }
         : Record<string, never>)
@@ -413,14 +413,14 @@ type SetRecordObject = {
       };
 };
 
-type ChangedField = FiledValue[ChangeEventSupportedFieldTypes]["get"];
+type ChangedField = FieldValue[ChangeEventSupportedFieldTypes]["get"];
 
 type ChangedSubtable = {
   type: "SUBTABLE";
   value: Array<{
     id: string | null;
     value: {
-      [fieldCode: string]: FiledValue[InSubtableFieldTypes]["get"];
+      [fieldCode: string]: FieldValue[InSubtableFieldTypes]["get"];
     };
   }>;
 };
@@ -430,7 +430,7 @@ type ChangedRow = {
   value: Array<{
     id: string | null;
     value: {
-      [fieldCode: string]: FiledValue[InSubtableFieldTypes]["get"];
+      [fieldCode: string]: FieldValue[InSubtableFieldTypes]["get"];
     };
   }>;
 };
