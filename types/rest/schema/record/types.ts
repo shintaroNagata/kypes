@@ -1,4 +1,20 @@
 type FieldValue = {
+  __ID__: {
+    get: {
+      type: "__ID__";
+      value: string;
+    };
+    add: never;
+    update: never;
+  };
+  __REVISION__: {
+    get: {
+      type: "__REVISION__";
+      value: string;
+    };
+    add: never;
+    update: never;
+  };
   RECORD_NUMBER: {
     get: {
       type: "RECORD_NUMBER";
@@ -283,6 +299,8 @@ type FieldValue = {
 };
 
 type FieldTypes =
+  | "__ID__"
+  | "__REVISION__"
   | "RECORD_NUMBER"
   | "CREATED_TIME"
   | "UPDATED_TIME"
@@ -337,7 +355,6 @@ type RecordForGet = {
     type: "__REVISION__";
     value: string;
   };
-} & {
   [fieldCode: string]:
     | FieldValue[FieldTypes]["get"]
     | {
