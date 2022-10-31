@@ -13,7 +13,9 @@ type ShowEvent = {
 type ChangeEvent = {
   appId: number;
   record: KintoneRecordOnCreatePage;
-  changes: { field: ChangedField | ChangedSubtable; row: ChangedRow | null };
+  changes:
+    | { field: ChangedField; row: null }
+    | { field: ChangedSubtable; row: ChangedRow | null };
 };
 type SubmitEvent = {
   appId: number;
