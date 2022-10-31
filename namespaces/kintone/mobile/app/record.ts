@@ -1,7 +1,4 @@
-import {
-  KintoneRecord,
-  KintoneRecordForSet,
-} from "../../../../types/page/record";
+import { KintoneRecord, KintoneRecordForSet } from "../../../../types/page";
 
 declare global {
   namespace kintone.mobile.app.record {
