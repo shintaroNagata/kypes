@@ -78,7 +78,9 @@ declare global {
       method: Method,
       params: Parameters<Endpoint, Method>,
       successCallback: (response: Response<Endpoint, Method>) => void,
-      failureCallback?: (errorResponse: any) => void
+      failureCallback?: (
+        errorResponse: Record<string, unknown> | string
+      ) => void
     ): void;
 
     /**
@@ -101,7 +103,9 @@ declare global {
       method: Method,
       params: Record<string, never>,
       successCallback: (response: Response<Endpoint, Method>) => void,
-      failureCallback?: (errorResponse: any) => void
+      failureCallback?: (
+        errorResponse: Record<string, unknown> | string
+      ) => void
     ): void;
 
     /**
@@ -121,7 +125,9 @@ declare global {
       method: string,
       params: Record<string, unknown>,
       successCallback: (response: Record<string, unknown>) => void,
-      failureCallback?: (errorResponse: any) => void
+      failureCallback?: (
+        errorResponse: Record<string, unknown> | string
+      ) => void
     ): void;
   }
   namespace kintone.api {
