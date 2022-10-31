@@ -1,20 +1,20 @@
-import { RecordObject } from "../../../field";
+import { KintoneRecord } from "../../../record";
 
 type ShowEvent = {
   appId: number;
   recordId: number;
-  record: RecordObject;
+  record: KintoneRecord;
 };
 type DeleteSubmitEvent = {
   appId: number;
   recordId: number;
-  record: RecordObject;
+  record: KintoneRecord;
 };
 type ProcessProceedEvent = {
   action: { value: string };
   status: { value: string };
   nextStatus: { value: string };
-  record: RecordObject;
+  record: KintoneRecord;
 };
 
 type Properties = {

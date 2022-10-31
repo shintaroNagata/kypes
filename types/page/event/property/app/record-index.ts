@@ -1,4 +1,4 @@
-import { ChangedField, RecordObject } from "../../../field";
+import { KintoneRecord, ChangedField } from "../../../record";
 
 type ShowEvent = {
   appId: number;
@@ -10,34 +10,34 @@ type ShowEvent = {
       offset: number;
       size: number;
       date: null;
-      records: RecordObject[];
+      records: KintoneRecord[];
     }
   | {
       viewType: "calendar";
       offset: null;
       size: null;
       date: `${number}-${string}`;
-      records: { [date in `${number}-${string}-${string}`]: RecordObject[] };
+      records: { [date in `${number}-${string}-${string}`]: KintoneRecord[] };
     }
   | {
       viewType: "custom";
       offset: number;
       size: number;
       date: null;
-      records: RecordObject[];
+      records: KintoneRecord[];
     }
 );
 
 type EditShowEvent = {
   appId: number;
   recordId: string;
-  record: RecordObject;
+  record: KintoneRecord;
 };
 
 type EditChangeEvent = {
   appId: string;
   recordId: string;
-  record: RecordObject;
+  record: KintoneRecord;
   changes: {
     field: ChangedField;
   };
@@ -45,17 +45,17 @@ type EditChangeEvent = {
 type EditSubmitEvent = {
   appId: string;
   recordId: string;
-  record: RecordObject;
+  record: KintoneRecord;
 };
 type EditSubmitSuccessEvent = {
   appId: number;
   recordId: string;
-  record: RecordObject;
+  record: KintoneRecord;
 };
 type DeleteSubmitEvent = {
   appId: number;
   recordId: number;
-  record: RecordObject;
+  record: KintoneRecord;
 };
 
 type Properties = {

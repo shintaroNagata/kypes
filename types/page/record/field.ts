@@ -266,6 +266,8 @@ type FieldValue = {
 };
 
 type FieldTypes =
+  | "__ID__"
+  | "__REVISION__"
   | "RECORD_NUMBER"
   | "CREATED_TIME"
   | "UPDATED_TIME"
@@ -292,154 +294,75 @@ type FieldTypes =
   | "ORGANIZATION_SELECT"
   | "FILE";
 
-type InSubtableFieldTypes =
-  | "SINGLE_LINE_TEXT"
-  | "LINK"
-  | "MULTI_LINE_TEXT"
-  | "RICH_TEXT"
-  | "NUMBER"
-  | "CALC"
-  | "DATE"
-  | "TIME"
-  | "DATETIME"
-  | "RADIO_BUTTON"
-  | "DROP_DOWN"
-  | "CHECK_BOX"
-  | "MULTI_SELECT"
-  | "USER_SELECT"
-  | "GROUP_SELECT"
-  | "ORGANIZATION_SELECT"
-  | "FILE";
-
-type SetActionSupportedFieldTypes =
-  | "CATEGORY"
-  | "SINGLE_LINE_TEXT"
-  | "LINK"
-  | "MULTI_LINE_TEXT"
-  | "RICH_TEXT"
-  | "NUMBER"
-  | "DATE"
-  | "TIME"
-  | "DATETIME"
-  | "RADIO_BUTTON"
-  | "DROP_DOWN"
-  | "CHECK_BOX"
-  | "MULTI_SELECT"
-  | "USER_SELECT"
-  | "ORGANIZATION_SELECT"
-  | "GROUP_SELECT"
-  | "FILE";
-
-type ChangeEventSupportedFieldTypes =
-  | "SINGLE_LINE_TEXT"
-  | "NUMBER"
-  | "DATE"
-  | "TIME"
-  | "DATETIME"
-  | "RADIO_BUTTON"
-  | "DROP_DOWN"
-  | "CHECK_BOX"
-  | "MULTI_SELECT"
-  | "USER_SELECT"
-  | "ORGANIZATION_SELECT"
-  | "GROUP_SELECT";
-
-type CreatePageSupportedFieldTypes =
-  | "CATEGORY"
-  | "SINGLE_LINE_TEXT"
-  | "LINK"
-  | "MULTI_LINE_TEXT"
-  | "RICH_TEXT"
-  | "NUMBER"
-  | "CALC"
-  | "DATE"
-  | "TIME"
-  | "DATETIME"
-  | "RADIO_BUTTON"
-  | "DROP_DOWN"
-  | "CHECK_BOX"
-  | "MULTI_SELECT"
-  | "USER_SELECT"
-  | "ORGANIZATION_SELECT"
-  | "GROUP_SELECT"
-  | "FILE";
-
-type RecordObject = {
-  [fieldCode: string]:
-    | FieldValue[FieldTypes]["get"]
-    | {
-        type: "SUBTABLE";
-        value: Array<{
-          id: string | null;
-          value: {
-            [fieldCode: string]: FieldValue[InSubtableFieldTypes]["get"];
-          };
-        }>;
-      };
+type Supported = {
+  InSubtable:
+    | "SINGLE_LINE_TEXT"
+    | "LINK"
+    | "MULTI_LINE_TEXT"
+    | "RICH_TEXT"
+    | "NUMBER"
+    | "CALC"
+    | "DATE"
+    | "TIME"
+    | "DATETIME"
+    | "RADIO_BUTTON"
+    | "DROP_DOWN"
+    | "CHECK_BOX"
+    | "MULTI_SELECT"
+    | "USER_SELECT"
+    | "GROUP_SELECT"
+    | "ORGANIZATION_SELECT"
+    | "FILE";
+  SetAction:
+    | "CATEGORY"
+    | "SINGLE_LINE_TEXT"
+    | "LINK"
+    | "MULTI_LINE_TEXT"
+    | "RICH_TEXT"
+    | "NUMBER"
+    | "DATE"
+    | "TIME"
+    | "DATETIME"
+    | "RADIO_BUTTON"
+    | "DROP_DOWN"
+    | "CHECK_BOX"
+    | "MULTI_SELECT"
+    | "USER_SELECT"
+    | "ORGANIZATION_SELECT"
+    | "GROUP_SELECT"
+    | "FILE";
+  ChangeEvent:
+    | "SINGLE_LINE_TEXT"
+    | "NUMBER"
+    | "DATE"
+    | "TIME"
+    | "DATETIME"
+    | "RADIO_BUTTON"
+    | "DROP_DOWN"
+    | "CHECK_BOX"
+    | "MULTI_SELECT"
+    | "USER_SELECT"
+    | "ORGANIZATION_SELECT"
+    | "GROUP_SELECT";
+  CreatePage:
+    | "CATEGORY"
+    | "SINGLE_LINE_TEXT"
+    | "LINK"
+    | "MULTI_LINE_TEXT"
+    | "RICH_TEXT"
+    | "NUMBER"
+    | "CALC"
+    | "DATE"
+    | "TIME"
+    | "DATETIME"
+    | "RADIO_BUTTON"
+    | "DROP_DOWN"
+    | "CHECK_BOX"
+    | "MULTI_SELECT"
+    | "USER_SELECT"
+    | "ORGANIZATION_SELECT"
+    | "GROUP_SELECT"
+    | "FILE";
 };
 
-type CreatePageRecordObject = {
-  [fieldCode: string]:
-    | FieldValue[CreatePageSupportedFieldTypes]["get"]
-    | {
-        type: "SUBTABLE";
-        value: Array<{
-          id: string | null;
-          value: {
-            [fieldCode: string]: FieldValue[CreatePageSupportedFieldTypes &
-              InSubtableFieldTypes]["get"];
-          };
-        }>;
-      };
-};
-
-type SetField<FieldType> = FieldType extends FieldTypes
-  ? FieldValue[FieldType]["set"] &
-      (FieldType extends SetActionSupportedFieldTypes
-        ? { disabled: boolean; error: string | null }
-        : Record<string, never>)
-  : never;
-
-type SetRecordObject = {
-  [fieldCode: string]:
-    | SetField<FieldTypes>
-    | {
-        type: "SUBTABLE";
-        value: Array<{
-          value: {
-            [fieldCode: string]: SetField<InSubtableFieldTypes>;
-          };
-        }>;
-      };
-};
-
-type ChangedField = FieldValue[ChangeEventSupportedFieldTypes]["get"];
-
-type ChangedSubtable = {
-  type: "SUBTABLE";
-  value: Array<{
-    id: string | null;
-    value: {
-      [fieldCode: string]: FieldValue[InSubtableFieldTypes]["get"];
-    };
-  }>;
-};
-
-type ChangedRow = {
-  type: "SUBTABLE";
-  value: Array<{
-    id: string | null;
-    value: {
-      [fieldCode: string]: FieldValue[InSubtableFieldTypes]["get"];
-    };
-  }>;
-};
-
-export {
-  RecordObject,
-  SetRecordObject,
-  CreatePageRecordObject,
-  ChangedField,
-  ChangedSubtable,
-  ChangedRow,
-};
+export { FieldValue, FieldTypes, Supported };

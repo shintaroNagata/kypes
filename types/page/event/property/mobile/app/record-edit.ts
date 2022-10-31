@@ -1,33 +1,33 @@
 import {
-  RecordObject,
+  KintoneRecord,
   ChangedField,
   ChangedSubtable,
   ChangedRow,
-} from "../../../../field";
+} from "../../../../record";
 
 type ShowEvent = {
   appId: number;
   recordId: number;
-  record: RecordObject;
+  record: KintoneRecord;
 };
 
 type ChangeEvent = {
   appId: number;
   recordId: number;
-  record: RecordObject;
+  record: KintoneRecord;
   changes: { field: ChangedField | ChangedSubtable; row: ChangedRow | null };
 };
 
 type SubmitEvent = {
   appId: number;
   recordId: number;
-  record: RecordObject;
+  record: KintoneRecord;
 };
 
 type SubmitSuccessEvent = {
   appId: number;
   recordId: string;
-  record: RecordObject;
+  record: KintoneRecord;
 };
 
 type Properties = {

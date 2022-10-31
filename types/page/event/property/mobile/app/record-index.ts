@@ -1,4 +1,4 @@
-import { RecordObject } from "../../../../field";
+import { KintoneRecord } from "../../../../record";
 
 type ShowEvent = {
   appId: number;
@@ -10,21 +10,21 @@ type ShowEvent = {
       offset: number;
       size: number;
       date: null;
-      records: RecordObject[];
+      records: KintoneRecord[];
     }
   | {
       viewType: "calendar";
       offset: null;
       size: null;
       date: `${number}-${string}`;
-      records: { [date in `${number}-${string}-${string}`]: RecordObject[] };
+      records: { [date in `${number}-${string}-${string}`]: KintoneRecord[] };
     }
   | {
       viewType: "custom";
       offset: number;
       size: number;
       date: null;
-      records: RecordObject[];
+      records: KintoneRecord[];
     }
 );
 

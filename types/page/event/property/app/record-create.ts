@@ -1,28 +1,28 @@
 import {
-  CreatePageRecordObject,
+  KintoneRecordOnCreatePage,
   ChangedField,
   ChangedSubtable,
   ChangedRow,
-} from "../../../field";
+} from "../../../record";
 
 type ShowEvent = {
   appId: number;
   reuse: boolean;
-  record: CreatePageRecordObject;
+  record: KintoneRecordOnCreatePage;
 };
 type ChangeEvent = {
   appId: number;
-  record: CreatePageRecordObject;
+  record: KintoneRecordOnCreatePage;
   changes: { field: ChangedField | ChangedSubtable; row: ChangedRow | null };
 };
 type SubmitEvent = {
   appId: number;
-  record: CreatePageRecordObject;
+  record: KintoneRecordOnCreatePage;
 };
 type SubmitSuccessEvent = {
   appId: number;
   recordId: string;
-  record: CreatePageRecordObject;
+  record: KintoneRecordOnCreatePage;
 };
 
 type Properties = {
