@@ -212,4 +212,4 @@ type Schema = {
   "preview/app/customize": PreviewAppCustomizeSchema;
 };
 
-export { Schema };
+export type { Schema };

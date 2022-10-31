@@ -985,4 +985,4 @@ type PropertiesForPut = {
       };
 };
 
-export { PropertiesForGet, PropertiesForPost, PropertiesForPut };
+export type { PropertiesForGet, PropertiesForPost, PropertiesForPut };

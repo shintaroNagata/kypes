@@ -83,4 +83,4 @@ type Schema = {
   "preview/app/actions": PreviewAppActionsSchema;
 };
 
-export { Schema };
+export type { Schema };

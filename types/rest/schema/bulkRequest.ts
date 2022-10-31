@@ -1,5 +1,5 @@
-import { ApiSchema } from "./types";
-import { Schema as RecordApiSchema } from "./record";
+import type { ApiSchema } from "./types";
+import type { Schema as RecordApiSchema } from "./record";
 
 type SupportedEndpoints =
   | "record"
@@ -52,4 +52,4 @@ type Schema = {
   bulkRequest: BulkRequestSchema;
 };
 
-export { Schema };
+export type { Schema };

@@ -1,5 +1,5 @@
-import { Properties as PortalEvent } from "./portal";
+import type { Properties as PortalEvent } from "./portal";
 
 type Properties = PortalEvent;
 
-export { Properties };
+export type { Properties };

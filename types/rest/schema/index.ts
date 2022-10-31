@@ -1,9 +1,9 @@
-import { Endpoints } from "../http";
-import { ApiSchema } from "./types";
-import { Schema as RecordApiSchema } from "./record";
-import { Schema as BulkRequestApiSchema } from "./bulkRequest";
-import { Schema as AppApiSchema } from "./app";
-import { Schema as SpaceApiSchema } from "./space";
+import type { Endpoints } from "../http";
+import type { ApiSchema } from "./types";
+import type { Schema as RecordApiSchema } from "./record";
+import type { Schema as BulkRequestApiSchema } from "./bulkRequest";
+import type { Schema as AppApiSchema } from "./app";
+import type { Schema as SpaceApiSchema } from "./space";
 
 type KintoneRestApiSchema = RecordApiSchema &
   BulkRequestApiSchema &
@@ -22,4 +22,4 @@ type FindApi<Endpoint, Method> = Endpoint extends unknown
     : never
   : never;
 
-export { FindApi, EnableMethods };
+export type { FindApi, EnableMethods };

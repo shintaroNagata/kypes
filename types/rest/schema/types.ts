@@ -3,4 +3,4 @@ type ApiSchema = {
   response: Record<string, unknown>;
 };
 
-export { ApiSchema };
+export type { ApiSchema };

@@ -1,2 +1,2 @@
-export { Event, EventTypes } from "./event";
-export { KintoneRecord, KintoneRecordForSet } from "./record";
+export type { Event, EventTypes } from "./event";
+export type { KintoneRecord, KintoneRecordForSet } from "./record";

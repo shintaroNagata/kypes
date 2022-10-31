@@ -1,6 +1,6 @@
-import { Schema as FieldsApiSchema } from "./fields";
-import { Schema as LayoutApiSchema } from "./layout";
+import type { Schema as FieldsApiSchema } from "./fields";
+import type { Schema as LayoutApiSchema } from "./layout";
 
 type Schema = FieldsApiSchema & LayoutApiSchema;
 
-export { Schema };
+export type { Schema };

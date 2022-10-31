@@ -1,4 +1,4 @@
-import { FieldTypes, FieldValue, Supported } from "./field";
+import type { FieldTypes, FieldValue, Supported } from "./field";
 
 type KintoneRecord = {
   $id: FieldValue["__ID__"]["get"];
@@ -65,7 +65,7 @@ type ChangedRow = {
   }>;
 };
 
-export {
+export type {
   KintoneRecord,
   KintoneRecordForSet,
   KintoneRecordOnCreatePage,

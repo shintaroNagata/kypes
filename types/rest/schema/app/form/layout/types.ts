@@ -280,4 +280,4 @@ type LayoutForPut = Array<
     }
 >;
 
-export { LayoutForGet, LayoutForPut };
+export type { LayoutForGet, LayoutForPut };

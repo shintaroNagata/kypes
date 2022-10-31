@@ -236,4 +236,4 @@ type Schema = {
   "preview/app/notifications/reminder": PreviewAppNotificationsReminderSchema;
 };
 
-export { Schema };
+export type { Schema };

@@ -113,4 +113,4 @@ type Schema = {
   "preview/app/settings": PreviewAppSettingsSchema;
 };
 
-export { Schema };
+export type { Schema };

@@ -365,4 +365,4 @@ type Supported = {
     | "FILE";
 };
 
-export { FieldValue, FieldTypes, Supported };
+export type { FieldValue, FieldTypes, Supported };

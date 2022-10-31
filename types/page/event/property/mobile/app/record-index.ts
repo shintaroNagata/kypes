@@ -1,4 +1,4 @@
-import { KintoneRecord } from "../../../../record";
+import type { KintoneRecord } from "../../../../record";
 
 type ShowEvent = {
   appId: number;
@@ -32,4 +32,4 @@ type Properties = {
   "mobile.app.record.index.show": ShowEvent;
 };
 
-export { Properties };
+export type { Properties };

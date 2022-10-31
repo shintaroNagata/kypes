@@ -1,8 +1,8 @@
-import { Properties as RecordIndexEvent } from "./record-index";
-import { Properties as RecordDetailEvent } from "./record-detail";
-import { Properties as RecordCreateEvent } from "./record-create";
-import { Properties as RecordEditEvent } from "./record-edit";
-import { Properties as ReportEvent } from "./report";
+import type { Properties as RecordIndexEvent } from "./record-index";
+import type { Properties as RecordDetailEvent } from "./record-detail";
+import type { Properties as RecordCreateEvent } from "./record-create";
+import type { Properties as RecordEditEvent } from "./record-edit";
+import type { Properties as ReportEvent } from "./report";
 
 type Properties = RecordIndexEvent &
   RecordDetailEvent &
@@ -10,4 +10,4 @@ type Properties = RecordIndexEvent &
   RecordEditEvent &
   ReportEvent;
 
-export { Properties };
+export type { Properties };

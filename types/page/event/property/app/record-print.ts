@@ -1,4 +1,4 @@
-import { KintoneRecord } from "../../../record";
+import type { KintoneRecord } from "../../../record";
 
 type ShowEvent = {
   appId: number;
@@ -8,4 +8,4 @@ type ShowEvent = {
 
 type Properties = { "app.record.print.show": ShowEvent };
 
-export { Properties };
+export type { Properties };

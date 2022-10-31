@@ -1,4 +1,4 @@
-import { KintoneRecord } from "../../../../record";
+import type { KintoneRecord } from "../../../../record";
 
 type ShowEvent = {
   appId: number;
@@ -23,4 +23,4 @@ type Properties = {
   "mobile.app.record.detail.process.proceed": ProcessProceedEvent;
 };
 
-export { Properties };
+export type { Properties };

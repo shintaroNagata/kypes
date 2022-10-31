@@ -1,4 +1,8 @@
-import { PropertiesForGet, PropertiesForPost, PropertiesForPut } from "./types";
+import type {
+  PropertiesForGet,
+  PropertiesForPost,
+  PropertiesForPut,
+} from "./types";
 
 type AppFormFieldsSchema = {
   GET: {
@@ -55,4 +59,4 @@ type Schema = {
   "preview/app/form/fields": PreviewAppFormFieldsSchema;
 };
 
-export { Schema };
+export type { Schema };

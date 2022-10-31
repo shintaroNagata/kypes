@@ -125,4 +125,4 @@ type Schema = {
   "preview/app/status": PreviewAppStatusSchema;
 };
 
-export { Schema };
+export type { Schema };

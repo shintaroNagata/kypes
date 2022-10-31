@@ -1,4 +1,4 @@
-import { RecordForGet, RecordForPost, RecordForPut } from "./types";
+import type { RecordForGet, RecordForPost, RecordForPut } from "./types";
 
 type RecordSchema = {
   GET: {
@@ -202,4 +202,4 @@ type Schema = {
   "records/status": RecordsStatusSchema;
 };
 
-export { Schema };
+export type { Schema };

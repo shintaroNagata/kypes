@@ -1,4 +1,4 @@
-import { LayoutForGet, LayoutForPut } from "./types";
+import type { LayoutForGet, LayoutForPut } from "./types";
 
 type AppFormLayoutSchema = {
   GET: {
@@ -35,4 +35,4 @@ type Schema = {
   "preview/app/form/layout": PreviewAppFormLayoutSchema;
 };
 
-export { Schema };
+export type { Schema };

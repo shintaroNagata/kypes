@@ -214,4 +214,4 @@ type Schema = {
   "space/guests": SpaceGuestsSchema;
 };
 
-export { Schema };
+export type { Schema };

@@ -4,4 +4,4 @@ type Properties = {
   "mobile.portal.show": ShowEvent;
 };
 
-export { Properties };
+export type { Properties };

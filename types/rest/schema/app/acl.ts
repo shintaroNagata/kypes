@@ -255,4 +255,4 @@ type Schema = {
   "record/acl/evaluate": RecordAclEvaluateSchema;
 };
 
-export { Schema };
+export type { Schema };

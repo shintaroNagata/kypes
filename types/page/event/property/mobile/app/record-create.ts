@@ -1,4 +1,4 @@
-import {
+import type {
   KintoneRecordOnCreatePage,
   ChangedField,
   ChangedSubtable,
@@ -37,4 +37,4 @@ type Properties = {
   "mobile.app.record.create.submit.success": SubmitSuccessEvent;
 };
 
-export { Properties };
+export type { Properties };

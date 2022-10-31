@@ -1,12 +1,12 @@
-import { Schema as FormApiSchema } from "./form";
-import { Schema as ViewsApiSchema } from "./views";
-import { Schema as ReportsApiSchema } from "./reports";
-import { Schema as SettingsApiSchema } from "./settings";
-import { Schema as NotificationsApiSchema } from "./notifications";
-import { Schema as StatusApiSchema } from "./status";
-import { Schema as ActionsApiSchema } from "./actions";
-import { Schema as CustomizeApiSchema } from "./customize";
-import { Schema as AclApiSchema } from "./acl";
+import type { Schema as FormApiSchema } from "./form";
+import type { Schema as ViewsApiSchema } from "./views";
+import type { Schema as ReportsApiSchema } from "./reports";
+import type { Schema as SettingsApiSchema } from "./settings";
+import type { Schema as NotificationsApiSchema } from "./notifications";
+import type { Schema as StatusApiSchema } from "./status";
+import type { Schema as ActionsApiSchema } from "./actions";
+import type { Schema as CustomizeApiSchema } from "./customize";
+import type { Schema as AclApiSchema } from "./acl";
 
 type AppSchema = {
   GET: {
@@ -110,4 +110,4 @@ type Schema = {
   CustomizeApiSchema &
   AclApiSchema;
 
-export { Schema };
+export type { Schema };

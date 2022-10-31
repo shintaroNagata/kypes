@@ -263,4 +263,4 @@ type Schema = {
   "preview/app/reports": PreviewAppReportsSchema;
 };
 
-export { Schema };
+export type { Schema };

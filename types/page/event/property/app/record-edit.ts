@@ -1,4 +1,4 @@
-import {
+import type {
   KintoneRecord,
   ChangedField,
   ChangedRow,
@@ -36,4 +36,4 @@ type Properties = {
   "app.record.edit.submit.success": SubmitSuccessEvent;
 };
 
-export { Properties };
+export type { Properties };

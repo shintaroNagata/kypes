@@ -393,4 +393,4 @@ type RecordForPut = {
       };
 };
 
-export { RecordForGet, RecordForPost, RecordForPut };
+export type { RecordForGet, RecordForPost, RecordForPut };

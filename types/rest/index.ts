@@ -1,5 +1,5 @@
-import { Endpoints, PathFor, UrlFor, WithQuery } from "./http";
-import { FindApi, EnableMethods } from "./schema";
+import type { Endpoints, PathFor, UrlFor, WithQuery } from "./http";
+import type { FindApi, EnableMethods } from "./schema";
 
 type Parameters<
   Endpoint extends Endpoints,
@@ -11,7 +11,7 @@ type Response<
   Method extends EnableMethods<Endpoint>
 > = FindApi<Endpoint, Method>["response"];
 
-export {
+export type {
   Endpoints,
   PathFor,
   UrlFor,

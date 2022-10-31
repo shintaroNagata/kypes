@@ -62,4 +62,4 @@ type UrlFor<Endpoint> = Endpoint extends string
   : never;
 type WithQuery<Url> = Url extends string ? `${Url}?${string}` : never;
 
-export { Methods, Endpoints, PathFor, UrlFor, WithQuery };
+export type { Methods, Endpoints, PathFor, UrlFor, WithQuery };

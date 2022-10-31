@@ -1,7 +1,7 @@
-import { Properties as AppEvent } from "./app";
-import { Properties as SpaceEvent } from "./space";
-import { Properties as PortalEvent } from "./portal";
+import type { Properties as AppEvent } from "./app";
+import type { Properties as SpaceEvent } from "./space";
+import type { Properties as PortalEvent } from "./portal";
 
 type Properties = AppEvent & SpaceEvent & PortalEvent;
 
-export { Properties };
+export type { Properties };

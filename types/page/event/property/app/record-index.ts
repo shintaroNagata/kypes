@@ -1,4 +1,4 @@
-import { KintoneRecord, ChangedField } from "../../../record";
+import type { KintoneRecord, ChangedField } from "../../../record";
 
 type ShowEvent = {
   appId: number;
@@ -67,4 +67,4 @@ type Properties = {
   "app.record.index.delete.submit": DeleteSubmitEvent;
 };
 
-export { Properties };
+export type { Properties };
