@@ -10,7 +10,7 @@ declare global {
      */
     function on<T extends EventTypes>(
       type: T | T[],
-      handler: (event: Event<T>) => any
+      handler: (event: Event<T>) => unknown
     ): void;
 
     /**
@@ -22,7 +22,7 @@ declare global {
      */
     function off<T extends EventTypes>(
       type?: T | T[],
-      handler?: (event: Event<T>) => any
+      handler?: (event: Event<T>) => unknown
     ): boolean;
 
     export { EventTypes, on, off };
