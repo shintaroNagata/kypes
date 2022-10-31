@@ -99,4 +99,4 @@ declare global {
   }
 }
 
-export { kintone };
+export {};
