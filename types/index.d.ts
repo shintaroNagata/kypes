@@ -1,4 +1,10 @@
-import { Event, EventTypes, KintoneRecord, KintoneRecordForSet } from "./page";
+import { KintoneRecord, KintoneRecordForSet } from "./page";
+import {
+  ChangedField,
+  ChangedRow,
+  ChangedSubtable,
+  KintoneRecordOnCreatePage,
+} from "./page/record";
 import {
   EnableMethods,
   Endpoints,
@@ -482,15 +488,375 @@ declare global {
   }
 
   namespace kintone.events {
+    type AppRecordIndexShowEventForListView = {
+      type: "app.record.index.show";
+      appId: number;
+      viewId: number;
+      viewName: string;
+      viewType: "list";
+      offset: number;
+      size: number;
+      date: null;
+      records: KintoneRecord[];
+    };
+
+    type AppRecordIndexShowEventForCalendarView = {
+      type: "app.record.index.show";
+      appId: number;
+      viewId: number;
+      viewName: string;
+      viewType: "calendar";
+      offset: null;
+      size: null;
+      date: `${number}-${string}`;
+      records: { [date in `${number}-${string}-${string}`]: KintoneRecord[] };
+    };
+
+    type AppRecordIndexShowEventForCustomView = {
+      type: "app.record.index.show";
+      appId: number;
+      viewId: number;
+      viewName: string;
+      viewType: "custom";
+      offset: number;
+      size: number;
+      date: null;
+      records: KintoneRecord[];
+    };
+
+    type AppRecordIndexShowEvent =
+      | AppRecordIndexShowEventForListView
+      | AppRecordIndexShowEventForCalendarView
+      | AppRecordIndexShowEventForCustomView;
+
+    type AppRecordIndexEditShowEvent = {
+      type: "app.record.index.edit.show";
+      appId: number;
+      recordId: string;
+      record: KintoneRecord;
+    };
+
+    type AppRecordIndexEditChangeEvent = {
+      type: `app.record.index.edit.change.${string}`;
+      appId: string;
+      recordId: string;
+      record: KintoneRecord;
+      changes: {
+        field: ChangedField;
+      };
+    };
+
+    type AppRecordIndexEditSubmitEvent = {
+      type: "app.record.index.edit.submit";
+      appId: string;
+      recordId: string;
+      record: KintoneRecord;
+    };
+
+    type AppRecordIndexEditSubmitSuccessEvent = {
+      type: "app.record.index.edit.submit.success";
+      appId: number;
+      recordId: string;
+      record: KintoneRecord;
+    };
+
+    type AppRecordIndexDeleteSubmitEvent = {
+      type: "app.record.index.delete.submit";
+      appId: number;
+      recordId: number;
+      record: KintoneRecord;
+    };
+
+    type AppRecordDetailShowEvent = {
+      type: "app.record.detail.show";
+      appId: number;
+      recordId: number;
+      record: KintoneRecord;
+    };
+
+    type AppRecordDetailDeleteSubmitEvent = {
+      type: "app.record.detail.delete.submit";
+      appId: number;
+      recordId: number;
+      record: KintoneRecord;
+    };
+
+    type AppRecordDetailProcessProceedEvent = {
+      type: "app.record.detail.process.proceed";
+      action: { value: string };
+      status: { value: string };
+      nextStatus: { value: string };
+      record: KintoneRecord;
+    };
+
+    type AppRecordCreateShowEvent = {
+      type: "app.record.create.show";
+      appId: number;
+      reuse: boolean;
+      record: KintoneRecordOnCreatePage;
+    };
+
+    type AppRecordCreateChangeEvent = {
+      type: `app.record.create.change.${string}`;
+      appId: number;
+      record: KintoneRecordOnCreatePage;
+      changes:
+        | { field: ChangedField; row: null }
+        | { field: ChangedSubtable; row: ChangedRow | null };
+    };
+
+    type AppRecordCreateSubmitEvent = {
+      type: "app.record.create.submit";
+      appId: number;
+      record: KintoneRecordOnCreatePage;
+    };
+    type AppRecordCreateSubmitSuccessEvent = {
+      type: "app.record.create.submit.success";
+      appId: number;
+      recordId: string;
+      record: KintoneRecordOnCreatePage;
+    };
+
+    type AppRecordEditShowEvent = {
+      type: "app.record.edit.show";
+      appId: number;
+      recordId: number;
+      record: KintoneRecord;
+    };
+
+    type AppRecordEditChangeEvent = {
+      type: `app.record.edit.change.${string}`;
+      appId: number;
+      recordId: number;
+      record: KintoneRecord;
+      changes:
+        | { field: ChangedField; row: null }
+        | { field: ChangedSubtable; row: ChangedRow | null };
+    };
+
+    type AppRecordEditSubmitEvent = {
+      type: "app.record.edit.submit";
+      appId: number;
+      recordId: number;
+      record: KintoneRecord;
+    };
+
+    type AppRecordEditSubmitSuccessEvent = {
+      type: "app.record.edit.submit.success";
+      appId: number;
+      recordId: string;
+      record: KintoneRecord;
+    };
+
+    type AppRecordPrintShowEvent = {
+      type: "app.record.print.show";
+      appId: number;
+      recordId: number;
+      record: KintoneRecord;
+    };
+
+    type AppReportShowEvent = { type: "app.report.show"; appId: number };
+
+    type PortalShowEvent = { type: "portal.show" };
+
+    type SpacePortalShowEvent = { type: "space.portal.show"; spaceId: string };
+
+    type MobileAppRecordIndexShowEventListView = {
+      type: "mobile.app.record.index.show";
+      appId: number;
+      viewId: number;
+      viewName: string;
+      viewType: "list";
+      offset: number;
+      size: number;
+      date: null;
+      records: KintoneRecord[];
+    };
+    type MobileAppRecordIndexShowEventCalendarView = {
+      type: "mobile.app.record.index.show";
+      appId: number;
+      viewId: number;
+      viewName: string;
+      viewType: "calendar";
+      offset: null;
+      size: null;
+      date: `${number}-${string}`;
+      records: { [date in `${number}-${string}-${string}`]: KintoneRecord[] };
+    };
+    type MobileAppRecordIndexShowEventCustomView = {
+      type: "mobile.app.record.index.show";
+      appId: number;
+      viewId: number;
+      viewName: string;
+      viewType: "custom";
+      offset: number;
+      size: number;
+      date: null;
+      records: KintoneRecord[];
+    };
+
+    type MobileAppRecordIndexShowEvent =
+      | MobileAppRecordIndexShowEventListView
+      | MobileAppRecordIndexShowEventCalendarView
+      | MobileAppRecordIndexShowEventCustomView;
+
+    type MobileAppRecordDetailShowEvent = {
+      type: "mobile.app.record.detail.show";
+      appId: number;
+      recordId: number;
+      record: KintoneRecord;
+    };
+
+    type MobileAppRecordDetailDeleteSubmitEvent = {
+      type: "mobile.app.record.detail.delete.submit";
+      appId: number;
+      recordId: number;
+      record: KintoneRecord;
+    };
+
+    type MobileAppRecordDetailProcessProceedEvent = {
+      type: "mobile.app.record.detail.process.proceed";
+      action: { value: string };
+      status: { value: string };
+      nextStatus: { value: string };
+      record: KintoneRecord;
+    };
+
+    type MobileAppRecordCreateShowEvent = {
+      type: "mobile.app.record.create.show";
+      appId: number;
+      reuse: boolean;
+      record: KintoneRecordOnCreatePage;
+    };
+
+    type MobileAppRecordCreateChangeEvent = {
+      type: `mobile.app.record.create.change.${string}`;
+      appId: number;
+      record: KintoneRecordOnCreatePage;
+      changes:
+        | { field: ChangedField; row: null }
+        | { field: ChangedSubtable; row: ChangedRow | null };
+    };
+
+    type MobileAppRecordCreateSubmitEvent = {
+      type: "mobile.app.record.create.submit";
+      appId: number;
+      record: KintoneRecordOnCreatePage;
+    };
+
+    type MobileAppRecordCreateSubmitSuccessEvent = {
+      type: "mobile.app.record.create.submit.success";
+      appId: number;
+      recordId: string;
+      record: KintoneRecordOnCreatePage;
+    };
+
+    type MobileAppRecordEditShowEvent = {
+      type: "mobile.app.record.edit.show";
+      appId: number;
+      recordId: number;
+      record: KintoneRecord;
+    };
+
+    type MobileAppRecordEditChangeEvent = {
+      type: `mobile.app.record.edit.change.${string}`;
+      appId: number;
+      recordId: number;
+      record: KintoneRecord;
+      changes:
+        | { field: ChangedField; row: null }
+        | { field: ChangedSubtable; row: ChangedRow | null };
+    };
+
+    type MobileAppRecordEditSubmitEvent = {
+      type: "mobile.app.record.edit.submit";
+      appId: number;
+      recordId: number;
+      record: KintoneRecord;
+    };
+
+    type MobileAppRecordEditSubmitSuccessEvent = {
+      type: "mobile.app.record.edit.submit.success";
+      appId: number;
+      recordId: string;
+      record: KintoneRecord;
+    };
+
+    type MobileAppReportShowEvent = {
+      type: "mobile.app.report.show";
+      appId: number;
+    };
+
+    type MobilePortalShowEvent = { type: "mobile.portal.show" };
+
+    type MobileSpacePortalShowEvent = {
+      type: "mobile.space.portal.show";
+      spaceId: string;
+    };
+
+    type KintoneEventMap = {
+      "app.record.index.show": AppRecordIndexShowEvent;
+      "app.record.index.edit.show": AppRecordIndexEditShowEvent;
+      [
+        key: `app.record.index.edit.change.${string}`
+      ]: AppRecordIndexEditChangeEvent;
+      "app.record.index.edit.submit": AppRecordIndexEditSubmitEvent;
+      "app.record.index.edit.submit.success": AppRecordIndexEditSubmitSuccessEvent;
+      "app.record.index.delete.submit": AppRecordIndexDeleteSubmitEvent;
+      "app.record.detail.show": AppRecordDetailShowEvent;
+      "app.record.detail.delete.submit": AppRecordDetailDeleteSubmitEvent;
+      "app.record.detail.process.proceed": AppRecordDetailProcessProceedEvent;
+      "app.record.create.show": AppRecordCreateShowEvent;
+      [
+        eventType: `app.record.create.change.${string}`
+      ]: AppRecordCreateChangeEvent;
+      "app.record.create.submit": AppRecordCreateSubmitEvent;
+      "app.record.create.submit.success": AppRecordCreateSubmitSuccessEvent;
+      "app.record.edit.show": AppRecordEditShowEvent;
+      [eventType: `app.record.edit.change.${string}`]: AppRecordEditChangeEvent;
+      "app.record.edit.submit": AppRecordEditSubmitEvent;
+      "app.record.edit.submit.success": AppRecordEditSubmitSuccessEvent;
+      "app.record.print.show": AppRecordPrintShowEvent;
+      "app.report.show": AppReportShowEvent;
+      "portal.show": PortalShowEvent;
+      "space.portal.show": SpacePortalShowEvent;
+      "mobile.app.record.index.show": MobileAppRecordIndexShowEvent;
+      "mobile.app.record.detail.show": MobileAppRecordDetailShowEvent;
+      "mobile.app.record.detail.delete.submit": MobileAppRecordDetailDeleteSubmitEvent;
+      "mobile.app.record.detail.process.proceed": MobileAppRecordDetailProcessProceedEvent;
+      "mobile.app.record.create.show": MobileAppRecordCreateShowEvent;
+      [
+        eventType: `mobile.app.record.create.change.${string}`
+      ]: MobileAppRecordCreateChangeEvent;
+      "mobile.app.record.create.submit": MobileAppRecordCreateSubmitEvent;
+      "mobile.app.record.create.submit.success": MobileAppRecordCreateSubmitSuccessEvent;
+      "mobile.app.record.edit.show": MobileAppRecordEditShowEvent;
+      [
+        eventType: `mobile.app.record.edit.change.${string}`
+      ]: MobileAppRecordEditChangeEvent;
+      "mobile.app.record.edit.submit": MobileAppRecordEditSubmitEvent;
+      "mobile.app.record.edit.submit.success": MobileAppRecordEditSubmitSuccessEvent;
+      "mobile.app.report.show": MobileAppReportShowEvent;
+      "mobile.portal.show": MobilePortalShowEvent;
+      "mobile.space.portal.show": MobileSpacePortalShowEvent;
+    };
+
+    type KintoneEventTypes = keyof KintoneEventMap;
+
+    type KintoneEvent<EventType extends KintoneEventTypes> =
+      EventType extends unknown
+        ? { type: EventType } & KintoneEventMap[EventType]
+        : never;
+
     /**
      * Registers an event handler.
      * @param type The event type or array of event types, to which the event handler will bind to.
      * @param handler The handler that will run when the event is triggered.
      * All event objects have an event type in their type property.
      */
-    function on<T extends EventTypes>(
+    function on<T extends KintoneEventTypes>(
       type: T | T[],
-      handler: (event: Event<T>) => unknown
+      handler: (event: KintoneEvent<T>) => unknown
     ): void;
 
     /**
@@ -500,12 +866,10 @@ declare global {
      * If no value is set for this parameter, all event handlers will be removed from the specified event type(s).
      * If no values are set for both the type and handler parameter, then all event handlers will be removed from all event types.
      */
-    function off<T extends EventTypes>(
+    function off<T extends KintoneEventTypes>(
       type?: T | T[],
-      handler?: (event: Event<T>) => unknown
+      handler?: (event: KintoneEvent<T>) => unknown
     ): boolean;
-
-    export { EventTypes, on, off };
   }
 }
 
