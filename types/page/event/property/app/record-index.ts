@@ -1,32 +1,41 @@
 import type { KintoneRecord, ChangedField } from "../../../record";
 
-type ShowEvent = {
+type ShowEventForListView = {
   appId: number;
   viewId: number;
   viewName: string;
-} & (
-  | {
-      viewType: "list";
-      offset: number;
-      size: number;
-      date: null;
-      records: KintoneRecord[];
-    }
-  | {
-      viewType: "calendar";
-      offset: null;
-      size: null;
-      date: `${number}-${string}`;
-      records: { [date in `${number}-${string}-${string}`]: KintoneRecord[] };
-    }
-  | {
-      viewType: "custom";
-      offset: number;
-      size: number;
-      date: null;
-      records: KintoneRecord[];
-    }
-);
+  viewType: "list";
+  offset: number;
+  size: number;
+  date: null;
+  records: KintoneRecord[];
+};
+
+type ShowEventForCalendarView = {
+  appId: number;
+  viewId: number;
+  viewName: string;
+  viewType: "calendar";
+  offset: null;
+  size: null;
+  date: `${number}-${string}`;
+  records: { [date in `${number}-${string}-${string}`]: KintoneRecord[] };
+};
+type ShowEventForCustomView = {
+  appId: number;
+  viewId: number;
+  viewName: string;
+  viewType: "custom";
+  offset: number;
+  size: number;
+  date: null;
+  records: KintoneRecord[];
+};
+
+type ShowEvent =
+  | ShowEventForListView
+  | ShowEventForCalendarView
+  | ShowEventForCustomView;
 
 type EditShowEvent = {
   appId: number;
