@@ -206,45 +206,161 @@ declare global {
   }
 
   namespace kintone.app {
-    function getQueryCondition(): string | null;
-    function getQuery(): string | null;
+    /**
+     * @see [Get App ID](https://kintone.dev/en/docs/kintone/js-api/get-data/get-app-id/#get-app-id) (Kintone Developer Program)
+     */
     function getId(): number | null;
+
+    /**
+     * @see [Get Record List Query (with order by, limit, offset)](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record-list/#get-record-list-query-with-order-by-limit-offset) (Kintone Developer Program)
+     */
+    function getQuery(): string | null;
+
+    /**
+     * @see [Get Record List Query](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record-list/#get-record-list-query) (Kintone Developer Program)
+     */
+    function getQueryCondition(): string | null;
+
+    /**
+     * @see [Get Lookup Target](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#get-lookup-target) (Kintone Developer Program)
+     */
     function getLookupTargetAppId(fieldCode: string): number | null;
+
+    /**
+     * @see [Get Related Records Target](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#get-related-records-target) (Kintone Developer Program)
+     */
     function getRelatedRecordsTargetAppId(fieldCode: string): number | null;
-    function getFieldElements(fieldCode: string): HTMLElement[] | null;
+
+    /**
+     * @see [Get Record List Header Menu Element](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record-list/#get-record-list-header-menu-element) (Kintone Developer Program)
+     */
     function getHeaderMenuSpaceElement(): HTMLElement | null;
+
+    /**
+     * @see [Get Record List Header Element](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record-list/#get-record-list-header-element) (Kintone Developer Program)
+     */
     function getHeaderSpaceElement(): HTMLElement | null;
+
+    /**
+     * @see [Get Record List Field Elements](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record-list/#get-record-list-field-elements) (Kintone Developer Program)
+     */
+    function getFieldElements(fieldCode: string): HTMLElement[] | null;
   }
 
   namespace kintone.mobile.app {
-    function getQueryCondition(): string | null;
-    function getQuery(): string | null;
+    /**
+     * @see [Get App ID](https://kintone.dev/en/docs/kintone/js-api/get-data/get-app-id/#get-app-id) (Kintone Developer Program)
+     */
     function getId(): number | null;
+
+    /**
+     * @see [Get Record List Query (with order by, limit, offset)](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record-list/#get-record-list-query-with-order-by-limit-offset) (Kintone Developer Program)
+     */
+    function getQuery(): string | null;
+
+    /**
+     * @see [Get Record List Query](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record-list/#get-record-list-query) (Kintone Developer Program)
+     */
+    function getQueryCondition(): string | null;
+
+    /**
+     * @see [Get Lookup Target](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#get-lookup-target) (Kintone Developer Program)
+     */
     function getLookupTargetAppId(fieldCode: string): number | null;
+
+    /**
+     * @see [Get Related Records Target](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#get-related-records-target) (Kintone Developer Program)
+     */
     function getRelatedRecordsTargetAppId(fieldCode: string): number | null;
-    function getFieldElements(fieldCode: string): HTMLElement[] | null;
+
+    /**
+     * @see [Get Mobile Header Element](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#get-mobile-header-element) (Kintone Developer Program)
+     */
     function getHeaderSpaceElement(): HTMLElement | null;
+
+    /**
+     * @see [Get Record List Field Elements](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record-list/#get-record-list-field-elements) (Kintone Developer Program)
+     */
+    function getFieldElements(fieldCode: string): HTMLElement[] | null;
   }
 
   namespace kintone.app.record {
+    /**
+     * @see [Get Record ID](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#get-record-id) (Kintone Developer Program)
+     */
     function getId(): number | null;
+
+    /**
+     * @see [Get Record Details](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#get-record-details) (Kintone Developer Program)
+     */
     function get(): KintoneRecord | null;
+
+    /**
+     * @see [Set Record Value](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#set-record-value) (Kintone Developer Program)
+     */
     function set(recordObject: { record: KintoneRecordForSet }): void;
-    function setFieldShown(fieldCode: string, isShown: boolean): void;
-    function setGroupFieldOpen(fieldCode: string, isOpen: boolean): void;
-    function getFieldElement(fieldCode: string): HTMLElement | null;
+
+    /**
+     * @see [Get Record Header Menu Element](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#get-record-header-menu-element) (Kintone Developer Program)
+     */
     function getHeaderMenuSpaceElement(): HTMLElement | null;
+
+    /**
+     * @see [Get Record Field Element](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#get-record-field-element) (Kintone Developer Program)
+     */
+    function getFieldElement(fieldCode: string): HTMLElement | null;
+
+    /**
+     * @see [Get Space Element](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#get-space-element) (Kintone Developer Program)
+     */
     function getSpaceElement(id: string): HTMLElement | null;
+
+    /**
+     * @see [Show or hide a field](https://kintone.dev/en/docs/kintone/js-api/other/show-or-hide-a-field/#show-or-hide-a-field) (Kintone Developer Program)
+     */
+    function setFieldShown(fieldCode: string, isShown: boolean): void;
+
+    /**
+     * @see [Open Field Group](https://kintone.dev/en/docs/kintone/js-api/other/open-field-group/#open-field-group) (Kintone Developer Program)
+     */
+    function setGroupFieldOpen(fieldCode: string, isOpen: boolean): void;
   }
 
   namespace kintone.mobile.app.record {
+    /**
+     * @see [Get Record ID](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#get-record-id) (Kintone Developer Program)
+     */
     function getId(): number | null;
+
+    /**
+     * @see [Get Record Details](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#get-record-details) (Kintone Developer Program)
+     */
     function get(): KintoneRecord | null;
+
+    /**
+     * @see [Set Record Value](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#set-record-value) (Kintone Developer Program)
+     */
     function set(recordObject: { record: KintoneRecordForSet }): void;
-    function setFieldShown(fieldCode: string, isShown: boolean): void;
-    function setGroupFieldOpen(fieldCode: string, isOpen: boolean): void;
+
+    /**
+     * @see [Get Record Field Element](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#get-record-field-element) (Kintone Developer Program)
+     */
     function getFieldElement(fieldCode: string): HTMLElement | null;
+
+    /**
+     * @see [Get Space Element](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#get-space-element) (Kintone Developer Program)
+     */
     function getSpaceElement(id: string): HTMLElement | null;
+
+    /**
+     * @see [Show or hide a field](https://kintone.dev/en/docs/kintone/js-api/other/show-or-hide-a-field/#show-or-hide-a-field) (Kintone Developer Program)
+     */
+    function setFieldShown(fieldCode: string, isShown: boolean): void;
+
+    /**
+     * @see [Open Field Group](https://kintone.dev/en/docs/kintone/js-api/other/open-field-group/#open-field-group) (Kintone Developer Program)
+     */
+    function setGroupFieldOpen(fieldCode: string, isOpen: boolean): void;
   }
 
   namespace kintone.plugin.app {
