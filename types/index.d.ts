@@ -1,10 +1,11 @@
-import { KintoneRecord, KintoneRecordForSet } from "./page";
 import {
-  ChangedField,
-  ChangedRow,
-  ChangedSubtable,
+  KintoneRecord,
   KintoneRecordOnCreatePage,
-} from "./page/record";
+  KintoneRecordForSet,
+  ChangedField,
+  ChangedSubtable,
+  ChangedRow,
+} from "./page";
 import {
   EnableMethods,
   Endpoints,
