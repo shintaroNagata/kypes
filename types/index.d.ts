@@ -422,7 +422,10 @@ declare global {
   }
 
   namespace kintone.events {
-    type AppRecordIndexShowEventForListView = {
+    /**
+     * @see [Record List Events > Onload Event (desktop)](https://kintone.dev/en/docs/kintone/js-api/events/record-list-event/#onload-event-desktop) (Kintone Developer Program)
+     */
+    interface AppRecordIndexShowEventForListView {
       type: "app.record.index.show";
       appId: number;
       viewId: number;
@@ -432,9 +435,12 @@ declare global {
       size: number;
       date: null;
       records: KintoneRecord[];
-    };
+    }
 
-    type AppRecordIndexShowEventForCalendarView = {
+    /**
+     * @see [Record List Events > Onload Event (desktop)](https://kintone.dev/en/docs/kintone/js-api/events/record-list-event/#onload-event-desktop) (Kintone Developer Program)
+     */
+    interface AppRecordIndexShowEventForCalendarView {
       type: "app.record.index.show";
       appId: number;
       viewId: number;
@@ -444,9 +450,12 @@ declare global {
       size: null;
       date: `${number}-${string}`;
       records: { [date in `${number}-${string}-${string}`]: KintoneRecord[] };
-    };
+    }
 
-    type AppRecordIndexShowEventForCustomView = {
+    /**
+     * @see [Record List Events > Onload Event (desktop)](https://kintone.dev/en/docs/kintone/js-api/events/record-list-event/#onload-event-desktop) (Kintone Developer Program)
+     */
+    interface AppRecordIndexShowEventForCustomView {
       type: "app.record.index.show";
       appId: number;
       viewId: number;
@@ -456,21 +465,30 @@ declare global {
       size: number;
       date: null;
       records: KintoneRecord[];
-    };
+    }
 
+    /**
+     * @see [Record List Events > Onload Event (desktop)](https://kintone.dev/en/docs/kintone/js-api/events/record-list-event/#onload-event-desktop) (Kintone Developer Program)
+     */
     type AppRecordIndexShowEvent =
       | AppRecordIndexShowEventForListView
       | AppRecordIndexShowEventForCalendarView
       | AppRecordIndexShowEventForCustomView;
 
-    type AppRecordIndexEditShowEvent = {
+    /**
+     * @see [Record List Events > Inline Edit Event](https://kintone.dev/en/docs/kintone/js-api/events/record-list-event/#inline-edit-event) (Kintone Developer Program)
+     */
+    interface AppRecordIndexEditShowEvent {
       type: "app.record.index.edit.show";
       appId: number;
       recordId: string;
       record: KintoneRecord;
-    };
+    }
 
-    type AppRecordIndexEditChangeEvent = {
+    /**
+     * @see [Record List Events > Field Change Event](https://kintone.dev/en/docs/kintone/js-api/events/record-list-event/#field-change-event) (Kintone Developer Program)
+     */
+    interface AppRecordIndexEditChangeEvent {
       type: `app.record.index.edit.change.${string}`;
       appId: string;
       recordId: string;
@@ -478,87 +496,124 @@ declare global {
       changes: {
         field: ChangedField;
       };
-    };
+    }
 
-    type AppRecordIndexEditSubmitEvent = {
+    /**
+     * @see [Record List Events > Save Submit Event](https://kintone.dev/en/docs/kintone/js-api/events/record-list-event/#save-submit-event) (Kintone Developer Program)
+     */
+    interface AppRecordIndexEditSubmitEvent {
       type: "app.record.index.edit.submit";
       appId: string;
       recordId: string;
       record: KintoneRecord;
-    };
+    }
 
-    type AppRecordIndexEditSubmitSuccessEvent = {
+    /**
+     * @see [Save Submit Success Event](https://kintone.dev/en/docs/kintone/js-api/events/record-list-event/#save-submit-success-event) (Kintone Developer Program)
+     */
+    interface AppRecordIndexEditSubmitSuccessEvent {
       type: "app.record.index.edit.submit.success";
       appId: number;
       recordId: string;
       record: KintoneRecord;
-    };
+    }
 
-    type AppRecordIndexDeleteSubmitEvent = {
+    /**
+     * @see [Delete Submit Event](https://kintone.dev/en/docs/kintone/js-api/events/record-list-event/#delete-submit-event) (Kintone Developer Program)
+     */
+    interface AppRecordIndexDeleteSubmitEvent {
       type: "app.record.index.delete.submit";
       appId: number;
       recordId: number;
       record: KintoneRecord;
-    };
+    }
 
-    type AppRecordDetailShowEvent = {
+    /**
+     * @see [Record Details Events > Onload Event (desktop)](https://kintone.dev/en/docs/kintone/js-api/events/record-details-event/#onload-event-desktop) (Kintone Developer Program)
+     */
+    interface AppRecordDetailShowEvent {
       type: "app.record.detail.show";
       appId: number;
       recordId: number;
       record: KintoneRecord;
-    };
+    }
 
-    type AppRecordDetailDeleteSubmitEvent = {
+    /**
+     * @see [Record Details Events > Delete Submit Event](https://kintone.dev/en/docs/kintone/js-api/events/record-details-event/#delete-submit-event) (Kintone Developer Program)
+     */
+    interface AppRecordDetailDeleteSubmitEvent {
       type: "app.record.detail.delete.submit";
       appId: number;
       recordId: number;
       record: KintoneRecord;
-    };
+    }
 
-    type AppRecordDetailProcessProceedEvent = {
+    /**
+     * @see [Proceed Process Event](https://kintone.dev/en/docs/kintone/js-api/events/record-details-event/#proceed-process-event) (Kintone Developer Program)
+     */
+    interface AppRecordDetailProcessProceedEvent {
       type: "app.record.detail.process.proceed";
       action: { value: string };
       status: { value: string };
       nextStatus: { value: string };
       record: KintoneRecord;
-    };
+    }
 
-    type AppRecordCreateShowEvent = {
+    /**
+     * @see [Record Create Events > Onload Event (desktop)](https://kintone.dev/en/docs/kintone/js-api/events/record-create-event/#onload-event-desktop) (Kintone Developer Program)
+     */
+    interface AppRecordCreateShowEvent {
       type: "app.record.create.show";
       appId: number;
       reuse: boolean;
       record: KintoneRecordOnCreatePage;
-    };
+    }
 
-    type AppRecordCreateChangeEvent = {
+    /**
+     * @see [Record Create Events > Field Change Event](https://kintone.dev/en/docs/kintone/js-api/events/record-create-event/#field-change-event) (Kintone Developer Program)
+     */
+    interface AppRecordCreateChangeEvent {
       type: `app.record.create.change.${string}`;
       appId: number;
       record: KintoneRecordOnCreatePage;
       changes:
         | { field: ChangedField; row: null }
         | { field: ChangedSubtable; row: ChangedRow | null };
-    };
+    }
 
-    type AppRecordCreateSubmitEvent = {
+    /**
+     * @see [Record Create Events > Save Submit Event](https://kintone.dev/en/docs/kintone/js-api/events/record-create-event/#save-submit-event) (Kintone Developer Program)
+     */
+    interface AppRecordCreateSubmitEvent {
       type: "app.record.create.submit";
       appId: number;
       record: KintoneRecordOnCreatePage;
-    };
-    type AppRecordCreateSubmitSuccessEvent = {
+    }
+
+    /**
+     * @see [Record Create Events > Save Submit Success Event](https://kintone.dev/en/docs/kintone/js-api/events/record-create-event/#save-submit-success-event) (Kintone Developer Program)
+     */
+    interface AppRecordCreateSubmitSuccessEvent {
       type: "app.record.create.submit.success";
       appId: number;
       recordId: string;
       record: KintoneRecordOnCreatePage;
-    };
+    }
 
-    type AppRecordEditShowEvent = {
+    /**
+     * @see [Record Edit Events > Onload Event (desktop)](https://kintone.dev/en/docs/kintone/js-api/events/record-edit-event/#onload-event-desktop) (Kintone Developer Program)
+     */
+    interface AppRecordEditShowEvent {
       type: "app.record.edit.show";
       appId: number;
       recordId: number;
       record: KintoneRecord;
-    };
+    }
 
-    type AppRecordEditChangeEvent = {
+    /**
+     * @see [Record Edit Events > Field Change Event](https://kintone.dev/en/docs/kintone/js-api/events/record-edit-event/#field-change-event) (Kintone Developer Program)
+     */
+    interface AppRecordEditChangeEvent {
       type: `app.record.edit.change.${string}`;
       appId: number;
       recordId: number;
@@ -566,36 +621,65 @@ declare global {
       changes:
         | { field: ChangedField; row: null }
         | { field: ChangedSubtable; row: ChangedRow | null };
-    };
+    }
 
-    type AppRecordEditSubmitEvent = {
+    /**
+     * @see [Record Edit Events > Save Submit Event](https://kintone.dev/en/docs/kintone/js-api/events/record-edit-event/#save-submit-event) (Kintone Developer Program)
+     */
+    interface AppRecordEditSubmitEvent {
       type: "app.record.edit.submit";
       appId: number;
       recordId: number;
       record: KintoneRecord;
-    };
+    }
 
-    type AppRecordEditSubmitSuccessEvent = {
+    /**
+     * @see [Record Edit Events > Save Submit Success Event](https://kintone.dev/en/docs/kintone/js-api/events/record-create-event/#save-submit-success-event) (Kintone Developer Program)
+     */
+    interface AppRecordEditSubmitSuccessEvent {
       type: "app.record.edit.submit.success";
       appId: number;
       recordId: string;
       record: KintoneRecord;
-    };
+    }
 
-    type AppRecordPrintShowEvent = {
+    /**
+     * @see [Record Print Events > Onload Event (desktop)](https://kintone.dev/en/docs/kintone/js-api/events/record-print-event/#onload-event-desktop) (Kintone Developer Program)
+     */
+    interface AppRecordPrintShowEvent {
       type: "app.record.print.show";
       appId: number;
       recordId: number;
       record: KintoneRecord;
-    };
+    }
 
-    type AppReportShowEvent = { type: "app.report.show"; appId: number };
+    /**
+     * @see [Graph Display Events > Onload Event](https://kintone.dev/en/docs/kintone/js-api/events/graph-display-event/#onload-event) (Kintone Developer Program)
+     */
+    interface AppReportShowEvent {
+      type: "app.report.show";
+      appId: number;
+    }
 
-    type PortalShowEvent = { type: "portal.show" };
+    /**
+     * @see [Portal Display Events > Onload Event (desktop)](https://kintone.dev/en/docs/kintone/js-api/events/portal-display-event/#onload-event-desktop) (Kintone Developer Program)
+     */
+    interface PortalShowEvent {
+      type: "portal.show";
+    }
 
-    type SpacePortalShowEvent = { type: "space.portal.show"; spaceId: string };
+    /**
+     * @see [Space Display Events > Desktop Onload Event](https://kintone.dev/en/docs/kintone/js-api/events/space-display-event/#onload-event-desktop) (Kintone Developer Program)
+     */
+    interface SpacePortalShowEvent {
+      type: "space.portal.show";
+      spaceId: string;
+    }
 
-    type MobileAppRecordIndexShowEventListView = {
+    /**
+     * @see [Record List Events > Onload Event (mobile)](https://kintone.dev/en/docs/kintone/js-api/events/record-list-event/#onload-event-mobile) (Kintone Developer Program)
+     */
+    interface MobileAppRecordIndexShowEventListView {
       type: "mobile.app.record.index.show";
       appId: number;
       viewId: number;
@@ -605,8 +689,12 @@ declare global {
       size: number;
       date: null;
       records: KintoneRecord[];
-    };
-    type MobileAppRecordIndexShowEventCalendarView = {
+    }
+
+    /**
+     * @see [Record List Events > Onload Event (mobile)](https://kintone.dev/en/docs/kintone/js-api/events/record-list-event/#onload-event-mobile) (Kintone Developer Program)
+     */
+    interface MobileAppRecordIndexShowEventCalendarView {
       type: "mobile.app.record.index.show";
       appId: number;
       viewId: number;
@@ -616,8 +704,12 @@ declare global {
       size: null;
       date: `${number}-${string}`;
       records: { [date in `${number}-${string}-${string}`]: KintoneRecord[] };
-    };
-    type MobileAppRecordIndexShowEventCustomView = {
+    }
+
+    /**
+     * @see [Record List Events > Onload Event (mobile)](https://kintone.dev/en/docs/kintone/js-api/events/record-list-event/#onload-event-mobile) (Kintone Developer Program)
+     */
+    interface MobileAppRecordIndexShowEventCustomView {
       type: "mobile.app.record.index.show";
       appId: number;
       viewId: number;
@@ -627,72 +719,102 @@ declare global {
       size: number;
       date: null;
       records: KintoneRecord[];
-    };
+    }
 
+    /**
+     * @see [Record List Events > Onload Event (mobile)](https://kintone.dev/en/docs/kintone/js-api/events/record-list-event/#onload-event-mobile) (Kintone Developer Program)
+     */
     type MobileAppRecordIndexShowEvent =
       | MobileAppRecordIndexShowEventListView
       | MobileAppRecordIndexShowEventCalendarView
       | MobileAppRecordIndexShowEventCustomView;
 
-    type MobileAppRecordDetailShowEvent = {
+    /**
+     * @see [Record Details Events > Onload Event (mobile)](https://kintone.dev/en/docs/kintone/js-api/events/record-details-event/#onload-event-mobile) (Kintone Developer Program)
+     */
+    interface MobileAppRecordDetailShowEvent {
       type: "mobile.app.record.detail.show";
       appId: number;
       recordId: number;
       record: KintoneRecord;
-    };
+    }
 
-    type MobileAppRecordDetailDeleteSubmitEvent = {
+    /**
+     * @see [Record Details Events > Delete Submit Event](https://kintone.dev/en/docs/kintone/js-api/events/record-details-event/#delete-submit-event) (Kintone Developer Program)
+     */
+    interface MobileAppRecordDetailDeleteSubmitEvent {
       type: "mobile.app.record.detail.delete.submit";
       appId: number;
       recordId: number;
       record: KintoneRecord;
-    };
+    }
 
-    type MobileAppRecordDetailProcessProceedEvent = {
+    /**
+     * @see [Record Details Events > Proceed Process Event](https://kintone.dev/en/docs/kintone/js-api/events/record-details-event/#proceed-process-event) (Kintone Developer Program)
+     */
+    interface MobileAppRecordDetailProcessProceedEvent {
       type: "mobile.app.record.detail.process.proceed";
       action: { value: string };
       status: { value: string };
       nextStatus: { value: string };
       record: KintoneRecord;
-    };
+    }
 
-    type MobileAppRecordCreateShowEvent = {
+    /**
+     * @see [Record Create Events > Onload Event (mobile)](https://kintone.dev/en/docs/kintone/js-api/events/record-create-event/#onload-event-mobile) (Kintone Developer Program)
+     */
+    interface MobileAppRecordCreateShowEvent {
       type: "mobile.app.record.create.show";
       appId: number;
       reuse: boolean;
       record: KintoneRecordOnCreatePage;
-    };
+    }
 
-    type MobileAppRecordCreateChangeEvent = {
+    /**
+     * @see [Record Create Events > Field Change Event](https://kintone.dev/en/docs/kintone/js-api/events/record-create-event/#field-change-event) (Kintone Developer Program)
+     */
+    interface MobileAppRecordCreateChangeEvent {
       type: `mobile.app.record.create.change.${string}`;
       appId: number;
       record: KintoneRecordOnCreatePage;
       changes:
         | { field: ChangedField; row: null }
         | { field: ChangedSubtable; row: ChangedRow | null };
-    };
+    }
 
-    type MobileAppRecordCreateSubmitEvent = {
+    /**
+     * @see [Record Create Events > Save Submit Event](https://kintone.dev/en/docs/kintone/js-api/events/record-create-event/#save-submit-event) (Kintone Developer Program)
+     */
+    interface MobileAppRecordCreateSubmitEvent {
       type: "mobile.app.record.create.submit";
       appId: number;
       record: KintoneRecordOnCreatePage;
-    };
+    }
 
-    type MobileAppRecordCreateSubmitSuccessEvent = {
+    /**
+     * @see [Record Create Events > Save Submit Success Event](https://kintone.dev/en/docs/kintone/js-api/events/record-create-event/#save-submit-success-event) (Kintone Developer Program)
+     */
+    interface MobileAppRecordCreateSubmitSuccessEvent {
       type: "mobile.app.record.create.submit.success";
       appId: number;
       recordId: string;
       record: KintoneRecordOnCreatePage;
-    };
+    }
 
-    type MobileAppRecordEditShowEvent = {
+    /**
+     * @see [Record Edit Events > Onload Event (mobile)](https://kintone.dev/en/docs/kintone/js-api/events/record-edit-event/#onload-event-mobile) (Kintone Developer Program)
+     */
+    interface MobileAppRecordEditShowEvent {
       type: "mobile.app.record.edit.show";
       appId: number;
       recordId: number;
       record: KintoneRecord;
-    };
+    }
 
-    type MobileAppRecordEditChangeEvent = {
+    /**
+     * @see [Record Edit Events > Field Change Event](https://kintone.dev/en/docs/kintone/js-api/events/record-edit-event/#field-change-event) (Kintone Developer Program)
+     */
+    interface MobileAppRecordEditChangeEvent {
       type: `mobile.app.record.edit.change.${string}`;
       appId: number;
       recordId: number;
@@ -700,33 +822,50 @@ declare global {
       changes:
         | { field: ChangedField; row: null }
         | { field: ChangedSubtable; row: ChangedRow | null };
-    };
+    }
 
-    type MobileAppRecordEditSubmitEvent = {
+    /**
+     * @see [Record Edit Events > Save Submit Event](https://kintone.dev/en/docs/kintone/js-api/events/record-edit-event/#save-submit-event) (Kintone Developer Program)
+     */
+    interface MobileAppRecordEditSubmitEvent {
       type: "mobile.app.record.edit.submit";
       appId: number;
       recordId: number;
       record: KintoneRecord;
-    };
+    }
 
-    type MobileAppRecordEditSubmitSuccessEvent = {
+    /**
+     * @see [Record Edit Events > Save Submit Success Event](https://kintone.dev/en/docs/kintone/js-api/events/record-create-event/#save-submit-success-event) (Kintone Developer Program)
+     */
+    interface MobileAppRecordEditSubmitSuccessEvent {
       type: "mobile.app.record.edit.submit.success";
       appId: number;
       recordId: string;
       record: KintoneRecord;
-    };
+    }
 
-    type MobileAppReportShowEvent = {
+    /**
+     * @see [Graph Display Events > Onload Event](https://kintone.dev/en/docs/kintone/js-api/events/graph-display-event/#onload-event) (Kintone Developer Program)
+     */
+    interface MobileAppReportShowEvent {
       type: "mobile.app.report.show";
       appId: number;
-    };
+    }
 
-    type MobilePortalShowEvent = { type: "mobile.portal.show" };
+    /**
+     * @see [Portal Display Events > Onload Event (mobile)](https://kintone.dev/en/docs/kintone/js-api/events/portal-display-event/#onload-event-mobile) (Kintone Developer Program)
+     */
+    interface MobilePortalShowEvent {
+      type: "mobile.portal.show";
+    }
 
-    type MobileSpacePortalShowEvent = {
+    /**
+     * @see [Space Display Events > Mobile Onload Event](https://kintone.dev/en/docs/kintone/js-api/events/space-display-event/#onload-event-mobile) (Kintone Developer Program)
+     */
+    interface MobileSpacePortalShowEvent {
       type: "mobile.space.portal.show";
       spaceId: string;
-    };
+    }
 
     type KintoneEventMap = {
       "app.record.index.show": AppRecordIndexShowEvent;
