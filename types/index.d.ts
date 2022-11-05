@@ -384,8 +384,6 @@ declare global {
      * @see [Get Concurrency Limit](https://kintone.dev/en/docs/kintone/js-api/get-data/get-concurrency-limit/#get-concurrency-limit) (Kintone Developer Program)
      */
     function getConcurrencyLimit(): Promise<{ limit: number; running: number }>;
-
-    export { url, urlForGet, getConcurrencyLimit, Request, Response };
   }
 
   namespace kintone.proxy {
