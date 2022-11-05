@@ -1,46 +1,20 @@
 # kypes
 
-Improve Kintone customization developer's experience by provide type definitions for `kintone`!
+Type definitions for the `kintone` namespace
 
-## Setup
-
-Note: This package has not been published to `npm` yet. To try this package, you need to use `npm link`.
-
-1. clone this project, and execute `npm link`.
+## Install
 
 ```sh
-$ cd path/to/your/workspace
-$ git clone https://github.com/shintaroNagata/kypes.git
-$ cd kypes
-$ npm ci
-$ npm run build
-$ npm link
+% npm install --save-dev @shin-chan/kypes
 ```
 
-2. make a local project, and execute `npm link kypes`.
-
-```sh
-$ cd ../
-$ mkdir sample-local-project
-$ cd sample-local-project
-$ npm init -y
-$ npm link kypes
-```
-
-3. setup TypeScript.
-
-```sh
-$ npm install --save-dev typescript
-$ npx tsc --init
-```
-
-4. create a Typescript file, and import this package.
+## Usage
 
 ```ts
 // index.ts
-import "kypes";
+import "@shin-chan/kypes";
 
-// write your customization codes!
+// Write your customization codes by TypeScript!
 ```
 
 ## Disclaimer
