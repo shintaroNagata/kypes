@@ -1,6 +1,6 @@
 type AppNotificationsGeneralSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string | number;
     };
     response: {
@@ -23,7 +23,7 @@ type AppNotificationsGeneralSchema = {
 };
 type PreviewAppNotificationsGeneralSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string | number;
     };
     response: {
@@ -44,7 +44,7 @@ type PreviewAppNotificationsGeneralSchema = {
     };
   };
   PUT: {
-    parameters: {
+    request: {
       app: string;
       notifications?: Array<{
         entity: {
@@ -66,7 +66,7 @@ type PreviewAppNotificationsGeneralSchema = {
 };
 type AppNotificationsPerRecordSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
@@ -88,7 +88,7 @@ type AppNotificationsPerRecordSchema = {
 };
 type PreviewAppNotificationsPerRecordSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
@@ -108,7 +108,7 @@ type PreviewAppNotificationsPerRecordSchema = {
     };
   };
   PUT: {
-    parameters: {
+    request: {
       app: string | number;
       notifications: Array<{
         filterCond?: string;
@@ -128,7 +128,7 @@ type PreviewAppNotificationsPerRecordSchema = {
 };
 type AppNotificationsReminderSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
@@ -162,7 +162,7 @@ type AppNotificationsReminderSchema = {
 };
 type PreviewAppNotificationsReminderSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
@@ -194,7 +194,7 @@ type PreviewAppNotificationsReminderSchema = {
     };
   };
   PUT: {
-    parameters: {
+    request: {
       app: string | number;
       notifications?: Array<{
         timing:

@@ -1,6 +1,6 @@
 type AppReportsSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
@@ -90,7 +90,7 @@ type AppReportsSchema = {
 };
 type PreviewAppReportsSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
@@ -178,7 +178,7 @@ type PreviewAppReportsSchema = {
     };
   };
   PUT: {
-    parameters: {
+    request: {
       app: string | number;
       reports: {
         [reportName: string]: (

@@ -8,7 +8,7 @@ import {
 import {
   EnableMethods,
   Endpoints,
-  Parameters,
+  Request,
   PathFor,
   Response,
   UrlFor,
@@ -56,7 +56,7 @@ declare global {
     >(
       pathOrUrl: PathFor<Endpoint> | UrlFor<Endpoint>,
       method: Method,
-      params: Parameters<Endpoint, Method>
+      params: Request<Endpoint, Method>
     ): Promise<Response<Endpoint, Method>>;
 
     /**
@@ -89,7 +89,7 @@ declare global {
     >(
       pathOrUrl: PathFor<Endpoint> | UrlFor<Endpoint>,
       method: Method,
-      params: Parameters<Endpoint, Method>,
+      params: Request<Endpoint, Method>,
       callback: (response: Response<Endpoint, Method>) => void,
       errback?: (errorResponse: Record<string, unknown> | string) => void
     ): void;
@@ -366,7 +366,7 @@ declare global {
      */
     function urlForGet<Endpoint extends Endpoints>(
       path: PathFor<Endpoint>,
-      params: Parameters<Endpoint, Extract<EnableMethods<Endpoint>, "GET">>,
+      params: Request<Endpoint, Extract<EnableMethods<Endpoint>, "GET">>,
       detectGuestSpace?: boolean
     ): WithQuery<UrlFor<Endpoint>>;
 
@@ -384,7 +384,7 @@ declare global {
      */
     function getConcurrencyLimit(): Promise<{ limit: number; running: number }>;
 
-    export { url, urlForGet, getConcurrencyLimit, Parameters, Response };
+    export { url, urlForGet, getConcurrencyLimit, Request, Response };
   }
 
   namespace kintone.proxy {

@@ -1,6 +1,6 @@
 type AppAclSchema = {
   GET: {
-    parameters: { app: string | number };
+    request: { app: string | number };
     response: {
       rights: Array<
         {
@@ -33,7 +33,7 @@ type AppAclSchema = {
 };
 type PreviewAppAclSchema = {
   GET: {
-    parameters: { app: string | number };
+    request: { app: string | number };
     response: {
       rights: Array<
         {
@@ -64,7 +64,7 @@ type PreviewAppAclSchema = {
     };
   };
   PUT: {
-    parameters: {
+    request: {
       app: string | number;
       revision?: string;
       rights: Array<
@@ -97,7 +97,7 @@ type PreviewAppAclSchema = {
 };
 type RecordAclSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
@@ -121,7 +121,7 @@ type RecordAclSchema = {
 };
 type PreviewRecordAclSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
@@ -143,7 +143,7 @@ type PreviewRecordAclSchema = {
     };
   };
   PUT: {
-    parameters: {
+    request: {
       app: string | number;
       rights: Array<{
         filterCond?: string;
@@ -167,7 +167,7 @@ type PreviewRecordAclSchema = {
 };
 type FieldAclSchema = {
   GET: {
-    parameters: { app: string | number };
+    request: { app: string | number };
     response: {
       rights: Array<{
         code: string;
@@ -186,7 +186,7 @@ type FieldAclSchema = {
 };
 type PreviewFieldAclSchema = {
   GET: {
-    parameters: { app: string | number };
+    request: { app: string | number };
     response: {
       rights: Array<{
         code: string;
@@ -203,7 +203,7 @@ type PreviewFieldAclSchema = {
     };
   };
   PUT: {
-    parameters: {
+    request: {
       app: string | number;
       rights: Array<{
         code: string;
@@ -225,7 +225,7 @@ type PreviewFieldAclSchema = {
 };
 type RecordAclEvaluateSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string | number;
       ids: Array<string | number>;
     };

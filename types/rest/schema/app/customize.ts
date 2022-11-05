@@ -1,6 +1,6 @@
 type AppCustomizeSchema = {
   GET: {
-    parameters: { app: string | number };
+    request: { app: string | number };
     response: {
       scope: "ALL" | "ADMIN" | "NONE";
       desktop: {
@@ -73,7 +73,7 @@ type AppCustomizeSchema = {
 };
 type PreviewAppCustomizeSchema = {
   GET: {
-    parameters: { app: string | number };
+    request: { app: string | number };
     response: {
       scope: "ALL" | "ADMIN" | "NONE";
       desktop: {
@@ -144,7 +144,7 @@ type PreviewAppCustomizeSchema = {
     };
   };
   PUT: {
-    parameters: {
+    request: {
       app: string | number;
       scope?: "ALL" | "ADMIN" | "NONE";
       desktop?: {

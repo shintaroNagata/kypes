@@ -10,7 +10,7 @@ import type { Schema as AclApiSchema } from "./acl";
 
 type AppSchema = {
   GET: {
-    parameters: {
+    request: {
       id: string | number;
     };
     response: {
@@ -35,7 +35,7 @@ type AppSchema = {
 };
 type AppsSchema = {
   GET: {
-    parameters: {
+    request: {
       ids?: Array<string | number>;
       codes?: string[];
       name?: string;
@@ -67,7 +67,7 @@ type AppsSchema = {
 };
 type PreviewAppSchema = {
   POST: {
-    parameters:
+    request:
       | { name: string }
       | { name: string; space: string | number; thread: string | number };
     response: { app: string; revision: string };
@@ -75,7 +75,7 @@ type PreviewAppSchema = {
 };
 type PreviewAppDeploySchema = {
   GET: {
-    parameters: { apps: Array<string | number> };
+    request: { apps: Array<string | number> };
     response: {
       apps: Array<{
         app: string;
@@ -84,7 +84,7 @@ type PreviewAppDeploySchema = {
     };
   };
   POST: {
-    parameters: {
+    request: {
       apps: Array<{
         app: string | number;
         revision?: string | number;

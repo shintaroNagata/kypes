@@ -2,13 +2,13 @@ import type { RecordForGet, RecordForPost, RecordForPut } from "./types";
 
 type RecordSchema = {
   GET: {
-    parameters: { app: string | number; id: string | number };
+    request: { app: string | number; id: string | number };
     response: {
       record: RecordForGet;
     };
   };
   POST: {
-    parameters: {
+    request: {
       app: string | number;
       record?: RecordForPost;
     };
@@ -18,7 +18,7 @@ type RecordSchema = {
     };
   };
   PUT: {
-    parameters: {
+    request: {
       app: string | number;
       record?: RecordForPut;
       revision?: string | number;
@@ -35,7 +35,7 @@ type RecordSchema = {
 
 type RecordsSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string | number;
       fields?: string[];
       query?: string;
@@ -47,7 +47,7 @@ type RecordsSchema = {
     };
   };
   POST: {
-    parameters: {
+    request: {
       app: string | number;
       records: RecordForPost[];
     };
@@ -57,7 +57,7 @@ type RecordsSchema = {
     };
   };
   PUT: {
-    parameters: {
+    request: {
       app: string | number;
       records: Array<
         {
@@ -72,7 +72,7 @@ type RecordsSchema = {
     response: { records: Array<{ id: string; revision: string }> };
   };
   DELETE: {
-    parameters: {
+    request: {
       app: string | number;
       ids: Array<string | number>;
       revisions?: Array<string | number>;
@@ -83,14 +83,14 @@ type RecordsSchema = {
 
 type RecordsCursorSchema = {
   GET: {
-    parameters: { id: string };
+    request: { id: string };
     response: {
       records: RecordForGet[];
       next: boolean;
     };
   };
   POST: {
-    parameters: {
+    request: {
       app: string | number;
       fields?: string[];
       query?: string;
@@ -98,12 +98,12 @@ type RecordsCursorSchema = {
     };
     response: { id: string; totalCount: string };
   };
-  DELETE: { parameters: { id: string }; response: Record<string, never> };
+  DELETE: { request: { id: string }; response: Record<string, never> };
 };
 
 type RecordCommentSchema = {
   POST: {
-    parameters: {
+    request: {
       app: string | number;
       record: string | number;
       comment: {
@@ -117,7 +117,7 @@ type RecordCommentSchema = {
     response: { id: string };
   };
   DELETE: {
-    parameters: {
+    request: {
       app: string | number;
       record: string | number;
       comment: string | number;
@@ -127,7 +127,7 @@ type RecordCommentSchema = {
 };
 type RecordCommentsSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string | number;
       record: string | number;
       order?: "asc" | "desc";
@@ -155,7 +155,7 @@ type RecordCommentsSchema = {
 };
 type RecordAssigneesSchema = {
   PUT: {
-    parameters: {
+    request: {
       app: string | number;
       id: string | number;
       assignees: string[];
@@ -166,7 +166,7 @@ type RecordAssigneesSchema = {
 };
 type RecordStatusSchema = {
   PUT: {
-    parameters: {
+    request: {
       action: string;
       app: string | number;
       assignee?: string;
@@ -178,7 +178,7 @@ type RecordStatusSchema = {
 };
 type RecordsStatusSchema = {
   PUT: {
-    parameters: {
+    request: {
       app: string | number;
       records: Array<{
         action: string;

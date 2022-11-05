@@ -1,6 +1,6 @@
 type AppStatusSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
@@ -41,7 +41,7 @@ type AppStatusSchema = {
 };
 type PreviewAppStatusSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
@@ -82,7 +82,7 @@ type PreviewAppStatusSchema = {
     };
   };
   PUT: {
-    parameters: {
+    request: {
       app: string | number;
       enable?: boolean;
       states?: {

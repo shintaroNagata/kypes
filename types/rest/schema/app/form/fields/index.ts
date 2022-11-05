@@ -6,7 +6,7 @@ import type {
 
 type AppFormFieldsSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
@@ -19,7 +19,7 @@ type AppFormFieldsSchema = {
 
 type PreviewAppFormFieldsSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
@@ -29,7 +29,7 @@ type PreviewAppFormFieldsSchema = {
     };
   };
   POST: {
-    parameters: {
+    request: {
       app: string | number;
       properties: PropertiesForPost;
       revision?: string | number;
@@ -37,7 +37,7 @@ type PreviewAppFormFieldsSchema = {
     response: { revision: string };
   };
   PUT: {
-    parameters: {
+    request: {
       app: string | number;
       properties: PropertiesForPut;
       revision?: string | number;
@@ -45,7 +45,7 @@ type PreviewAppFormFieldsSchema = {
     response: { revision: string };
   };
   DELETE: {
-    parameters: {
+    request: {
       app: string | number;
       fields: string[];
       revision?: string | number;

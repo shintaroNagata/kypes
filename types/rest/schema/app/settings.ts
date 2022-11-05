@@ -1,6 +1,6 @@
 type AppSettingsSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
@@ -38,7 +38,7 @@ type AppSettingsSchema = {
 };
 type PreviewAppSettingsSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
@@ -74,7 +74,7 @@ type PreviewAppSettingsSchema = {
     };
   };
   PUT: {
-    parameters: {
+    request: {
       app: string | number;
       name?: string;
       description?: string;

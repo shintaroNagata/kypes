@@ -1,6 +1,6 @@
 type AppActionsSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
@@ -27,7 +27,7 @@ type AppActionsSchema = {
 };
 type PreviewAppActionsSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
@@ -52,7 +52,7 @@ type PreviewAppActionsSchema = {
     };
   };
   PUT: {
-    parameters: {
+    request: {
       app: string | number;
       actions: {
         [actionName: string]: {

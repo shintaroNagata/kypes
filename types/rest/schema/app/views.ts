@@ -1,6 +1,6 @@
 type AppViewsSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
@@ -34,7 +34,7 @@ type AppViewsSchema = {
 };
 type PreviewAppViewsSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
@@ -66,7 +66,7 @@ type PreviewAppViewsSchema = {
     };
   };
   PUT: {
-    parameters: {
+    request: {
       app: string | number;
       views: {
         [viewName: string]: {

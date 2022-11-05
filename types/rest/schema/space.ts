@@ -1,6 +1,6 @@
 type SpaceSchema = {
   GET: {
-    parameters: { id: string | number };
+    request: { id: string | number };
     response: {
       id: string;
       name: string;
@@ -46,11 +46,11 @@ type SpaceSchema = {
       showRelatedLinkList: boolean | null;
     };
   };
-  DELETE: { parameters: { id: string }; response: Record<string, never> };
+  DELETE: { request: { id: string }; response: Record<string, never> };
 };
 type SpaceBodySchema = {
   PUT: {
-    parameters: {
+    request: {
       id: string | number;
       body: string;
     };
@@ -59,7 +59,7 @@ type SpaceBodySchema = {
 };
 type SpaceMembersSchema = {
   GET: {
-    parameters: {
+    request: {
       id: string | number;
     };
     response: {
@@ -91,7 +91,7 @@ type SpaceMembersSchema = {
     };
   };
   PUT: {
-    parameters: {
+    request: {
       id: string | number;
       members: Array<
         | {
@@ -116,13 +116,13 @@ type SpaceMembersSchema = {
 };
 type SpaceThreadSchema = {
   PUT: {
-    parameters: { id: string | number; name?: string; body?: string };
+    request: { id: string | number; name?: string; body?: string };
     response: Record<string, never>;
   };
 };
 type SpaceThreadCommentSchema = {
   POST: {
-    parameters: {
+    request: {
       space: string | number;
       thread: string | number;
       comment: {
@@ -142,7 +142,7 @@ type SpaceThreadCommentSchema = {
 };
 type TemplateSpaceSchema = {
   POST: {
-    parameters: {
+    request: {
       id: string | number;
       name: string;
       members: Array<
@@ -171,7 +171,7 @@ type TemplateSpaceSchema = {
 };
 type GuestsSchema = {
   POST: {
-    parameters: {
+    request: {
       guests: Array<{
         code: string;
         password: string;
@@ -190,7 +190,7 @@ type GuestsSchema = {
     response: Record<string, never>;
   };
   DELETE: {
-    parameters: {
+    request: {
       guests: string[];
     };
     response: Record<string, never>;
@@ -198,7 +198,7 @@ type GuestsSchema = {
 };
 type SpaceGuestsSchema = {
   PUT: {
-    parameters: { id: string | number; guests: string[] };
+    request: { id: string | number; guests: string[] };
     response: Record<string, never>;
   };
 };

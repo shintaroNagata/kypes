@@ -1,5 +1,5 @@
 type ApiSchema = {
-  parameters: Record<string, unknown>;
+  request: Record<string, unknown>;
   response: Record<string, unknown>;
 };
 

@@ -2,7 +2,7 @@ import type { LayoutForGet, LayoutForPut } from "./types";
 
 type AppFormLayoutSchema = {
   GET: {
-    parameters: { app: string | number };
+    request: { app: string | number };
     response: {
       layout: LayoutForGet;
       revision: string;
@@ -12,7 +12,7 @@ type AppFormLayoutSchema = {
 
 type PreviewAppFormLayoutSchema = {
   GET: {
-    parameters: {
+    request: {
       app: string | number;
     };
     response: {
@@ -21,7 +21,7 @@ type PreviewAppFormLayoutSchema = {
     };
   };
   PUT: {
-    parameters: {
+    request: {
       app: string | number;
       layout: LayoutForPut;
       revision?: string | number;

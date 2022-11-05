@@ -24,7 +24,7 @@ type BuildRequest<Endpoint, Method> = Endpoint extends string
     ? {
         method: Method;
         api: `/k/v1/${Endpoint}.json`;
-        payload: FindApi<Endpoint, Method>["parameters"];
+        payload: FindApi<Endpoint, Method>["request"];
       }
     : never
   : never;
@@ -41,7 +41,7 @@ type FailureResult =
 
 type BulkRequestSchema = {
   POST: {
-    parameters: {
+    request: {
       requests: Request[];
     };
     response: { results: SuccessResult[] } | { results: FailureResult[] };
