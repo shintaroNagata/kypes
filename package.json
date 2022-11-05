@@ -11,6 +11,9 @@
   "author": "Shintaro Nagata",
   "repository": "github:shintaroNagata/kypes",
   "homepage": "https://github.com/shintaroNagata/kypes/blob/main/README.md",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "main": "./src/index.js",
   "types": "./types/index.d.ts",
   "scripts": {
