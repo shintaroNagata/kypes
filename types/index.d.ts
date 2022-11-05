@@ -33,7 +33,7 @@ declare global {
     }
 
     /**
-     * @see [Get Logged-in User](https://kintone.dev/en/docs/kintone/js-api/get-data/get-logged-in-user/) (Kintone Developer Program)
+     * @see [Get Logged-in User](https://kintone.dev/en/docs/kintone/js-api/get-data/get-logged-in-user/#get-logged-in-user) (Kintone Developer Program)
      */
     function getLoginUser(): User;
 
@@ -43,7 +43,7 @@ declare global {
     function getRequestToken(): string;
 
     /**
-     * @see [Get Design](https://kintone.dev/en/docs/kintone/js-api/get-data/get-design/) (Kintone Developer Program)
+     * @see [Get Design](https://kintone.dev/en/docs/kintone/js-api/get-data/get-design/#get-design) (Kintone Developer Program)
      */
     function getUiVersion(): 1 | 2;
 
@@ -120,7 +120,7 @@ declare global {
     ): void;
 
     /**
-     * @see [Kintone Proxy](https://kintone.dev/en/docs/kintone/js-api/other/kintone-proxy/) (Kintone Developer Program)
+     * @see [Kintone Proxy](https://kintone.dev/en/docs/kintone/js-api/other/kintone-proxy/#kintone-proxy) (Kintone Developer Program)
      */
     function proxy(
       url: string,
@@ -130,7 +130,7 @@ declare global {
     ): Promise<[string, number, Record<string, string>]>;
 
     /**
-     * @see [Kintone Proxy](https://kintone.dev/en/docs/kintone/js-api/other/kintone-proxy/) (Kintone Developer Program)
+     * @see [Kintone Proxy](https://kintone.dev/en/docs/kintone/js-api/other/kintone-proxy/#kintone-proxy) (Kintone Developer Program)
      */
     function proxy(
       url: string,
@@ -140,7 +140,7 @@ declare global {
     ): Promise<[string, number, Record<string, string>]>;
 
     /**
-     * @see [Kintone Proxy](https://kintone.dev/en/docs/kintone/js-api/other/kintone-proxy/) (Kintone Developer Program)
+     * @see [Kintone Proxy](https://kintone.dev/en/docs/kintone/js-api/other/kintone-proxy/#kintone-proxy) (Kintone Developer Program)
      */
     function proxy(
       url: string,
@@ -156,7 +156,7 @@ declare global {
     ): void;
 
     /**
-     * @see [Kintone Proxy](https://kintone.dev/en/docs/kintone/js-api/other/kintone-proxy/) (Kintone Developer Program)
+     * @see [Kintone Proxy](https://kintone.dev/en/docs/kintone/js-api/other/kintone-proxy/#kintone-proxy) (Kintone Developer Program)
      */
     function proxy(
       url: string,
@@ -178,28 +178,28 @@ declare global {
 
   namespace kintone.portal {
     /**
-     * @see [Get Space Element](https://kintone.dev/en/docs/kintone/js-api/get-data/get-portal/) (Kintone Developer Program)
+     * @see [Get Space Element](https://kintone.dev/en/docs/kintone/js-api/get-data/get-portal/#get-space-element) (Kintone Developer Program)
      */
     function getContentSpaceElement(): HTMLElement | null;
   }
 
   namespace kintone.mobile.portal {
     /**
-     * @see [Get Space Element](https://kintone.dev/en/docs/kintone/js-api/get-data/get-portal/) (Kintone Developer Program)
+     * @see [Get Space Element](https://kintone.dev/en/docs/kintone/js-api/get-data/get-portal/#get-space-element) (Kintone Developer Program)
      */
     function getContentSpaceElement(): HTMLElement | null;
   }
 
   namespace kintone.space.portal {
     /**
-     * @see [Get Space Element](https://kintone.dev/en/docs/kintone/js-api/get-data/get-space/) (Kintone Developer Program)
+     * @see [Get Space Element](https://kintone.dev/en/docs/kintone/js-api/get-data/get-space/#get-space-element) (Kintone Developer Program)
      */
     function getContentSpaceElement(): HTMLElement | null;
   }
 
   namespace kintone.mobile.space.portal {
     /**
-     * @see [Get Space Element](https://kintone.dev/en/docs/kintone/js-api/get-data/get-space/) (Kintone Developer Program)
+     * @see [Get Space Element](https://kintone.dev/en/docs/kintone/js-api/get-data/get-space/#get-space-element) (Kintone Developer Program)
      */
     function getContentSpaceElement(): HTMLElement | null;
   }
@@ -380,7 +380,7 @@ declare global {
     ): string;
 
     /**
-     * @see [Get Concurrency Limit](https://kintone.dev/en/docs/kintone/js-api/get-data/get-concurrency-limit/) (Kintone Developer Program)
+     * @see [Get Concurrency Limit](https://kintone.dev/en/docs/kintone/js-api/get-data/get-concurrency-limit/#get-concurrency-limit) (Kintone Developer Program)
      */
     function getConcurrencyLimit(): Promise<{ limit: number; running: number }>;
 
@@ -389,7 +389,7 @@ declare global {
 
   namespace kintone.proxy {
     /**
-     * @see [Kintone Proxy Upload](https://kintone.dev/en/docs/kintone/js-api/other/kintone-proxy-upload/) (Kintone Developer Program)
+     * @see [Kintone Proxy Upload](https://kintone.dev/en/docs/kintone/js-api/other/kintone-proxy-upload/#kintone-proxy-upload) (Kintone Developer Program)
      */
     function upload(
       url: string,
@@ -402,7 +402,7 @@ declare global {
     ): Promise<[string, number, Record<string, string>]>;
 
     /**
-     * @see [Kintone Proxy Upload](https://kintone.dev/en/docs/kintone/js-api/other/kintone-proxy-upload/) (Kintone Developer Program)
+     * @see [Kintone Proxy Upload](https://kintone.dev/en/docs/kintone/js-api/other/kintone-proxy-upload/#kintone-proxy-upload) (Kintone Developer Program)
      */
     function upload(
       url: string,
