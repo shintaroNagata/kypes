@@ -49,6 +49,7 @@ type Endpoints =
   | "template/space"
   | "guests"
   | "space/guests";
+
 type Methods = "GET" | "PUT" | "POST" | "DELETE";
 type Domains = "cybozu.com" | "kintone.com" | "cybozu.cn";
 
