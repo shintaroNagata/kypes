@@ -127,7 +127,7 @@ declare global {
       url: string,
       method: "GET" | "DELETE",
       headers: Record<string, string>,
-      data: Record<string, never> | string
+      data: Record<string, never> | ""
     ): Promise<[string, number, Record<string, string>]>;
 
     /**
@@ -147,7 +147,7 @@ declare global {
       url: string,
       method: "GET" | "DELETE",
       headers: Record<string, string>,
-      data: Record<string, never> | string,
+      data: Record<string, never> | "",
       callback: (
         responseBody: string,
         statusCode: number,
@@ -383,9 +383,9 @@ declare global {
     function proxy(
       pluginId: string,
       url: string,
-      method: "GET" | "POST" | "PUT" | "DELETE",
+      method: "GET" | "DELETE",
       headers: Record<string, string>,
-      data: Record<string, string> | string
+      data: Record<string, never> | ""
     ): Promise<[string, number, Record<string, string>]>;
 
     /**
@@ -394,9 +394,37 @@ declare global {
     function proxy(
       pluginId: string,
       url: string,
-      method: "GET" | "POST" | "PUT" | "DELETE",
+      method: "POST" | "PUT",
       headers: Record<string, string>,
-      data: Record<string, string> | string,
+      data: Record<string, unknown> | string
+    ): Promise<[string, number, Record<string, string>]>;
+
+    /**
+     * @see [Kintone Plug-in Proxy](https://kintone.dev/en/docs/kintone/js-api/plugin/plug-in-javascript-api/#kintone-plug-in-proxy) (Kintone Developer Program)
+     */
+    function proxy(
+      pluginId: string,
+      url: string,
+      method: "GET" | "DELETE",
+      headers: Record<string, string>,
+      data: Record<string, never> | "",
+      callback: (
+        responseBody: string,
+        statusCode: number,
+        responseHeader: Record<string, string>
+      ) => void,
+      errback?: (errorResponseBody: string) => void
+    ): void;
+
+    /**
+     * @see [Kintone Plug-in Proxy](https://kintone.dev/en/docs/kintone/js-api/plugin/plug-in-javascript-api/#kintone-plug-in-proxy) (Kintone Developer Program)
+     */
+    function proxy(
+      pluginId: string,
+      url: string,
+      method: "POST" | "PUT",
+      headers: Record<string, string>,
+      data: Record<string, unknown> | string,
       callback: (
         responseBody: string,
         statusCode: number,
@@ -412,7 +440,7 @@ declare global {
       url: string,
       method: "GET" | "POST" | "PUT" | "DELETE",
       headers: Record<string, string>,
-      data: Record<string, string>,
+      data: Record<string, unknown>,
       callback?: () => void
     ): void;
 
@@ -424,7 +452,7 @@ declare global {
       method: "GET" | "POST" | "PUT" | "DELETE"
     ): {
       headers: Record<string, string>;
-      data: Record<string, string>;
+      data: Record<string, unknown>;
     };
   }
 
@@ -439,7 +467,7 @@ declare global {
       headers: Record<string, string>,
       data: {
         format: "RAW";
-        value: unknown;
+        value: Blob;
       }
     ): Promise<[string, number, Record<string, string>]>;
 
@@ -453,7 +481,7 @@ declare global {
       headers: Record<string, string>,
       data: {
         format: "RAW";
-        value: unknown;
+        value: Blob;
       },
       successCallback: (
         responseBody: string,
