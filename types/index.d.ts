@@ -177,6 +177,78 @@ declare global {
     const $PLUGIN_ID: string | undefined;
   }
 
+  namespace kintone.api {
+    /**
+     * @see [Get URL](https://kintone.dev/en/docs/kintone/js-api/other/kintone-rest-api-request/#get-url) (Kintone Developer Program)
+     */
+    function url<Endpoint extends Endpoints>(
+      path: PathFor<Endpoint>,
+      detectGuestSpace?: boolean
+    ): UrlFor<Endpoint>;
+
+    /**
+     * @see [Get URL](https://kintone.dev/en/docs/kintone/js-api/other/kintone-rest-api-request/#get-url) (Kintone Developer Program)
+     */
+    function url(path: string, detectGuestSpace?: boolean): string;
+
+    /**
+     * @see [Get URL (including query)](https://kintone.dev/en/docs/kintone/js-api/other/kintone-rest-api-request/#get-url-including-query) (Kintone Developer Program)
+     */
+    function urlForGet<Endpoint extends Endpoints>(
+      path: PathFor<Endpoint>,
+      params: Request<Endpoint, Extract<EnableMethods<Endpoint>, "GET">>,
+      detectGuestSpace?: boolean
+    ): WithQuery<UrlFor<Endpoint>>;
+
+    /**
+     * @see [Get URL (including query)](https://kintone.dev/en/docs/kintone/js-api/other/kintone-rest-api-request/#get-url-including-query) (Kintone Developer Program)
+     */
+    function urlForGet(
+      path: string,
+      params: Record<string, unknown>,
+      detectGuestSpace?: boolean
+    ): string;
+
+    /**
+     * @see [Get Concurrency Limit](https://kintone.dev/en/docs/kintone/js-api/get-data/get-concurrency-limit/#get-concurrency-limit) (Kintone Developer Program)
+     */
+    function getConcurrencyLimit(): Promise<{ limit: number; running: number }>;
+  }
+
+  namespace kintone.proxy {
+    /**
+     * @see [Kintone Proxy Upload](https://kintone.dev/en/docs/kintone/js-api/other/kintone-proxy-upload/#kintone-proxy-upload) (Kintone Developer Program)
+     */
+    function upload(
+      url: string,
+      method: "POST" | "PUT",
+      headers: Record<string, string>,
+      data: {
+        format: "RAW";
+        value: Blob;
+      }
+    ): Promise<[string, number, Record<string, string>]>;
+
+    /**
+     * @see [Kintone Proxy Upload](https://kintone.dev/en/docs/kintone/js-api/other/kintone-proxy-upload/#kintone-proxy-upload) (Kintone Developer Program)
+     */
+    function upload(
+      url: string,
+      method: "POST" | "PUT",
+      headers: Record<string, string>,
+      data: {
+        format: "RAW";
+        value: Blob;
+      },
+      callback: (
+        responseBody: string,
+        statusCode: number,
+        responseHeader: Record<string, string>
+      ) => void,
+      errback?: (errorResponseBody: string) => void
+    ): void;
+  }
+
   namespace kintone.portal {
     /**
      * @see [Get Space Element](https://kintone.dev/en/docs/kintone/js-api/get-data/get-portal/#get-space-element) (Kintone Developer Program)
@@ -489,78 +561,6 @@ declare global {
         responseHeader: Record<string, string>
       ) => void,
       failureCallback?: (errorResponseBody: string) => void
-    ): void;
-  }
-
-  namespace kintone.api {
-    /**
-     * @see [Get URL](https://kintone.dev/en/docs/kintone/js-api/other/kintone-rest-api-request/#get-url) (Kintone Developer Program)
-     */
-    function url<Endpoint extends Endpoints>(
-      path: PathFor<Endpoint>,
-      detectGuestSpace?: boolean
-    ): UrlFor<Endpoint>;
-
-    /**
-     * @see [Get URL](https://kintone.dev/en/docs/kintone/js-api/other/kintone-rest-api-request/#get-url) (Kintone Developer Program)
-     */
-    function url(path: string, detectGuestSpace?: boolean): string;
-
-    /**
-     * @see [Get URL (including query)](https://kintone.dev/en/docs/kintone/js-api/other/kintone-rest-api-request/#get-url-including-query) (Kintone Developer Program)
-     */
-    function urlForGet<Endpoint extends Endpoints>(
-      path: PathFor<Endpoint>,
-      params: Request<Endpoint, Extract<EnableMethods<Endpoint>, "GET">>,
-      detectGuestSpace?: boolean
-    ): WithQuery<UrlFor<Endpoint>>;
-
-    /**
-     * @see [Get URL (including query)](https://kintone.dev/en/docs/kintone/js-api/other/kintone-rest-api-request/#get-url-including-query) (Kintone Developer Program)
-     */
-    function urlForGet(
-      path: string,
-      params: Record<string, unknown>,
-      detectGuestSpace?: boolean
-    ): string;
-
-    /**
-     * @see [Get Concurrency Limit](https://kintone.dev/en/docs/kintone/js-api/get-data/get-concurrency-limit/#get-concurrency-limit) (Kintone Developer Program)
-     */
-    function getConcurrencyLimit(): Promise<{ limit: number; running: number }>;
-  }
-
-  namespace kintone.proxy {
-    /**
-     * @see [Kintone Proxy Upload](https://kintone.dev/en/docs/kintone/js-api/other/kintone-proxy-upload/#kintone-proxy-upload) (Kintone Developer Program)
-     */
-    function upload(
-      url: string,
-      method: "POST" | "PUT",
-      headers: Record<string, string>,
-      data: {
-        format: "RAW";
-        value: Blob;
-      }
-    ): Promise<[string, number, Record<string, string>]>;
-
-    /**
-     * @see [Kintone Proxy Upload](https://kintone.dev/en/docs/kintone/js-api/other/kintone-proxy-upload/#kintone-proxy-upload) (Kintone Developer Program)
-     */
-    function upload(
-      url: string,
-      method: "POST" | "PUT",
-      headers: Record<string, string>,
-      data: {
-        format: "RAW";
-        value: Blob;
-      },
-      callback: (
-        responseBody: string,
-        statusCode: number,
-        responseHeader: Record<string, string>
-      ) => void,
-      errback?: (errorResponseBody: string) => void
     ): void;
   }
 
