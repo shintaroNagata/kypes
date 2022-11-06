@@ -4,8 +4,11 @@ Type definitions for the `kintone` namespace
 
 ## Install
 
-```sh
-% npm install --save-dev @shin-chan/kypes
+> **Note**
+> This package has not been published yet.
+
+```console
+npm install --save-dev @shin-chan/kypes
 ```
 
 ## Usage
