@@ -4,9 +4,6 @@ Type definitions for the `kintone` namespace
 
 ## Install
 
-> **Note**
-> This package has not been published yet.
-
 ```console
 npm install --save-dev @shin-chan/kypes
 ```
