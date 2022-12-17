@@ -1,24 +1,20 @@
 import type { ApiSchema } from "../types";
-import type { RecordForGet, RecordForPost, RecordForPut } from "./field";
-import type {
-  PropertiesForGet,
-  PropertiesForPost,
-  PropertiesForPut,
-} from "./form/property";
-import type { LayoutForGet, LayoutForPut } from "./form/layout";
+import type { KintoneRecord } from "./record";
+import type { KintoneFormProperty } from "./form/properties";
+import type { KintoneFormLayout } from "./form/layout";
 
 // Record
 type RecordJson = {
   GET: {
     request: { app: string | number; id: string | number };
     response: {
-      record: RecordForGet;
+      record: KintoneRecord["get"];
     };
   };
   POST: {
     request: {
       app: string | number;
-      record?: RecordForPost;
+      record?: KintoneRecord["add"];
     };
     response: {
       id: string;
@@ -26,14 +22,19 @@ type RecordJson = {
     };
   };
   PUT: {
-    request: {
-      app: string | number;
-      record?: RecordForPut;
-      revision?: string | number;
-    } & (
-      | { id: string | number }
-      | { updateKey: { field: string; value: string } }
-    );
+    request:
+      | {
+          app: string | number;
+          id: string | number;
+          record?: KintoneRecord["update"];
+          revision?: string | number;
+        }
+      | {
+          app: string | number;
+          updateKey: { field: string; value: string };
+          record?: KintoneRecord["update"];
+          revision?: string | number;
+        };
     response: {
       id: string;
       revision: string;
@@ -50,14 +51,14 @@ type RecordsJson = {
       totalCount?: true;
     };
     response: {
-      records: RecordForGet[];
+      records: Array<KintoneRecord["get"]>;
       totalCount: string | null;
     };
   };
   POST: {
     request: {
       app: string | number;
-      records: RecordForPost[];
+      records: Array<KintoneRecord["add"]>;
     };
     response: {
       ids: string[];
@@ -68,13 +69,16 @@ type RecordsJson = {
     request: {
       app: string | number;
       records: Array<
-        {
-          record?: RecordForPut;
-          revision?: string | number;
-        } & (
-          | { id: string | number }
-          | { updateKey: { field: string; value: string } }
-        )
+        | {
+            id: string | number;
+            record?: KintoneRecord["update"];
+            revision?: string | number;
+          }
+        | {
+            updateKey: { field: string; value: string };
+            record?: KintoneRecord["update"];
+            revision?: string | number;
+          }
       >;
     };
     response: { records: Array<{ id: string; revision: string }> };
@@ -94,7 +98,7 @@ type RecordsCursorJson = {
   GET: {
     request: { id: string };
     response: {
-      records: RecordForGet[];
+      records: Array<KintoneRecord["get"]>;
       next: boolean;
     };
   };
@@ -370,7 +374,7 @@ type AppFormFieldsJson = {
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
     response: {
-      properties: PropertiesForGet;
+      properties: KintoneFormProperty["get"];
       revision: string;
     };
   };
@@ -383,14 +387,14 @@ type PreviewAppFormFieldsJson = {
       lang?: "ja" | "en" | "zh" | "user" | "default";
     };
     response: {
-      properties: PropertiesForGet;
+      properties: KintoneFormProperty["get"];
       revision: string;
     };
   };
   POST: {
     request: {
       app: string | number;
-      properties: PropertiesForPost;
+      properties: KintoneFormProperty["add"];
       revision?: string | number;
     };
     response: { revision: string };
@@ -398,7 +402,7 @@ type PreviewAppFormFieldsJson = {
   PUT: {
     request: {
       app: string | number;
-      properties: PropertiesForPut;
+      properties: KintoneFormProperty["update"];
       revision?: string | number;
     };
     response: { revision: string };
@@ -418,7 +422,7 @@ type AppFormLayoutJson = {
   GET: {
     request: { app: string | number };
     response: {
-      layout: LayoutForGet;
+      layout: KintoneFormLayout["get"];
       revision: string;
     };
   };
@@ -430,14 +434,14 @@ type PreviewAppFormLayoutJson = {
       app: string | number;
     };
     response: {
-      layout: LayoutForGet;
+      layout: KintoneFormLayout["get"];
       revision: string;
     };
   };
   PUT: {
     request: {
       app: string | number;
-      layout: LayoutForPut;
+      layout: KintoneFormLayout["update"];
       revision?: string | number;
     };
     response: { revision: string };

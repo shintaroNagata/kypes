@@ -1,4 +1,6 @@
-type FieldLayout = {
+import { InSubtableFieldType } from "../types";
+
+type FieldLayoutMap = {
   RECORD_NUMBER: {
     get: {
       type: "RECORD_NUMBER";
@@ -193,91 +195,49 @@ type FieldLayout = {
   };
 };
 
-type FieldTypes =
-  | "RECORD_NUMBER"
-  | "CREATED_TIME"
-  | "UPDATED_TIME"
-  | "CREATOR"
-  | "MODIFIER"
-  | "SINGLE_LINE_TEXT"
-  | "LINK"
-  | "MULTI_LINE_TEXT"
-  | "RICH_TEXT"
-  | "NUMBER"
-  | "CALC"
-  | "DATE"
-  | "TIME"
-  | "DATETIME"
-  | "RADIO_BUTTON"
-  | "DROP_DOWN"
-  | "CHECK_BOX"
-  | "MULTI_SELECT"
-  | "USER_SELECT"
-  | "GROUP_SELECT"
-  | "ORGANIZATION_SELECT"
-  | "FILE"
-  | "REFERENCE_TABLE"
-  | "HR"
-  | "SPACER"
-  | "LABEL";
+type AnyFieldType = keyof FieldLayoutMap;
+type AnyFieldLayout = FieldLayoutMap[AnyFieldType];
+type InSubtableFieldLayout = FieldLayoutMap[InSubtableFieldType];
 
-type InSubtableFieldTypes =
-  | "SINGLE_LINE_TEXT"
-  | "LINK"
-  | "MULTI_LINE_TEXT"
-  | "RICH_TEXT"
-  | "NUMBER"
-  | "CALC"
-  | "DATE"
-  | "TIME"
-  | "DATETIME"
-  | "RADIO_BUTTON"
-  | "DROP_DOWN"
-  | "CHECK_BOX"
-  | "MULTI_SELECT"
-  | "USER_SELECT"
-  | "GROUP_SELECT"
-  | "ORGANIZATION_SELECT"
-  | "FILE";
-
-type LayoutForGet = Array<
-  | {
-      type: "ROW";
-      fields: Array<FieldLayout[FieldTypes]["get"]>;
-    }
-  | {
-      type: "SUBTABLE";
-      code: string;
-      fields: Array<FieldLayout[InSubtableFieldTypes]["get"]>;
-    }
-  | {
-      type: "GROUP";
-      code: string;
-      layout: Array<{
+type KintoneFormLayout = {
+  get: Array<
+    | {
         type: "ROW";
-        fields: Array<FieldLayout[FieldTypes]["get"]>;
-      }>;
-    }
->;
-
-type LayoutForPut = Array<
-  | {
-      type: "ROW";
-      fields?: Array<FieldLayout[FieldTypes]["update"]>;
-    }
-  | {
-      type: "SUBTABLE";
-      code: string;
-      fields?: Array<FieldLayout[InSubtableFieldTypes]["update"]>;
-    }
-  | {
-      type: "GROUP";
-      code: string;
-      layout?: Array<{
+        fields: Array<AnyFieldLayout["get"]>;
+      }
+    | {
+        type: "SUBTABLE";
+        code: string;
+        fields: Array<InSubtableFieldLayout["get"]>;
+      }
+    | {
+        type: "GROUP";
+        code: string;
+        layout: Array<{
+          type: "ROW";
+          fields: Array<AnyFieldLayout["get"]>;
+        }>;
+      }
+  >;
+  update: Array<
+    | {
         type: "ROW";
-        fields?: Array<FieldLayout[FieldTypes]["update"]>;
-      }>;
-    }
->;
+        fields?: Array<AnyFieldLayout["update"]>;
+      }
+    | {
+        type: "SUBTABLE";
+        code: string;
+        fields?: Array<InSubtableFieldLayout["update"]>;
+      }
+    | {
+        type: "GROUP";
+        code: string;
+        layout?: Array<{
+          type: "ROW";
+          fields?: Array<AnyFieldLayout["update"]>;
+        }>;
+      }
+  >;
+};
 
-export type { LayoutForGet, LayoutForPut };
+export type { KintoneFormLayout };

@@ -1,4 +1,6 @@
-type FieldProperty = {
+import { InSubtableFieldType } from "../types";
+
+type FieldPropertyMap = {
   RECORD_NUMBER: {
     get: {
       type: "RECORD_NUMBER";
@@ -895,94 +897,49 @@ type FieldProperty = {
   };
 };
 
-type FieldTypes =
-  | "RECORD_NUMBER"
-  | "CREATED_TIME"
-  | "UPDATED_TIME"
-  | "CREATOR"
-  | "MODIFIER"
-  | "CATEGORY"
-  | "STATUS"
-  | "STATUS_ASSIGNEE"
-  | "SINGLE_LINE_TEXT"
-  | "LINK"
-  | "MULTI_LINE_TEXT"
-  | "RICH_TEXT"
-  | "NUMBER"
-  | "CALC"
-  | "DATE"
-  | "TIME"
-  | "DATETIME"
-  | "RADIO_BUTTON"
-  | "DROP_DOWN"
-  | "CHECK_BOX"
-  | "MULTI_SELECT"
-  | "USER_SELECT"
-  | "GROUP_SELECT"
-  | "ORGANIZATION_SELECT"
-  | "FILE"
-  | "REFERENCE_TABLE"
-  | "GROUP";
+type AnyFieldType = keyof FieldPropertyMap;
+type AnyFieldProperty = FieldPropertyMap[AnyFieldType];
+type InSubtableFieldProperty = FieldPropertyMap[InSubtableFieldType];
 
-type InSubtableFieldTypes =
-  | "SINGLE_LINE_TEXT"
-  | "LINK"
-  | "MULTI_LINE_TEXT"
-  | "RICH_TEXT"
-  | "NUMBER"
-  | "CALC"
-  | "DATE"
-  | "TIME"
-  | "DATETIME"
-  | "RADIO_BUTTON"
-  | "DROP_DOWN"
-  | "CHECK_BOX"
-  | "MULTI_SELECT"
-  | "USER_SELECT"
-  | "GROUP_SELECT"
-  | "ORGANIZATION_SELECT"
-  | "FILE";
-
-type PropertiesForGet = {
-  [fieldCode: string]:
-    | FieldProperty[FieldTypes]["get"]
-    | {
-        type: "SUBTABLE";
-        code: string;
-        label: string;
-        noLabel: boolean;
-        fields: {
-          [fieldCode: string]: FieldProperty[InSubtableFieldTypes]["get"];
+type KintoneFormProperty = {
+  get: {
+    [fieldCode: string]:
+      | AnyFieldProperty["get"]
+      | {
+          type: "SUBTABLE";
+          code: string;
+          label: string;
+          noLabel: boolean;
+          fields: {
+            [fieldCode: string]: InSubtableFieldProperty["get"];
+          };
         };
-      };
-};
-
-type PropertiesForPost = {
-  [fieldCode: string]:
-    | FieldProperty[FieldTypes]["add"]
-    | {
-        type: "SUBTABLE";
-        code: string;
-        label?: string;
-        noLabel?: boolean;
-        fields: {
-          [fieldCode: string]: FieldProperty[InSubtableFieldTypes]["add"];
+  };
+  add: {
+    [fieldCode: string]:
+      | AnyFieldProperty["add"]
+      | {
+          type: "SUBTABLE";
+          code: string;
+          label?: string;
+          noLabel?: boolean;
+          fields: {
+            [fieldCode: string]: InSubtableFieldProperty["add"];
+          };
         };
-      };
-};
-
-type PropertiesForPut = {
-  [fieldCode: string]:
-    | FieldProperty[FieldTypes]["update"]
-    | {
-        type: "SUBTABLE";
-        code?: string;
-        label?: string;
-        noLabel?: boolean;
-        fields?: {
-          [fieldCode: string]: FieldProperty[InSubtableFieldTypes]["update"];
+  };
+  update: {
+    [fieldCode: string]:
+      | AnyFieldProperty["update"]
+      | {
+          type: "SUBTABLE";
+          code?: string;
+          label?: string;
+          noLabel?: boolean;
+          fields?: {
+            [fieldCode: string]: InSubtableFieldProperty["update"];
+          };
         };
-      };
+  };
 };
-
-export type { PropertiesForGet, PropertiesForPost, PropertiesForPut };
+export type { KintoneFormProperty };

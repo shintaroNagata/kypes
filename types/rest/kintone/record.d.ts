@@ -1,4 +1,6 @@
-type FieldValue = {
+import { InSubtableFieldType } from "./types";
+
+type FieldMap = {
   __ID__: {
     get: {
       type: "__ID__";
@@ -298,99 +300,55 @@ type FieldValue = {
   };
 };
 
-type FieldTypes =
-  | "__ID__"
-  | "__REVISION__"
-  | "RECORD_NUMBER"
-  | "CREATED_TIME"
-  | "UPDATED_TIME"
-  | "CREATOR"
-  | "MODIFIER"
-  | "CATEGORY"
-  | "STATUS"
-  | "STATUS_ASSIGNEE"
-  | "SINGLE_LINE_TEXT"
-  | "LINK"
-  | "MULTI_LINE_TEXT"
-  | "RICH_TEXT"
-  | "NUMBER"
-  | "CALC"
-  | "DATE"
-  | "TIME"
-  | "DATETIME"
-  | "RADIO_BUTTON"
-  | "DROP_DOWN"
-  | "CHECK_BOX"
-  | "MULTI_SELECT"
-  | "USER_SELECT"
-  | "GROUP_SELECT"
-  | "ORGANIZATION_SELECT"
-  | "FILE";
+type AnyFieldType = keyof FieldMap;
+type AnyField = FieldMap[AnyFieldType];
+type InSubtableField = FieldMap[InSubtableFieldType];
 
-type InSubtableFieldTypes =
-  | "SINGLE_LINE_TEXT"
-  | "LINK"
-  | "MULTI_LINE_TEXT"
-  | "RICH_TEXT"
-  | "NUMBER"
-  | "CALC"
-  | "DATE"
-  | "TIME"
-  | "DATETIME"
-  | "RADIO_BUTTON"
-  | "DROP_DOWN"
-  | "CHECK_BOX"
-  | "MULTI_SELECT"
-  | "USER_SELECT"
-  | "GROUP_SELECT"
-  | "ORGANIZATION_SELECT"
-  | "FILE";
-
-type RecordForGet = {
-  $id: {
-    type: "__ID__";
-    value: string;
+type KintoneRecord = {
+  get: {
+    $id: {
+      type: "__ID__";
+      value: string;
+    };
+    $revision: {
+      type: "__REVISION__";
+      value: string;
+    };
+    [fieldCode: string]:
+      | AnyField["get"]
+      | {
+          type: "SUBTABLE";
+          value: Array<{
+            id: string;
+            value: {
+              [fieldCode: string]: InSubtableField["get"];
+            };
+          }>;
+        };
   };
-  $revision: {
-    type: "__REVISION__";
-    value: string;
+  add: {
+    [fieldCode: string]:
+      | AnyField["add"]
+      | {
+          value: Array<{
+            value?: {
+              [fieldCode: string]: InSubtableField["add"];
+            };
+          }>;
+        };
   };
-  [fieldCode: string]:
-    | FieldValue[FieldTypes]["get"]
-    | {
-        type: "SUBTABLE";
-        value: Array<{
-          id: string;
-          value: {
-            [fieldCode: string]: FieldValue[InSubtableFieldTypes]["get"];
-          };
-        }>;
-      };
+  update: {
+    [fieldCode: string]:
+      | AnyField["update"]
+      | {
+          value: Array<{
+            id?: string | null;
+            value?: {
+              [fieldCode: string]: InSubtableField["update"];
+            };
+          }>;
+        };
+  };
 };
 
-type RecordForPost = {
-  [fieldCode: string]:
-    | FieldValue[FieldTypes]["add"]
-    | {
-        value: Array<{
-          value?: {
-            [fieldCode: string]: FieldValue[InSubtableFieldTypes]["add"];
-          };
-        }>;
-      };
-};
-
-type RecordForPut = {
-  [fieldCode: string]:
-    | FieldValue[FieldTypes]["update"]
-    | {
-        value: Array<{
-          id?: string | null;
-          value?: {
-            [fieldCode: string]: FieldValue[InSubtableFieldTypes]["update"];
-          };
-        }>;
-      };
-};
-
-export type { RecordForGet, RecordForPost, RecordForPut };
+export type { KintoneRecord };
