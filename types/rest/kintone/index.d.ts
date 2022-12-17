@@ -2050,7 +2050,7 @@ type SpaceGuestsJson = {
   };
 };
 
-type KintoneRestApiSchema = {
+type SchemaMap = {
   record: RecordJson;
   records: RecordsJson;
   "records/cursor": RecordsCursorJson;
@@ -2103,4 +2103,5 @@ type KintoneRestApiSchema = {
   "space/guests": SpaceGuestsJson;
 };
 
-export type { KintoneRestApiSchema };
+export type { SchemaMap };
+export type { PathFor, UrlFor, WithQuery } from "./url";
