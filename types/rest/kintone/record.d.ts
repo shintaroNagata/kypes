@@ -93,10 +93,10 @@ type FieldValue = {
       value: string;
     };
     add: {
-      value: string | undefined;
+      value: string | null;
     };
     update: {
-      value: string | undefined;
+      value: string | null;
     };
   };
   LINK: {
@@ -105,10 +105,10 @@ type FieldValue = {
       value: string;
     };
     add: {
-      value: string | undefined;
+      value: string | null;
     };
     update: {
-      value: string | undefined;
+      value: string | null;
     };
   };
   MULTI_LINE_TEXT: {
@@ -117,10 +117,10 @@ type FieldValue = {
       value: string;
     };
     add: {
-      value: string | undefined;
+      value: string | null;
     };
     update: {
-      value: string | undefined;
+      value: string | null;
     };
   };
   RICH_TEXT: {
@@ -129,10 +129,10 @@ type FieldValue = {
       value: string;
     };
     add: {
-      value: string;
+      value: string | null;
     };
     update: {
-      value: string;
+      value: string | null;
     };
   };
   NUMBER: {
@@ -141,10 +141,10 @@ type FieldValue = {
       value: string;
     };
     add: {
-      value: string | undefined;
+      value: string | null;
     };
     update: {
-      value: string | undefined;
+      value: string | null;
     };
   };
   CALC: {
@@ -161,10 +161,10 @@ type FieldValue = {
       value: string | null;
     };
     add: {
-      value: string | null | undefined;
+      value: string | null;
     };
     update: {
-      value: string | null | undefined;
+      value: string | null;
     };
   };
   TIME: {
@@ -173,10 +173,10 @@ type FieldValue = {
       value: string | null;
     };
     add: {
-      value: string | null | undefined;
+      value: string | null;
     };
     update: {
-      value: string | null | undefined;
+      value: string | null;
     };
   };
   DATETIME: {
@@ -185,10 +185,10 @@ type FieldValue = {
       value: string;
     };
     add: {
-      value: string | undefined;
+      value: string | null;
     };
     update: {
-      value: string | undefined;
+      value: string | null;
     };
   };
   RADIO_BUTTON: {
@@ -209,10 +209,10 @@ type FieldValue = {
       value: string;
     };
     add: {
-      value: string | undefined;
+      value: string;
     };
     update: {
-      value: string | undefined;
+      value: string;
     };
   };
   CHECK_BOX: {
