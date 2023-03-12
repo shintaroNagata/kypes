@@ -305,50 +305,50 @@ type AnyField = FieldMap[AnyFieldType];
 type InSubtableField = FieldMap[InSubtableFieldType];
 
 type KintoneRecord = {
-  get: {
-    $id: {
-      type: "__ID__";
-      value: string;
-    };
-    $revision: {
-      type: "__REVISION__";
-      value: string;
-    };
-    [fieldCode: string]:
-      | AnyField["get"]
-      | {
-          type: "SUBTABLE";
-          value: Array<{
-            id: string;
-            value: {
-              [fieldCode: string]: InSubtableField["get"];
-            };
-          }>;
-        };
+  $id: {
+    type: "__ID__";
+    value: string;
   };
-  add: {
-    [fieldCode: string]:
-      | AnyField["add"]
-      | {
-          value: Array<{
-            value?: {
-              [fieldCode: string]: InSubtableField["add"];
-            };
-          }>;
-        };
+  $revision: {
+    type: "__REVISION__";
+    value: string;
   };
-  update: {
-    [fieldCode: string]:
-      | AnyField["update"]
-      | {
-          value: Array<{
-            id?: string | null;
-            value?: {
-              [fieldCode: string]: InSubtableField["update"];
-            };
-          }>;
-        };
-  };
+  [fieldCode: string]:
+    | AnyField["get"]
+    | {
+        type: "SUBTABLE";
+        value: Array<{
+          id: string;
+          value: {
+            [fieldCode: string]: InSubtableField["get"];
+          };
+        }>;
+      };
 };
 
-export type { KintoneRecord };
+type KintoneRecordForAdd = {
+  [fieldCode: string]:
+    | AnyField["add"]
+    | {
+        value: Array<{
+          value?: {
+            [fieldCode: string]: InSubtableField["add"];
+          };
+        }>;
+      };
+};
+
+type KintoneRecordForUpdate = {
+  [fieldCode: string]:
+    | AnyField["update"]
+    | {
+        value: Array<{
+          id?: string | null;
+          value?: {
+            [fieldCode: string]: InSubtableField["update"];
+          };
+        }>;
+      };
+};
+
+export type { KintoneRecord, KintoneRecordForAdd, KintoneRecordForUpdate };

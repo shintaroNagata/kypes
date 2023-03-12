@@ -902,44 +902,49 @@ type AnyFieldProperty = FieldPropertyMap[AnyFieldType];
 type InSubtableFieldProperty = FieldPropertyMap[InSubtableFieldType];
 
 type KintoneFormProperty = {
-  get: {
-    [fieldCode: string]:
-      | AnyFieldProperty["get"]
-      | {
-          type: "SUBTABLE";
-          code: string;
-          label: string;
-          noLabel: boolean;
-          fields: {
-            [fieldCode: string]: InSubtableFieldProperty["get"];
-          };
+  [fieldCode: string]:
+    | AnyFieldProperty["get"]
+    | {
+        type: "SUBTABLE";
+        code: string;
+        label: string;
+        noLabel: boolean;
+        fields: {
+          [fieldCode: string]: InSubtableFieldProperty["get"];
         };
-  };
-  add: {
-    [fieldCode: string]:
-      | AnyFieldProperty["add"]
-      | {
-          type: "SUBTABLE";
-          code: string;
-          label?: string;
-          noLabel?: boolean;
-          fields: {
-            [fieldCode: string]: InSubtableFieldProperty["add"];
-          };
-        };
-  };
-  update: {
-    [fieldCode: string]:
-      | AnyFieldProperty["update"]
-      | {
-          type: "SUBTABLE";
-          code?: string;
-          label?: string;
-          noLabel?: boolean;
-          fields?: {
-            [fieldCode: string]: InSubtableFieldProperty["update"];
-          };
-        };
-  };
+      };
 };
-export type { KintoneFormProperty };
+
+type KintoneFormPropertyForAdd = {
+  [fieldCode: string]:
+    | AnyFieldProperty["add"]
+    | {
+        type: "SUBTABLE";
+        code: string;
+        label?: string;
+        noLabel?: boolean;
+        fields: {
+          [fieldCode: string]: InSubtableFieldProperty["add"];
+        };
+      };
+};
+
+type KintoneFormPropertyForUpdate = {
+  [fieldCode: string]:
+    | AnyFieldProperty["update"]
+    | {
+        type: "SUBTABLE";
+        code?: string;
+        label?: string;
+        noLabel?: boolean;
+        fields?: {
+          [fieldCode: string]: InSubtableFieldProperty["update"];
+        };
+      };
+};
+
+export type {
+  KintoneFormProperty,
+  KintoneFormPropertyForAdd,
+  KintoneFormPropertyForUpdate,
+};

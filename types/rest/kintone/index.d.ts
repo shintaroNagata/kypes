@@ -1,3 +1,5 @@
+export type { Path, GuestPath } from "./path";
+
 export type {
   RecordJson,
   RecordsJson,
@@ -51,4 +53,15 @@ export type {
   SpaceGuestsJson,
   SchemaMap,
 } from "./schema";
-export type { Path, GuestPath } from "./path";
+
+export {
+  KintoneRecord,
+  KintoneRecordForAdd,
+  KintoneRecordForUpdate,
+} from "./record";
+export {
+  KintoneFormProperty,
+  KintoneFormPropertyForAdd,
+  KintoneFormPropertyForUpdate,
+} from "./form/properties";
+export { KintoneFormLayout, KintoneFormLayoutForUpdate } from "./form/layout";

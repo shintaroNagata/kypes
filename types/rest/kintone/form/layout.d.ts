@@ -199,45 +199,44 @@ type AnyFieldType = keyof FieldLayoutMap;
 type AnyFieldLayout = FieldLayoutMap[AnyFieldType];
 type InSubtableFieldLayout = FieldLayoutMap[InSubtableFieldType];
 
-type KintoneFormLayout = {
-  get: Array<
-    | {
+type KintoneFormLayout = Array<
+  | {
+      type: "ROW";
+      fields: Array<AnyFieldLayout["get"]>;
+    }
+  | {
+      type: "SUBTABLE";
+      code: string;
+      fields: Array<InSubtableFieldLayout["get"]>;
+    }
+  | {
+      type: "GROUP";
+      code: string;
+      layout: Array<{
         type: "ROW";
         fields: Array<AnyFieldLayout["get"]>;
-      }
-    | {
-        type: "SUBTABLE";
-        code: string;
-        fields: Array<InSubtableFieldLayout["get"]>;
-      }
-    | {
-        type: "GROUP";
-        code: string;
-        layout: Array<{
-          type: "ROW";
-          fields: Array<AnyFieldLayout["get"]>;
-        }>;
-      }
-  >;
-  update: Array<
-    | {
+      }>;
+    }
+>;
+
+type KintoneFormLayoutForUpdate = Array<
+  | {
+      type: "ROW";
+      fields?: Array<AnyFieldLayout["update"]>;
+    }
+  | {
+      type: "SUBTABLE";
+      code: string;
+      fields?: Array<InSubtableFieldLayout["update"]>;
+    }
+  | {
+      type: "GROUP";
+      code: string;
+      layout?: Array<{
         type: "ROW";
         fields?: Array<AnyFieldLayout["update"]>;
-      }
-    | {
-        type: "SUBTABLE";
-        code: string;
-        fields?: Array<InSubtableFieldLayout["update"]>;
-      }
-    | {
-        type: "GROUP";
-        code: string;
-        layout?: Array<{
-          type: "ROW";
-          fields?: Array<AnyFieldLayout["update"]>;
-        }>;
-      }
-  >;
-};
+      }>;
+    }
+>;
 
-export type { KintoneFormLayout };
+export type { KintoneFormLayout, KintoneFormLayoutForUpdate };
