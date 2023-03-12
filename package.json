@@ -9,7 +9,9 @@
   "engines": {
     "npm": ">=7.10.0"
   },
-  "scripts": {},
+  "scripts": {
+    "lint": "npm run lint --workspaces"
+  },
   "devDependencies": {},
   "workspaces": [
     "packages/*"
