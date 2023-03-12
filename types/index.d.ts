@@ -1182,6 +1182,9 @@ declare global {
       KintoneEvent as Event,
       on,
       off,
+      ChangedField,
+      ChangedSubtable,
+      ChangedRow,
     };
   }
 }
