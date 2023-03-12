@@ -12,6 +12,6 @@
   "scripts": {},
   "devDependencies": {},
   "workspaces": [
-    "packages/kypes"
+    "packages/*"
   ]
 }
