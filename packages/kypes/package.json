@@ -1,6 +1,6 @@
 {
   "name": "@shin-chan/kypes",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Type definitions for the `kintone` namespace",
   "keywords": [
     "kintone",
