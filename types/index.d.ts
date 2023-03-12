@@ -877,7 +877,7 @@ declare global {
     /**
      * @see [Record List Events > Onload Event (mobile)](https://kintone.dev/en/docs/kintone/js-api/events/record-list-event/#onload-event-mobile) (Kintone Developer Program)
      */
-    interface MobileAppRecordIndexShowEventListView {
+    interface MobileAppRecordIndexShowEventForListView {
       type: "mobile.app.record.index.show";
       appId: number;
       viewId: number;
@@ -892,7 +892,7 @@ declare global {
     /**
      * @see [Record List Events > Onload Event (mobile)](https://kintone.dev/en/docs/kintone/js-api/events/record-list-event/#onload-event-mobile) (Kintone Developer Program)
      */
-    interface MobileAppRecordIndexShowEventCalendarView {
+    interface MobileAppRecordIndexShowEventForCalendarView {
       type: "mobile.app.record.index.show";
       appId: number;
       viewId: number;
@@ -907,7 +907,7 @@ declare global {
     /**
      * @see [Record List Events > Onload Event (mobile)](https://kintone.dev/en/docs/kintone/js-api/events/record-list-event/#onload-event-mobile) (Kintone Developer Program)
      */
-    interface MobileAppRecordIndexShowEventCustomView {
+    interface MobileAppRecordIndexShowEventForCustomView {
       type: "mobile.app.record.index.show";
       appId: number;
       viewId: number;
@@ -923,9 +923,9 @@ declare global {
      * @see [Record List Events > Onload Event (mobile)](https://kintone.dev/en/docs/kintone/js-api/events/record-list-event/#onload-event-mobile) (Kintone Developer Program)
      */
     type MobileAppRecordIndexShowEvent =
-      | MobileAppRecordIndexShowEventListView
-      | MobileAppRecordIndexShowEventCalendarView
-      | MobileAppRecordIndexShowEventCustomView;
+      | MobileAppRecordIndexShowEventForListView
+      | MobileAppRecordIndexShowEventForCalendarView
+      | MobileAppRecordIndexShowEventForCustomView;
 
     /**
      * @see [Record Details Events > Onload Event (mobile)](https://kintone.dev/en/docs/kintone/js-api/events/record-details-event/#onload-event-mobile) (Kintone Developer Program)
@@ -1134,6 +1134,55 @@ declare global {
       type?: T | T[],
       handler?: (event: KintoneEvent<T>) => unknown
     ): boolean;
+
+    export {
+      AppRecordIndexShowEvent,
+      AppRecordIndexShowEventForListView,
+      AppRecordIndexShowEventForCalendarView,
+      AppRecordIndexShowEventForCustomView,
+      AppRecordIndexEditShowEvent,
+      AppRecordIndexEditChangeEvent,
+      AppRecordIndexEditSubmitEvent,
+      AppRecordIndexEditSubmitSuccessEvent,
+      AppRecordIndexDeleteSubmitEvent,
+      AppRecordDetailShowEvent,
+      AppRecordDetailDeleteSubmitEvent,
+      AppRecordDetailProcessProceedEvent,
+      AppRecordCreateShowEvent,
+      AppRecordCreateChangeEvent,
+      AppRecordCreateSubmitEvent,
+      AppRecordCreateSubmitSuccessEvent,
+      AppRecordEditShowEvent,
+      AppRecordEditChangeEvent,
+      AppRecordEditSubmitEvent,
+      AppRecordEditSubmitSuccessEvent,
+      AppRecordPrintShowEvent,
+      AppReportShowEvent,
+      PortalShowEvent,
+      SpacePortalShowEvent,
+      MobileAppRecordIndexShowEvent,
+      MobileAppRecordIndexShowEventForListView,
+      MobileAppRecordIndexShowEventForCalendarView,
+      MobileAppRecordIndexShowEventForCustomView,
+      MobileAppRecordDetailShowEvent,
+      MobileAppRecordDetailDeleteSubmitEvent,
+      MobileAppRecordDetailProcessProceedEvent,
+      MobileAppRecordCreateShowEvent,
+      MobileAppRecordCreateChangeEvent,
+      MobileAppRecordCreateSubmitEvent,
+      MobileAppRecordCreateSubmitSuccessEvent,
+      MobileAppRecordEditShowEvent,
+      MobileAppRecordEditChangeEvent,
+      MobileAppRecordEditSubmitEvent,
+      MobileAppRecordEditSubmitSuccessEvent,
+      MobileAppReportShowEvent,
+      MobilePortalShowEvent,
+      MobileSpacePortalShowEvent,
+      KintoneEventTypes as EventTypes,
+      KintoneEvent as Event,
+      on,
+      off,
+    };
   }
 }
 
