@@ -32,5 +32,8 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",
     "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "@shin-chan/kypes-rest": "^0.0.1"
   }
 }
