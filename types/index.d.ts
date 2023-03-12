@@ -345,6 +345,20 @@ declare global {
      * @see [Get Record List Field Elements](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record-list/#get-record-list-field-elements) (Kintone Developer Program)
      */
     function getFieldElements(fieldCode: string): HTMLElement[] | null;
+
+    export {
+      getId,
+      getQuery,
+      getQueryCondition,
+      getLookupTargetAppId,
+      getRelatedRecordsTargetAppId,
+      getHeaderMenuSpaceElement,
+      getHeaderSpaceElement,
+      getFieldElements,
+      KintoneRecord as Record,
+      KintoneRecordOnCreatePage as RecordOnCreatePage,
+      KintoneRecordForSet as RecordForSet,
+    };
   }
 
   namespace kintone.mobile.app {
@@ -382,6 +396,19 @@ declare global {
      * @see [Get Record List Field Elements](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record-list/#get-record-list-field-elements) (Kintone Developer Program)
      */
     function getFieldElements(fieldCode: string): HTMLElement[] | null;
+
+    export {
+      getId,
+      getQuery,
+      getQueryCondition,
+      getLookupTargetAppId,
+      getRelatedRecordsTargetAppId,
+      getHeaderSpaceElement,
+      getFieldElements,
+      KintoneRecord as Record,
+      KintoneRecordOnCreatePage as RecordOnCreatePage,
+      KintoneRecordForSet as RecordForSet,
+    };
   }
 
   namespace kintone.app.record {
