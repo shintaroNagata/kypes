@@ -10,7 +10,22 @@ npm install --save-dev @shin-chan/kypes-rest
 
 ## Usage
 
-TBW
+```ts
+import { KintoneApi } from "@shin-chan/kypes-rest";
+
+const recordJsonParam: KintoneApi.RecordsJson["GET"]["request"] = {
+  app: 1,
+  fields: ["Date", "Title" /* ... */],
+};
+
+const response = await kintone.api(
+  "/k/v1/records.json",
+  "GET",
+  recordJsonParam
+);
+
+/* ... */
+```
 
 ## Disclaimer
 
