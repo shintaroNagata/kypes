@@ -1,26 +1,14 @@
 # kypes
 
-Type definitions for the `kintone` namespace
+Type definitions for Kintone customization.
 
-## Install
+## Packages
 
-```console
-npm install --save-dev @shin-chan/kypes
-```
-
-## Usage
-
-```ts
-// index.ts
-import "@shin-chan/kypes";
-
-// Write your customization codes by TypeScript!
-```
-
-## Disclaimer
-
-This OSS is my own personal work and does not have any relationship with Cybozu Inc. or any other organization which I belong to.
+| Name                                          | Description                                  | Links                                                                                                                    |
+| --------------------------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| [@shin-chan/kypes](packages/kypes/)           | Type definitions for the `kintone` namespace | [![npm version](https://badge.fury.io/js/@shin-chan%2Fkypes.svg)](https://badge.fury.io/js/@shin-chan%2Fkypes)           |
+| [@shin-chan/kypes-rest](packages/kypes-rest/) | Type definitions for the Kintone REST APIs   | [![npm version](https://badge.fury.io/js/@shin-chan%2Fkypes-rest.svg)](https://badge.fury.io/js/@shin-chan%2Fkypes-rest) |
 
 ## License
 
-kypes is [MIT Licensed](LICENSE)
+[MIT](LICENSE)

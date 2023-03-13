@@ -1,3 +1,4 @@
+import { KintoneApi, ApiSchema, Url, QueriedUrl } from "@shin-chan/kypes-rest";
 import {
   KintoneRecord,
   KintoneRecordOnCreatePage,
@@ -6,7 +7,6 @@ import {
   ChangedSubtable,
   ChangedRow,
 } from "./page";
-import { KintoneApi, ApiSchema, Url, QueriedUrl } from "./rest";
 
 declare global {
   namespace kintone {

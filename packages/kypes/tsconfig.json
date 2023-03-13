@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig to read more about this file */
+    "target": "ES2021",
+    "module": "Node16",
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": false
+  },
+  "include": ["types/**/*"]
+}
