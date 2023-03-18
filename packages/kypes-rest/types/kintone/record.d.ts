@@ -375,20 +375,23 @@ type RemoveNeverProperties<T> = {
   [K in keyof T as T[K] extends never ? never : K]: T[K];
 };
 
+type BuildRecord<FormProperty extends KintoneFormProperty> =
+  string extends keyof FormProperty
+    ? KintoneRecord
+    : {
+        $id: {
+          type: "__ID__";
+          value: string;
+        };
+        $revision: {
+          type: "__REVISION__";
+          value: string;
+        };
+      } & BuildRecordSub<FormProperty>;
+
 type BuildRecordSub<FormProperty> = RemoveNeverProperties<{
   [FieldCode in keyof FormProperty]: BuildField<FormProperty[FieldCode]>;
 }>;
-
-type BuildRecord<FormProperty extends KintoneFormProperty> = {
-  $id: {
-    type: "__ID__";
-    value: string;
-  };
-  $revision: {
-    type: "__REVISION__";
-    value: string;
-  };
-} & BuildRecordSub<FormProperty>;
 
 type BuildField<FieldProperty> =
   FieldProperty extends FieldPropertyMap[keyof FieldPropertyMap]["get"]
@@ -396,7 +399,7 @@ type BuildField<FieldProperty> =
       ? FieldProperty extends {
           type: "STATUS" | "STATUS_ASSIGNEE" | "CATEGORY";
         }
-        ? FieldProperty["enabled"] extends true
+        ? true extends FieldProperty["enabled"]
           ? FieldMap[FieldProperty["type"]]["get"]
           : never
         : FieldMap[FieldProperty["type"]]["get"]
