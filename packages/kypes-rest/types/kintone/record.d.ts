@@ -1,3 +1,5 @@
+import { FieldPropertyMap, SubtableProperty } from "./form/properties";
+import { KintoneFormProperty } from "./index";
 import { InSubtableFieldType } from "./types";
 
 type FieldMap = {
@@ -304,6 +306,18 @@ type AnyFieldType = keyof FieldMap;
 type AnyField = FieldMap[AnyFieldType];
 type InSubtableField = FieldMap[InSubtableFieldType];
 
+type Subtable<
+  T extends {
+    [fieldCode: string]: InSubtableField["get"];
+  }
+> = {
+  type: "SUBTABLE";
+  value: Array<{
+    id: string;
+    value: T;
+  }>;
+};
+
 type KintoneRecord = {
   $id: {
     type: "__ID__";
@@ -315,40 +329,85 @@ type KintoneRecord = {
   };
   [fieldCode: string]:
     | AnyField["get"]
-    | {
-        type: "SUBTABLE";
-        value: Array<{
-          id: string;
-          value: {
-            [fieldCode: string]: InSubtableField["get"];
-          };
-        }>;
-      };
+    | Subtable<{
+        [fieldCode: string]: InSubtableField["get"];
+      }>;
+};
+
+type SubtableForAdd<
+  T extends {
+    [fieldCode: string]: InSubtableField["add"];
+  }
+> = {
+  value: Array<{
+    value?: T;
+  }>;
 };
 
 type KintoneRecordForAdd = {
   [fieldCode: string]:
     | AnyField["add"]
-    | {
-        value: Array<{
-          value?: {
-            [fieldCode: string]: InSubtableField["add"];
-          };
-        }>;
-      };
+    | SubtableForAdd<{
+        [fieldCode: string]: InSubtableField["add"];
+      }>;
+};
+
+type SubtableForUpdate<
+  T extends {
+    [fieldCode: string]: InSubtableField["update"];
+  }
+> = {
+  value: Array<{
+    id?: string | null;
+    value?: T;
+  }>;
 };
 
 type KintoneRecordForUpdate = {
   [fieldCode: string]:
     | AnyField["update"]
-    | {
-        value: Array<{
-          id?: string | null;
-          value?: {
-            [fieldCode: string]: InSubtableField["update"];
-          };
-        }>;
-      };
+    | SubtableForUpdate<{
+        [fieldCode: string]: InSubtableField["update"];
+      }>;
 };
 
-export type { KintoneRecord, KintoneRecordForAdd, KintoneRecordForUpdate };
+type RemoveNeverProperties<T> = {
+  [K in keyof T as T[K] extends never ? never : K]: T[K];
+};
+
+type BuildRecordSub<FormProperty> = RemoveNeverProperties<{
+  [FieldCode in keyof FormProperty]: BuildField<FormProperty[FieldCode]>;
+}>;
+
+type BuildRecord<FormProperty extends KintoneFormProperty> = {
+  $id: {
+    type: "__ID__";
+    value: string;
+  };
+  $revision: {
+    type: "__REVISION__";
+    value: string;
+  };
+} & BuildRecordSub<FormProperty>;
+
+type BuildField<FieldProperty> =
+  FieldProperty extends FieldPropertyMap[keyof FieldPropertyMap]["get"]
+    ? FieldProperty["type"] extends keyof FieldMap
+      ? FieldProperty extends {
+          type: "STATUS" | "STATUS_ASSIGNEE" | "CATEGORY";
+        }
+        ? FieldProperty["enabled"] extends true
+          ? FieldMap[FieldProperty["type"]]["get"]
+          : never
+        : FieldMap[FieldProperty["type"]]["get"]
+      : never
+    : FieldProperty extends SubtableProperty<infer Internal>
+    ? Subtable<BuildRecordSub<Internal>>
+    : never;
+
+export type {
+  KintoneRecord,
+  KintoneRecordForAdd,
+  KintoneRecordForUpdate,
+  BuildRecord,
+};

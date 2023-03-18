@@ -901,50 +901,72 @@ type AnyFieldType = keyof FieldPropertyMap;
 type AnyFieldProperty = FieldPropertyMap[AnyFieldType];
 type InSubtableFieldProperty = FieldPropertyMap[InSubtableFieldType];
 
+type SubtableProperty<
+  T extends {
+    [fieldCode: string]: InSubtableFieldProperty["get"];
+  }
+> = {
+  type: "SUBTABLE";
+  code: string;
+  label: string;
+  noLabel: boolean;
+  fields: T;
+};
+
 type KintoneFormProperty = {
   [fieldCode: string]:
     | AnyFieldProperty["get"]
-    | {
-        type: "SUBTABLE";
-        code: string;
-        label: string;
-        noLabel: boolean;
-        fields: {
-          [fieldCode: string]: InSubtableFieldProperty["get"];
-        };
-      };
+    | SubtableProperty<{
+        [fieldCode: string]: InSubtableFieldProperty["get"];
+      }>;
+};
+
+type SubtablePropertyForAdd<
+  T extends {
+    [fieldCode: string]: InSubtableFieldProperty["add"];
+  }
+> = {
+  type: "SUBTABLE";
+  code: string;
+  label?: string;
+  noLabel?: boolean;
+  fields: T;
 };
 
 type KintoneFormPropertyForAdd = {
   [fieldCode: string]:
     | AnyFieldProperty["add"]
-    | {
-        type: "SUBTABLE";
-        code: string;
-        label?: string;
-        noLabel?: boolean;
-        fields: {
-          [fieldCode: string]: InSubtableFieldProperty["add"];
-        };
-      };
+    | SubtablePropertyForAdd<{
+        [fieldCode: string]: InSubtableFieldProperty["add"];
+      }>;
+};
+
+type SubtablePropertyForUpdate<
+  T extends {
+    [fieldCode: string]: InSubtableFieldProperty["update"];
+  }
+> = {
+  type: "SUBTABLE";
+  code?: string;
+  label?: string;
+  noLabel?: boolean;
+  fields?: T;
 };
 
 type KintoneFormPropertyForUpdate = {
   [fieldCode: string]:
     | AnyFieldProperty["update"]
-    | {
-        type: "SUBTABLE";
-        code?: string;
-        label?: string;
-        noLabel?: boolean;
-        fields?: {
-          [fieldCode: string]: InSubtableFieldProperty["update"];
-        };
-      };
+    | SubtablePropertyForUpdate<{
+        [fieldCode: string]: InSubtableFieldProperty["update"];
+      }>;
 };
 
 export type {
+  SubtableProperty,
   KintoneFormProperty,
+  SubtablePropertyForAdd,
   KintoneFormPropertyForAdd,
+  SubtablePropertyForUpdate,
   KintoneFormPropertyForUpdate,
+  FieldPropertyMap,
 };

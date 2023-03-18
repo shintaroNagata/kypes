@@ -58,6 +58,7 @@ export {
   KintoneRecord,
   KintoneRecordForAdd,
   KintoneRecordForUpdate,
+  BuildRecord,
 } from "./record";
 export {
   KintoneFormProperty,
