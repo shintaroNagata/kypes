@@ -1,6 +1,6 @@
 import type { ApiSchema } from "../types";
 import type {
-  KintoneRecord,
+  BuildRecord,
   KintoneRecordForAdd,
   KintoneRecordForUpdate,
 } from "./record";
@@ -8,18 +8,17 @@ import type {
   KintoneFormProperty,
   KintoneFormPropertyForAdd,
   KintoneFormPropertyForUpdate,
-} from "./form/properties";
-import type {
   KintoneFormLayout,
   KintoneFormLayoutForUpdate,
-} from "./form/layout";
+  KintoneAppSchema,
+} from "./form";
 
 // Record
-type RecordJson = {
+type RecordJson<AppSchema extends KintoneAppSchema = KintoneAppSchema> = {
   GET: {
     request: { app: string | number; id: string | number };
     response: {
-      record: KintoneRecord;
+      record: BuildRecord<AppSchema>;
     };
   };
   POST: {
@@ -53,7 +52,7 @@ type RecordJson = {
   };
 };
 
-type RecordsJson = {
+type RecordsJson<AppSchema extends KintoneAppSchema = KintoneAppSchema> = {
   GET: {
     request: {
       app: string | number;
@@ -62,7 +61,7 @@ type RecordsJson = {
       totalCount?: true;
     };
     response: {
-      records: KintoneRecord[];
+      records: Array<BuildRecord<AppSchema>>;
       totalCount: string | null;
     };
   };
@@ -105,25 +104,26 @@ type RecordsJson = {
 };
 
 // Cursor
-type RecordsCursorJson = {
-  GET: {
-    request: { id: string };
-    response: {
-      records: KintoneRecord[];
-      next: boolean;
+type RecordsCursorJson<AppSchema extends KintoneAppSchema = KintoneAppSchema> =
+  {
+    GET: {
+      request: { id: string };
+      response: {
+        records: Array<BuildRecord<AppSchema>>;
+        next: boolean;
+      };
     };
-  };
-  POST: {
-    request: {
-      app: string | number;
-      fields?: string[];
-      query?: string;
-      size?: string | number;
+    POST: {
+      request: {
+        app: string | number;
+        fields?: string[];
+        query?: string;
+        size?: string | number;
+      };
+      response: { id: string; totalCount: string };
     };
-    response: { id: string; totalCount: string };
+    DELETE: { request: { id: string }; response: Record<string, never> };
   };
-  DELETE: { request: { id: string }; response: Record<string, never> };
-};
 
 // Comments
 type RecordCommentJson = {
@@ -2061,10 +2061,10 @@ type SpaceGuestsJson = {
   };
 };
 
-type SchemaMap = {
-  record: RecordJson;
-  records: RecordsJson;
-  "records/cursor": RecordsCursorJson;
+type SchemaMap<AppSchema extends KintoneAppSchema = KintoneAppSchema> = {
+  record: RecordJson<AppSchema>;
+  records: RecordsJson<AppSchema>;
+  "records/cursor": RecordsCursorJson<AppSchema>;
   "record/comment": RecordCommentJson;
   "record/comments": RecordCommentsJson;
   "record/assignees": RecordAssigneesJson;

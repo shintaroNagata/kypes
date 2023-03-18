@@ -1,6 +1,9 @@
-import { FieldPropertyMap, SubtableProperty } from "./form/properties";
-import { KintoneFormProperty } from "./index";
-import { InSubtableFieldType } from "./types";
+import type {
+  SubtableProperty,
+  FieldPropertyMap,
+  KintoneAppSchema,
+} from "./form";
+import type { InSubtableFieldType } from "./types";
 
 type FieldMap = {
   __ID__: {
@@ -375,8 +378,8 @@ type RemoveNeverProperties<T> = {
   [K in keyof T as T[K] extends never ? never : K]: T[K];
 };
 
-type BuildRecord<FormProperty extends KintoneFormProperty> =
-  string extends keyof FormProperty
+type BuildRecord<AppSchema extends KintoneAppSchema> =
+  string extends keyof AppSchema["properties"]
     ? KintoneRecord
     : {
         $id: {
@@ -387,11 +390,15 @@ type BuildRecord<FormProperty extends KintoneFormProperty> =
           type: "__REVISION__";
           value: string;
         };
-      } & BuildRecordSub<FormProperty>;
+      } & BuildRecordSub<AppSchema>;
 
-type BuildRecordSub<FormProperty> = RemoveNeverProperties<{
-  [FieldCode in keyof FormProperty]: BuildField<FormProperty[FieldCode]>;
-}>;
+type BuildRecordSub<AppSchema> = AppSchema extends KintoneAppSchema
+  ? RemoveNeverProperties<{
+      [FieldCode in keyof AppSchema["properties"]]: BuildField<
+        AppSchema["properties"][FieldCode]
+      >;
+    }>
+  : never;
 
 type BuildField<FieldProperty> =
   FieldProperty extends FieldPropertyMap[keyof FieldPropertyMap]["get"]
@@ -405,7 +412,7 @@ type BuildField<FieldProperty> =
         : FieldMap[FieldProperty["type"]]["get"]
       : never
     : FieldProperty extends SubtableProperty<infer Internal>
-    ? Subtable<BuildRecordSub<Internal>>
+    ? Subtable<BuildRecordSub<{ properties: Internal }>>
     : never;
 
 export type {
