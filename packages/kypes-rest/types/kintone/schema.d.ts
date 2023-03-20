@@ -1,8 +1,8 @@
 import type { ApiSchema } from "../types";
 import type {
   BuildRecord,
-  KintoneRecordForAdd,
-  KintoneRecordForUpdate,
+  BuildRecordForAdd,
+  BuildRecordForUpdate,
 } from "./record";
 import type {
   KintoneFormProperty,
@@ -24,7 +24,7 @@ type RecordJson<AppSchema extends KintoneAppSchema = KintoneAppSchema> = {
   POST: {
     request: {
       app: string | number;
-      record?: KintoneRecordForAdd;
+      record?: BuildRecordForAdd<AppSchema>;
     };
     response: {
       id: string;
@@ -36,13 +36,13 @@ type RecordJson<AppSchema extends KintoneAppSchema = KintoneAppSchema> = {
       | {
           app: string | number;
           id: string | number;
-          record?: KintoneRecordForUpdate;
+          record?: BuildRecordForUpdate<AppSchema>;
           revision?: string | number;
         }
       | {
           app: string | number;
           updateKey: { field: string; value: string };
-          record?: KintoneRecordForUpdate;
+          record?: BuildRecordForUpdate<AppSchema>;
           revision?: string | number;
         };
     response: {
@@ -68,7 +68,7 @@ type RecordsJson<AppSchema extends KintoneAppSchema = KintoneAppSchema> = {
   POST: {
     request: {
       app: string | number;
-      records: KintoneRecordForAdd[];
+      records: Array<BuildRecordForAdd<AppSchema>>;
     };
     response: {
       ids: string[];
@@ -81,12 +81,12 @@ type RecordsJson<AppSchema extends KintoneAppSchema = KintoneAppSchema> = {
       records: Array<
         | {
             id: string | number;
-            record?: KintoneRecordForUpdate;
+            record?: BuildRecordForUpdate<AppSchema>;
             revision?: string | number;
           }
         | {
             updateKey: { field: string; value: string };
-            record?: KintoneRecordForUpdate;
+            record?: BuildRecordForUpdate<AppSchema>;
             revision?: string | number;
           }
       >;

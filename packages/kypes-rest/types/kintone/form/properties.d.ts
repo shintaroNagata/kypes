@@ -901,11 +901,7 @@ type AnyFieldType = keyof FieldPropertyMap;
 type AnyFieldProperty = FieldPropertyMap[AnyFieldType];
 type InSubtableFieldProperty = FieldPropertyMap[InSubtableFieldType];
 
-type SubtableProperty<
-  T extends {
-    [fieldCode: string]: InSubtableFieldProperty["get"];
-  }
-> = {
+type SubtableProperty<T> = {
   type: "SUBTABLE";
   code: string;
   label: string;
@@ -921,11 +917,7 @@ type KintoneFormProperty = {
       }>;
 };
 
-type SubtablePropertyForAdd<
-  T extends {
-    [fieldCode: string]: InSubtableFieldProperty["add"];
-  }
-> = {
+type SubtablePropertyForAdd<T> = {
   type: "SUBTABLE";
   code: string;
   label?: string;
@@ -941,11 +933,7 @@ type KintoneFormPropertyForAdd = {
       }>;
 };
 
-type SubtablePropertyForUpdate<
-  T extends {
-    [fieldCode: string]: InSubtableFieldProperty["update"];
-  }
-> = {
+type SubtablePropertyForUpdate<T> = {
   type: "SUBTABLE";
   code?: string;
   label?: string;

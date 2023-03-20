@@ -309,11 +309,7 @@ type AnyFieldType = keyof FieldMap;
 type AnyField = FieldMap[AnyFieldType];
 type InSubtableField = FieldMap[InSubtableFieldType];
 
-type Subtable<
-  T extends {
-    [fieldCode: string]: InSubtableField["get"];
-  }
-> = {
+type Subtable<T> = {
   type: "SUBTABLE";
   value: Array<{
     id: string;
@@ -330,36 +326,29 @@ type KintoneRecord = {
     type: "__REVISION__";
     value: string;
   };
-  [fieldCode: string]:
+} & {
+  [fieldCode in string]?:
     | AnyField["get"]
     | Subtable<{
         [fieldCode: string]: InSubtableField["get"];
       }>;
 };
 
-type SubtableForAdd<
-  T extends {
-    [fieldCode: string]: InSubtableField["add"];
-  }
-> = {
+type SubtableForAdd<T> = {
   value: Array<{
     value?: T;
   }>;
 };
 
 type KintoneRecordForAdd = {
-  [fieldCode: string]:
+  [fieldCode in string]?:
     | AnyField["add"]
     | SubtableForAdd<{
         [fieldCode: string]: InSubtableField["add"];
       }>;
 };
 
-type SubtableForUpdate<
-  T extends {
-    [fieldCode: string]: InSubtableField["update"];
-  }
-> = {
+type SubtableForUpdate<T> = {
   value: Array<{
     id?: string | null;
     value?: T;
@@ -367,7 +356,7 @@ type SubtableForUpdate<
 };
 
 type KintoneRecordForUpdate = {
-  [fieldCode: string]:
+  [fieldCode in string]?:
     | AnyField["update"]
     | SubtableForUpdate<{
         [fieldCode: string]: InSubtableField["update"];
@@ -378,8 +367,8 @@ type RemoveNeverProperties<T> = {
   [K in keyof T as T[K] extends never ? never : K]: T[K];
 };
 
-type BuildRecord<AppSchema extends KintoneAppSchema> =
-  string extends keyof AppSchema["properties"]
+type BuildRecord<AppSchema extends KintoneAppSchema> = AppSchema extends unknown
+  ? string extends keyof AppSchema["properties"]
     ? KintoneRecord
     : {
         $id: {
@@ -390,19 +379,30 @@ type BuildRecord<AppSchema extends KintoneAppSchema> =
           type: "__REVISION__";
           value: string;
         };
-      } & BuildRecordSub<AppSchema>;
-
-type BuildRecordSub<AppSchema> = AppSchema extends KintoneAppSchema
-  ? RemoveNeverProperties<{
-      [FieldCode in keyof AppSchema["properties"]]: BuildField<
-        AppSchema["properties"][FieldCode]
-      >;
-    }>
+      } & RemoveNeverProperties<{
+        [FieldCode in keyof AppSchema["properties"]]: BuildField<
+          AppSchema["properties"][FieldCode]
+        >;
+      }>
   : never;
 
-type BuildField<FieldProperty> =
+type BuildField<FieldProperty> = FieldProperty extends SubtableProperty<
+  infer Internal
+>
+  ? BuildSubtable<Internal>
+  : BuildFieldFromFieldMap<FieldProperty>;
+
+type BuildSubtable<Internal> = Subtable<
+  RemoveNeverProperties<{
+    [FieldCode in keyof Internal]: BuildFieldFromFieldMap<Internal[FieldCode]>;
+  }>
+>;
+
+type BuildFieldFromFieldMap<FieldProperty> =
   FieldProperty extends FieldPropertyMap[keyof FieldPropertyMap]["get"]
-    ? FieldProperty["type"] extends keyof FieldMap
+    ? FieldProperty extends {
+        type: keyof FieldMap;
+      }
       ? FieldProperty extends {
           type: "STATUS" | "STATUS_ASSIGNEE" | "CATEGORY";
         }
@@ -411,8 +411,69 @@ type BuildField<FieldProperty> =
           : never
         : FieldMap[FieldProperty["type"]]["get"]
       : never
-    : FieldProperty extends SubtableProperty<infer Internal>
-    ? Subtable<BuildRecordSub<{ properties: Internal }>>
+    : never;
+
+type BuildRecordForAdd<AppSchema extends KintoneAppSchema> =
+  AppSchema extends unknown
+    ? string extends keyof AppSchema["properties"]
+      ? KintoneRecordForAdd
+      : RemoveNeverProperties<{
+          [FieldCode in keyof AppSchema["properties"]]?: BuildFieldForAdd<
+            AppSchema["properties"][FieldCode]
+          >;
+        }>
+    : never;
+
+type BuildFieldForAdd<FieldProperty> = FieldProperty extends SubtableProperty<
+  infer Internal
+>
+  ? BuildSubtableForAdd<Internal>
+  : BuildFieldFromFieldMapForAdd<FieldProperty>;
+
+type BuildSubtableForAdd<Internal> = SubtableForAdd<
+  RemoveNeverProperties<{
+    [FieldCode in keyof Internal]?: BuildFieldFromFieldMapForAdd<
+      Internal[FieldCode]
+    >;
+  }>
+>;
+
+type BuildFieldFromFieldMapForAdd<FieldProperty> =
+  FieldProperty extends FieldPropertyMap[keyof FieldPropertyMap]["get"]
+    ? FieldProperty extends { type: keyof FieldMap }
+      ? FieldMap[FieldProperty["type"]]["add"]
+      : never
+    : never;
+
+type BuildRecordForUpdate<AppSchema extends KintoneAppSchema> =
+  AppSchema extends unknown
+    ? string extends keyof AppSchema["properties"]
+      ? KintoneRecordForUpdate
+      : RemoveNeverProperties<{
+          [FieldCode in keyof AppSchema["properties"]]?: BuildFieldForUpdate<
+            AppSchema["properties"][FieldCode]
+          >;
+        }>
+    : never;
+
+type BuildFieldForUpdate<FieldProperty> =
+  FieldProperty extends SubtableProperty<infer Internal>
+    ? BuildSubtableForUpdate<Internal>
+    : BuildFieldFromFieldMapForUpdate<FieldProperty>;
+
+type BuildSubtableForUpdate<Internal> = SubtableForUpdate<
+  RemoveNeverProperties<{
+    [FieldCode in keyof Internal]?: BuildFieldFromFieldMapForUpdate<
+      Internal[FieldCode]
+    >;
+  }>
+>;
+
+type BuildFieldFromFieldMapForUpdate<FieldProperty> =
+  FieldProperty extends FieldPropertyMap[keyof FieldPropertyMap]["get"]
+    ? FieldProperty extends { type: keyof FieldMap }
+      ? FieldMap[FieldProperty["type"]]["update"]
+      : never
     : never;
 
 export type {
@@ -420,4 +481,6 @@ export type {
   KintoneRecordForAdd,
   KintoneRecordForUpdate,
   BuildRecord,
+  BuildRecordForAdd,
+  BuildRecordForUpdate,
 };
