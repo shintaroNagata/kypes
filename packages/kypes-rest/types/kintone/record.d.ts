@@ -1,8 +1,4 @@
-import type {
-  SubtableProperty,
-  FieldPropertyMap,
-  KintoneAppSchema,
-} from "./form";
+import type { KintoneAppSchema, KintoneFormProperty } from "./form";
 import type { InSubtableFieldType } from "./types";
 
 type FieldMap = {
@@ -368,26 +364,22 @@ type BuildRecord<AppSchema extends KintoneAppSchema> = AppSchema extends unknown
         $id: FieldMap["__ID__"]["get"];
         $revision: FieldMap["__REVISION__"]["get"];
       } & RemoveNeverProperties<{
-        [FieldCode in keyof AppSchema["properties"]]: BuildField<
-          AppSchema["properties"][FieldCode]
-        >;
+        [FieldCode in keyof AppSchema["properties"]]: AppSchema["properties"][FieldCode] extends {
+          type: "SUBTABLE";
+        }
+          ? BuildSubtable<AppSchema["properties"][FieldCode]["fields"]>
+          : BuildField<AppSchema["properties"][FieldCode]>;
       }>
   : never;
 
-type BuildField<FieldProperty> = FieldProperty extends SubtableProperty<
-  infer Internal
->
-  ? BuildSubtable<Internal>
-  : BuildFieldFromFieldMap<FieldProperty>;
-
 type BuildSubtable<Internal> = Subtable<
   RemoveNeverProperties<{
-    [FieldCode in keyof Internal]: BuildFieldFromFieldMap<Internal[FieldCode]>;
+    [FieldCode in keyof Internal]: BuildField<Internal[FieldCode]>;
   }>
 >;
 
-type BuildFieldFromFieldMap<FieldProperty> =
-  FieldProperty extends FieldPropertyMap[keyof FieldPropertyMap]["get"]
+type BuildField<FieldProperty> =
+  FieldProperty extends KintoneFormProperty[string]
     ? FieldProperty extends {
         type: keyof FieldMap;
       }
@@ -406,28 +398,22 @@ type BuildRecordForAdd<AppSchema extends KintoneAppSchema> =
     ? string extends keyof AppSchema["properties"]
       ? KintoneRecordForAdd
       : RemoveNeverProperties<{
-          [FieldCode in keyof AppSchema["properties"]]?: BuildFieldForAdd<
-            AppSchema["properties"][FieldCode]
-          >;
+          [FieldCode in keyof AppSchema["properties"]]?: AppSchema["properties"][FieldCode] extends {
+            type: "SUBTABLE";
+          }
+            ? BuildSubtableForAdd<AppSchema["properties"][FieldCode]["fields"]>
+            : BuildFieldForAdd<AppSchema["properties"][FieldCode]>;
         }>
     : never;
 
-type BuildFieldForAdd<FieldProperty> = FieldProperty extends SubtableProperty<
-  infer Internal
->
-  ? BuildSubtableForAdd<Internal>
-  : BuildFieldFromFieldMapForAdd<FieldProperty>;
-
 type BuildSubtableForAdd<Internal> = SubtableForAdd<
   RemoveNeverProperties<{
-    [FieldCode in keyof Internal]?: BuildFieldFromFieldMapForAdd<
-      Internal[FieldCode]
-    >;
+    [FieldCode in keyof Internal]?: BuildFieldForAdd<Internal[FieldCode]>;
   }>
 >;
 
-type BuildFieldFromFieldMapForAdd<FieldProperty> =
-  FieldProperty extends FieldPropertyMap[keyof FieldPropertyMap]["get"]
+type BuildFieldForAdd<FieldProperty> =
+  FieldProperty extends KintoneFormProperty[string]
     ? FieldProperty extends { type: keyof FieldMap }
       ? FieldMap[FieldProperty["type"]]["add"]
       : never
@@ -438,27 +424,24 @@ type BuildRecordForUpdate<AppSchema extends KintoneAppSchema> =
     ? string extends keyof AppSchema["properties"]
       ? KintoneRecordForUpdate
       : RemoveNeverProperties<{
-          [FieldCode in keyof AppSchema["properties"]]?: BuildFieldForUpdate<
-            AppSchema["properties"][FieldCode]
-          >;
+          [FieldCode in keyof AppSchema["properties"]]?: AppSchema["properties"][FieldCode] extends {
+            type: "SUBTABLE";
+          }
+            ? BuildSubtableForUpdate<
+                AppSchema["properties"][FieldCode]["fields"]
+              >
+            : BuildFieldForUpdate<AppSchema["properties"][FieldCode]>;
         }>
     : never;
 
-type BuildFieldForUpdate<FieldProperty> =
-  FieldProperty extends SubtableProperty<infer Internal>
-    ? BuildSubtableForUpdate<Internal>
-    : BuildFieldFromFieldMapForUpdate<FieldProperty>;
-
 type BuildSubtableForUpdate<Internal> = SubtableForUpdate<
   RemoveNeverProperties<{
-    [FieldCode in keyof Internal]?: BuildFieldFromFieldMapForUpdate<
-      Internal[FieldCode]
-    >;
+    [FieldCode in keyof Internal]?: BuildFieldForUpdate<Internal[FieldCode]>;
   }>
 >;
 
-type BuildFieldFromFieldMapForUpdate<FieldProperty> =
-  FieldProperty extends FieldPropertyMap[keyof FieldPropertyMap]["get"]
+type BuildFieldForUpdate<FieldProperty> =
+  FieldProperty extends KintoneFormProperty[string]
     ? FieldProperty extends { type: keyof FieldMap }
       ? FieldMap[FieldProperty["type"]]["update"]
       : never

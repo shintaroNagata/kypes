@@ -950,11 +950,7 @@ type KintoneFormPropertyForUpdate = {
 };
 
 export type {
-  SubtableProperty,
   KintoneFormProperty,
-  SubtablePropertyForAdd,
   KintoneFormPropertyForAdd,
-  SubtablePropertyForUpdate,
   KintoneFormPropertyForUpdate,
-  FieldPropertyMap,
 };
