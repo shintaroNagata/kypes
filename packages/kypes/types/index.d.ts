@@ -775,7 +775,7 @@ declare global {
       appId: number;
       record: KintoneRecordOnCreatePage;
       changes:
-        | { field: ChangedField; row: null }
+        | { field: ChangedField; row: ChangedRow | null }
         | { field: ChangedSubtable; row: ChangedRow | null };
     }
 
@@ -817,7 +817,7 @@ declare global {
       recordId: number;
       record: KintoneRecord;
       changes:
-        | { field: ChangedField; row: null }
+        | { field: ChangedField; row: ChangedRow | null }
         | { field: ChangedSubtable; row: ChangedRow | null };
     }
 
@@ -976,7 +976,7 @@ declare global {
       appId: number;
       record: KintoneRecordOnCreatePage;
       changes:
-        | { field: ChangedField; row: null }
+        | { field: ChangedField; row: ChangedRow | null }
         | { field: ChangedSubtable; row: ChangedRow | null };
     }
 
@@ -1018,7 +1018,7 @@ declare global {
       recordId: number;
       record: KintoneRecord;
       changes:
-        | { field: ChangedField; row: null }
+        | { field: ChangedField; row: ChangedRow | null }
         | { field: ChangedSubtable; row: ChangedRow | null };
     }
 

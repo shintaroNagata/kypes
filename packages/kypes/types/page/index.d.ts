@@ -396,13 +396,10 @@ type ChangedSubtable = {
   }>;
 };
 type ChangedRow = {
-  type: "SUBTABLE";
-  value: Array<{
-    id: string | null;
-    value: {
-      [fieldCode: string]: InSubtableField["get"];
-    };
-  }>;
+  id: string | null;
+  value: {
+    [fieldCode: string]: InSubtableField["get"];
+  };
 };
 
 export type {
