@@ -327,10 +327,10 @@ type KintoneRecord = {
     value: string;
   };
 } & {
-  [fieldCode in string]?:
+  [FieldCode in string]?:
     | AnyField["get"]
     | Subtable<{
-        [fieldCode: string]: InSubtableField["get"];
+        [InSubtableFieldCode in string]?: InSubtableField["get"];
       }>;
 };
 
@@ -341,10 +341,10 @@ type SubtableForAdd<T> = {
 };
 
 type KintoneRecordForAdd = {
-  [fieldCode in string]?:
+  [FieldCode in string]?:
     | AnyField["add"]
     | SubtableForAdd<{
-        [fieldCode: string]: InSubtableField["add"];
+        [InSubtableFieldCode in string]?: InSubtableField["add"];
       }>;
 };
 
@@ -356,10 +356,10 @@ type SubtableForUpdate<T> = {
 };
 
 type KintoneRecordForUpdate = {
-  [fieldCode in string]?:
+  [FieldCode in string]?:
     | AnyField["update"]
     | SubtableForUpdate<{
-        [fieldCode: string]: InSubtableField["update"];
+        [InSubtableFieldCode in string]?: InSubtableField["update"];
       }>;
 };
 
