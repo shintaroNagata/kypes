@@ -341,64 +341,67 @@ type InSubtableField = FieldMap[InSubtableFieldType];
 type CreatePageField = FieldMap[CreatePageFieldType];
 type ChangeEventSupportedField = FieldMap[ChangeEventSupportedFieldType];
 
-type KintoneRecord = {
-  $id: FieldMap["__ID__"]["get"];
-  $revision: FieldMap["__REVISION__"]["get"];
-  [fieldCode: string]:
-    | AnyField["get"]
-    | {
-        type: "SUBTABLE";
-        value: Array<{
-          id: string | null;
-          value: {
-            [fieldCode: string]: InSubtableField["get"];
-          };
-        }>;
-      };
-};
-
-type KintoneRecordOnCreatePage = {
-  [fieldCode: string]:
-    | CreatePageField["get"]
-    | {
-        type: "SUBTABLE";
-        value: Array<{
-          id: null;
-          value: {
-            [fieldCode: string]: (CreatePageField & InSubtableField)["get"];
-          };
-        }>;
-      };
-};
-
-type KintoneRecordForSet = {
-  [fieldCode: string]:
-    | AnyField["set"]
-    | {
-        type: "SUBTABLE";
-        value: Array<{
-          id: string | null;
-          value: {
-            [fieldCode: string]: InSubtableField["set"];
-          };
-        }>;
-      };
-};
-
-type ChangedField = ChangeEventSupportedField["get"];
-type ChangedSubtable = {
+type Subtable<T> = {
   type: "SUBTABLE";
   value: Array<{
     id: string | null;
-    value: {
-      [fieldCode: string]: InSubtableField["get"];
-    };
+    value: T;
   }>;
 };
+
+type KintoneRecord = {
+  $id: FieldMap["__ID__"]["get"];
+  $revision: FieldMap["__REVISION__"]["get"];
+} & {
+  [FieldCode in string]?:
+    | AnyField["get"]
+    | Subtable<{
+        [InSubtableFieldCode in string]?: InSubtableField["get"];
+      }>;
+};
+
+type SubtableOnCreatePage<T> = {
+  type: "SUBTABLE";
+  value: Array<{
+    id: null;
+    value: T;
+  }>;
+};
+
+type KintoneRecordOnCreatePage = {
+  [FieldCode in string]?:
+    | CreatePageField["get"]
+    | SubtableOnCreatePage<{
+        [InSubtableFieldCode in string]?: (CreatePageField &
+          InSubtableField)["get"];
+      }>;
+};
+
+type SubtableForSet<T> = {
+  type: "SUBTABLE";
+  value: Array<{
+    id: string | null;
+    value: T;
+  }>;
+};
+
+type KintoneRecordForSet = {
+  [FieldCode in string]?:
+    | AnyField["set"]
+    | SubtableForSet<{
+        [InSubtableFieldCode in string]?: InSubtableField["set"];
+      }>;
+};
+
+type ChangedField = ChangeEventSupportedField["get"];
+type ChangedSubtable = Subtable<{
+  [fieldCode in string]?: InSubtableField["get"];
+}>;
+
 type ChangedRow = {
   id: string | null;
   value: {
-    [fieldCode: string]: InSubtableField["get"];
+    [fieldCode in string]?: InSubtableField["get"];
   };
 };
 

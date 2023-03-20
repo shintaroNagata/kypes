@@ -318,14 +318,8 @@ type Subtable<T> = {
 };
 
 type KintoneRecord = {
-  $id: {
-    type: "__ID__";
-    value: string;
-  };
-  $revision: {
-    type: "__REVISION__";
-    value: string;
-  };
+  $id: FieldMap["__ID__"]["get"];
+  $revision: FieldMap["__REVISION__"]["get"];
 } & {
   [FieldCode in string]?:
     | AnyField["get"]
@@ -371,14 +365,8 @@ type BuildRecord<AppSchema extends KintoneAppSchema> = AppSchema extends unknown
   ? string extends keyof AppSchema["properties"]
     ? KintoneRecord
     : {
-        $id: {
-          type: "__ID__";
-          value: string;
-        };
-        $revision: {
-          type: "__REVISION__";
-          value: string;
-        };
+        $id: FieldMap["__ID__"]["get"];
+        $revision: FieldMap["__REVISION__"]["get"];
       } & RemoveNeverProperties<{
         [FieldCode in keyof AppSchema["properties"]]: BuildField<
           AppSchema["properties"][FieldCode]
