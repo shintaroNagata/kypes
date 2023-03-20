@@ -1,5 +1,10 @@
-import { KintoneApi, ApiSchema, Url, QueriedUrl } from "@shin-chan/kypes-rest";
-import {
+import type {
+  KintoneApi,
+  ApiSchema,
+  Url,
+  QueriedUrl,
+} from "@shin-chan/kypes-rest";
+import type {
   KintoneRecord,
   KintoneRecordOnCreatePage,
   KintoneRecordForSet,
