@@ -381,7 +381,7 @@ type BuildSubtable<Internal> = Subtable<
 type BuildField<FieldProperty> =
   FieldProperty extends KintoneFormProperty[string]
     ? FieldProperty extends {
-        type: keyof FieldMap;
+        type: AnyFieldType;
       }
       ? FieldProperty extends {
           type: "STATUS" | "STATUS_ASSIGNEE" | "CATEGORY";
@@ -414,7 +414,7 @@ type BuildSubtableForAdd<Internal> = SubtableForAdd<
 
 type BuildFieldForAdd<FieldProperty> =
   FieldProperty extends KintoneFormProperty[string]
-    ? FieldProperty extends { type: keyof FieldMap }
+    ? FieldProperty extends { type: AnyFieldType }
       ? FieldMap[FieldProperty["type"]]["add"]
       : never
     : never;
@@ -442,7 +442,7 @@ type BuildSubtableForUpdate<Internal> = SubtableForUpdate<
 
 type BuildFieldForUpdate<FieldProperty> =
   FieldProperty extends KintoneFormProperty[string]
-    ? FieldProperty extends { type: keyof FieldMap }
+    ? FieldProperty extends { type: AnyFieldType }
       ? FieldMap[FieldProperty["type"]]["update"]
       : never
     : never;
