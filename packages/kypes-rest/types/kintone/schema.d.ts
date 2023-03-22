@@ -222,64 +222,75 @@ type RecordsStatusJson = {
 };
 
 // Bulk Request
-type BulkRequestSupported = {
-  "/k/v1/record.json": {
-    POST: RecordJson["POST"];
-    PUT: RecordJson["PUT"];
-  };
-  "/k/v1/records.json": {
-    POST: RecordsJson["POST"];
-    PUT: RecordsJson["PUT"];
-    DELETE: RecordsJson["DELETE"];
-  };
-  "/k/v1/record/assignees.json": RecordAssigneesJson;
-  "/k/v1/record/status.json": RecordStatusJson;
-  "/k/v1/records/status.json": RecordsStatusJson;
-};
+type BulkRequestSupported<AppSchema> = AppSchema extends KintoneAppSchema
+  ? {
+      "/k/v1/record.json": {
+        POST: RecordJson<AppSchema>["POST"];
+        PUT: RecordJson<AppSchema>["PUT"];
+      };
+      "/k/v1/records.json": {
+        POST: RecordsJson<AppSchema>["POST"];
+        PUT: RecordsJson<AppSchema>["PUT"];
+        DELETE: RecordsJson<AppSchema>["DELETE"];
+      };
+      "/k/v1/record/assignees.json": RecordAssigneesJson;
+      "/k/v1/record/status.json": RecordStatusJson;
+      "/k/v1/records/status.json": RecordsStatusJson;
+    }
+  : never;
 
-type BulkRequestSupportedPaths = keyof BulkRequestSupported;
+type BulkRequestSupportedPaths = keyof BulkRequestSupported<KintoneAppSchema>;
 type KeyOfUnion<T> = T extends unknown ? keyof T : never;
 type BulkRequestSupportedMethods = KeyOfUnion<
-  BulkRequestSupported[BulkRequestSupportedPaths]
+  BulkRequestSupported<KintoneAppSchema>[BulkRequestSupportedPaths]
 >;
 
-type BuildRequest<Path, Method> = Path extends BulkRequestSupportedPaths
-  ? Method extends keyof BulkRequestSupported[Path]
-    ? {
-        method: Method;
-        api: Path;
-        payload: Extract<
-          BulkRequestSupported[Path][Method],
+type BuildRequest<Path, Method, AppSchema> =
+  Path extends BulkRequestSupportedPaths
+    ? Method extends keyof BulkRequestSupported<AppSchema>[Path]
+      ? {
+          method: Method;
+          api: Path;
+          payload: Extract<
+            BulkRequestSupported<AppSchema>[Path][Method],
+            ApiSchema
+          >["request"];
+        }
+      : never
+    : never;
+type Request<AppSchema> = BuildRequest<
+  BulkRequestSupportedPaths,
+  BulkRequestSupportedMethods,
+  AppSchema
+>;
+
+type BuildSuccessResult<Path, Method, AppSchema> =
+  Path extends BulkRequestSupportedPaths
+    ? Method extends keyof BulkRequestSupported<AppSchema>[Path]
+      ? Extract<
+          BulkRequestSupported<AppSchema>[Path][Method],
           ApiSchema
-        >["request"];
-      }
-    : never
-  : never;
-type Request = BuildRequest<
+        >["response"]
+      : never
+    : never;
+type SuccessResult<AppSchema> = BuildSuccessResult<
   BulkRequestSupportedPaths,
-  BulkRequestSupportedMethods
->;
-
-type BuildSuccessResult<Path, Method> = Path extends BulkRequestSupportedPaths
-  ? Method extends keyof BulkRequestSupported[Path]
-    ? Extract<BulkRequestSupported[Path][Method], ApiSchema>["response"]
-    : never
-  : never;
-type SuccessResult = BuildSuccessResult<
-  BulkRequestSupportedPaths,
-  BulkRequestSupportedMethods
+  BulkRequestSupportedMethods,
+  AppSchema
 >;
 
 type FailureResult =
   | Record<string, never>
   | { message: string; id: string; code: string };
 
-type BulkRequestJson = {
+type BulkRequestJson<AppSchema extends KintoneAppSchema = KintoneAppSchema> = {
   POST: {
     request: {
-      requests: Request[];
+      requests: Array<Request<AppSchema>>;
     };
-    response: { results: SuccessResult[] } | { results: FailureResult[] };
+    response:
+      | { results: Array<SuccessResult<AppSchema>> }
+      | { results: FailureResult[] };
   };
 };
 
@@ -2068,7 +2079,7 @@ type SchemaMap<AppSchema extends KintoneAppSchema = KintoneAppSchema> = {
   "/k/v1/record/assignees.json": RecordAssigneesJson;
   "/k/v1/record/status.json": RecordStatusJson;
   "/k/v1/records/status.json": RecordsStatusJson;
-  "/k/v1/bulkRequest.json": BulkRequestJson;
+  "/k/v1/bulkRequest.json": BulkRequestJson<AppSchema>;
   "/k/v1/app.json": AppJson;
   "/k/v1/preview/app.json": PreviewAppJson;
   "/k/v1/preview/app/deploy.json": PreviewAppDeployJson;
