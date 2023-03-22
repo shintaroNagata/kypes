@@ -223,52 +223,50 @@ type RecordsStatusJson = {
 
 // Bulk Request
 type BulkRequestSupported = {
-  record: {
+  "/k/v1/record.json": {
     POST: RecordJson["POST"];
     PUT: RecordJson["PUT"];
   };
-  records: {
+  "/k/v1/records.json": {
     POST: RecordsJson["POST"];
     PUT: RecordsJson["PUT"];
     DELETE: RecordsJson["DELETE"];
   };
-  "record/assignees": RecordAssigneesJson;
-  "record/status": RecordStatusJson;
-  "records/status": RecordsStatusJson;
+  "/k/v1/record/assignees.json": RecordAssigneesJson;
+  "/k/v1/record/status.json": RecordStatusJson;
+  "/k/v1/records/status.json": RecordsStatusJson;
 };
 
-type BulkRequestSupportedEndpoints = keyof BulkRequestSupported;
+type BulkRequestSupportedPaths = keyof BulkRequestSupported;
 type KeyOfUnion<T> = T extends unknown ? keyof T : never;
 type BulkRequestSupportedMethods = KeyOfUnion<
-  BulkRequestSupported[keyof BulkRequestSupported]
+  BulkRequestSupported[BulkRequestSupportedPaths]
 >;
 
-type BuildRequest<Endpoint, Method> =
-  Endpoint extends keyof BulkRequestSupported
-    ? Method extends keyof BulkRequestSupported[Endpoint]
-      ? {
-          method: Method;
-          api: `/k/v1/${Endpoint}.json`;
-          payload: Extract<
-            BulkRequestSupported[Endpoint][Method],
-            ApiSchema
-          >["request"];
-        }
-      : never
-    : never;
+type BuildRequest<Path, Method> = Path extends BulkRequestSupportedPaths
+  ? Method extends keyof BulkRequestSupported[Path]
+    ? {
+        method: Method;
+        api: Path;
+        payload: Extract<
+          BulkRequestSupported[Path][Method],
+          ApiSchema
+        >["request"];
+      }
+    : never
+  : never;
 type Request = BuildRequest<
-  BulkRequestSupportedEndpoints,
+  BulkRequestSupportedPaths,
   BulkRequestSupportedMethods
 >;
 
-type BuildSuccessResult<Endpoint, Method> =
-  Endpoint extends keyof BulkRequestSupported
-    ? Method extends keyof BulkRequestSupported[Endpoint]
-      ? Extract<BulkRequestSupported[Endpoint][Method], ApiSchema>["response"]
-      : never
-    : never;
+type BuildSuccessResult<Path, Method> = Path extends BulkRequestSupportedPaths
+  ? Method extends keyof BulkRequestSupported[Path]
+    ? Extract<BulkRequestSupported[Path][Method], ApiSchema>["response"]
+    : never
+  : never;
 type SuccessResult = BuildSuccessResult<
-  BulkRequestSupportedEndpoints,
+  BulkRequestSupportedPaths,
   BulkRequestSupportedMethods
 >;
 
@@ -2062,56 +2060,56 @@ type SpaceGuestsJson = {
 };
 
 type SchemaMap = {
-  record: RecordJson;
-  records: RecordsJson;
-  "records/cursor": RecordsCursorJson;
-  "record/comment": RecordCommentJson;
-  "record/comments": RecordCommentsJson;
-  "record/assignees": RecordAssigneesJson;
-  "record/status": RecordStatusJson;
-  "records/status": RecordsStatusJson;
-  bulkRequest: BulkRequestJson;
-  app: AppJson;
-  "preview/app": PreviewAppJson;
-  "preview/app/deploy": PreviewAppDeployJson;
-  apps: AppsJson;
-  "app/form/fields": AppFormFieldsJson;
-  "preview/app/form/fields": PreviewAppFormFieldsJson;
-  "app/form/layout": AppFormLayoutJson;
-  "preview/app/form/layout": PreviewAppFormLayoutJson;
-  "app/views": AppViewsJson;
-  "preview/app/views": PreviewAppViewsJson;
-  "app/reports": AppReportsJson;
-  "preview/app/reports": PreviewAppReportsJson;
-  "app/settings": AppSettingsJson;
-  "preview/app/settings": PreviewAppSettingsJson;
-  "app/notifications/general": AppNotificationsGeneralJson;
-  "preview/app/notifications/general": PreviewAppNotificationsGeneralJson;
-  "app/notifications/perRecord": AppNotificationsPerRecordJson;
-  "preview/app/notifications/perRecord": PreviewAppNotificationsPerRecordJson;
-  "app/notifications/reminder": AppNotificationsReminderJson;
-  "preview/app/notifications/reminder": PreviewAppNotificationsReminderJson;
-  "app/status": AppStatusJson;
-  "preview/app/status": PreviewAppStatusJson;
-  "app/actions": AppActionsJson;
-  "preview/app/actions": PreviewAppActionsJson;
-  "app/customize": AppCustomizeJson;
-  "preview/app/customize": PreviewAppCustomizeJson;
-  "app/acl": AppAclJson;
-  "preview/app/acl": PreviewAppAclJson;
-  "record/acl": RecordAclJson;
-  "preview/record/acl": PreviewRecordAclJson;
-  "field/acl": FieldAclJson;
-  "preview/field/acl": PreviewFieldAclJson;
-  "record/acl/evaluate": RecordAclEvaluateJson;
-  space: SpaceJson;
-  "space/body": SpaceBodyJson;
-  "space/members": SpaceMembersJson;
-  "space/thread": SpaceThreadJson;
-  "space/thread/comment": SpaceThreadCommentJson;
-  "template/space": TemplateSpaceJson;
-  guests: GuestsJson;
-  "space/guests": SpaceGuestsJson;
+  "/k/v1/record.json": RecordJson;
+  "/k/v1/records.json": RecordsJson;
+  "/k/v1/records/cursor.json": RecordsCursorJson;
+  "/k/v1/record/comment.json": RecordCommentJson;
+  "/k/v1/record/comments.json": RecordCommentsJson;
+  "/k/v1/record/assignees.json": RecordAssigneesJson;
+  "/k/v1/record/status.json": RecordStatusJson;
+  "/k/v1/records/status.json": RecordsStatusJson;
+  "/k/v1/bulkRequest.json": BulkRequestJson;
+  "/k/v1/app.json": AppJson;
+  "/k/v1/preview/app.json": PreviewAppJson;
+  "/k/v1/preview/app/deploy.json": PreviewAppDeployJson;
+  "/k/v1/apps.json": AppsJson;
+  "/k/v1/app/form/fields.json": AppFormFieldsJson;
+  "/k/v1/preview/app/form/fields.json": PreviewAppFormFieldsJson;
+  "/k/v1/app/form/layout.json": AppFormLayoutJson;
+  "/k/v1/preview/app/form/layout.json": PreviewAppFormLayoutJson;
+  "/k/v1/app/views.json": AppViewsJson;
+  "/k/v1/preview/app/views.json": PreviewAppViewsJson;
+  "/k/v1/app/reports.json": AppReportsJson;
+  "/k/v1/preview/app/reports.json": PreviewAppReportsJson;
+  "/k/v1/app/settings.json": AppSettingsJson;
+  "/k/v1/preview/app/settings.json": PreviewAppSettingsJson;
+  "/k/v1/app/notifications/general.json": AppNotificationsGeneralJson;
+  "/k/v1/preview/app/notifications/general.json": PreviewAppNotificationsGeneralJson;
+  "/k/v1/app/notifications/perRecord.json": AppNotificationsPerRecordJson;
+  "/k/v1/preview/app/notifications/perRecord.json": PreviewAppNotificationsPerRecordJson;
+  "/k/v1/app/notifications/reminder.json": AppNotificationsReminderJson;
+  "/k/v1/preview/app/notifications/reminder.json": PreviewAppNotificationsReminderJson;
+  "/k/v1/app/status.json": AppStatusJson;
+  "/k/v1/preview/app/status.json": PreviewAppStatusJson;
+  "/k/v1/app/actions.json": AppActionsJson;
+  "/k/v1/preview/app/actions.json": PreviewAppActionsJson;
+  "/k/v1/app/customize.json": AppCustomizeJson;
+  "/k/v1/preview/app/customize.json": PreviewAppCustomizeJson;
+  "/k/v1/app/acl.json": AppAclJson;
+  "/k/v1/preview/app/acl.json": PreviewAppAclJson;
+  "/k/v1/record/acl.json": RecordAclJson;
+  "/k/v1/preview/record/acl.json": PreviewRecordAclJson;
+  "/k/v1/field/acl.json": FieldAclJson;
+  "/k/v1/preview/field/acl.json": PreviewFieldAclJson;
+  "/k/v1/record/acl/evaluate.json": RecordAclEvaluateJson;
+  "/k/v1/space.json": SpaceJson;
+  "/k/v1/space/body.json": SpaceBodyJson;
+  "/k/v1/space/members.json": SpaceMembersJson;
+  "/k/v1/space/thread.json": SpaceThreadJson;
+  "/k/v1/space/thread/comment.json": SpaceThreadCommentJson;
+  "/k/v1/template/space.json": TemplateSpaceJson;
+  "/k/v1/guests.json": GuestsJson;
+  "/k/v1/space/guests.json": SpaceGuestsJson;
 };
 
 export type {
