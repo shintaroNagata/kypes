@@ -1,3 +1,4 @@
+import { KintoneApi } from "@shin-chan/kypes-rest";
 type FieldMap = {
   __ID__: {
     get: {
@@ -393,6 +394,101 @@ type KintoneRecordForSet = {
       }>;
 };
 
+type RemoveNeverProperties<T> = {
+  [K in keyof T as T[K] extends never ? never : K]: T[K];
+};
+
+type BuildRecord<AppSchema extends KintoneApi.KintoneAppSchema> =
+  AppSchema extends unknown
+    ? string extends keyof AppSchema["properties"]
+      ? KintoneRecord
+      : {
+          $id: FieldMap["__ID__"]["get"];
+          $revision: FieldMap["__REVISION__"]["get"];
+        } & RemoveNeverProperties<{
+          [FieldCode in keyof AppSchema["properties"]]: AppSchema["properties"][FieldCode] extends {
+            type: "SUBTABLE";
+          }
+            ? BuildSubtable<AppSchema["properties"][FieldCode]["fields"]>
+            : BuildField<AppSchema["properties"][FieldCode]>;
+        }>
+    : never;
+
+type BuildSubtable<Internal> = Subtable<
+  RemoveNeverProperties<{
+    [FieldCode in keyof Internal]: BuildField<Internal[FieldCode]>;
+  }>
+>;
+
+type BuildField<FieldProperty> =
+  FieldProperty extends KintoneApi.KintoneFormProperty[string]
+    ? FieldProperty extends {
+        type: AnyFieldType;
+      }
+      ? FieldProperty extends {
+          type: "STATUS" | "STATUS_ASSIGNEE" | "CATEGORY";
+        }
+        ? true extends FieldProperty["enabled"]
+          ? FieldMap[FieldProperty["type"]]["get"]
+          : never
+        : FieldMap[FieldProperty["type"]]["get"]
+      : never
+    : never;
+
+type BuildRecordForSet<AppSchema extends KintoneApi.KintoneAppSchema> =
+  AppSchema extends unknown
+    ? string extends keyof AppSchema["properties"]
+      ? KintoneRecordForSet
+      : RemoveNeverProperties<{
+          [FieldCode in keyof AppSchema["properties"]]?: AppSchema["properties"][FieldCode] extends {
+            type: "SUBTABLE";
+          }
+            ? BuildSubtableForSet<AppSchema["properties"][FieldCode]["fields"]>
+            : BuildFieldForSet<AppSchema["properties"][FieldCode]>;
+        }>
+    : never;
+
+type BuildSubtableForSet<Internal> = SubtableForSet<
+  RemoveNeverProperties<{
+    [FieldCode in keyof Internal]?: BuildFieldForSet<Internal[FieldCode]>;
+  }>
+>;
+
+type BuildFieldForSet<FieldProperty> =
+  FieldProperty extends KintoneApi.KintoneFormProperty[string]
+    ? FieldProperty extends { type: AnyFieldType }
+      ? FieldMap[FieldProperty["type"]]["set"]
+      : never
+    : never;
+
+type BuildRecordOnCreatePage<AppSchema extends KintoneApi.KintoneAppSchema> =
+  AppSchema extends unknown
+    ? string extends keyof AppSchema["properties"]
+      ? KintoneRecordOnCreatePage
+      : RemoveNeverProperties<{
+          [FieldCode in keyof AppSchema["properties"]]: AppSchema["properties"][FieldCode] extends {
+            type: "SUBTABLE";
+          }
+            ? BuildSubtableOnCreatePage<
+                AppSchema["properties"][FieldCode]["fields"]
+              >
+            : BuildFieldOnCreatePage<AppSchema["properties"][FieldCode]>;
+        }>
+    : never;
+
+type BuildSubtableOnCreatePage<Internal> = SubtableOnCreatePage<
+  RemoveNeverProperties<{
+    [FieldCode in keyof Internal]: BuildFieldOnCreatePage<Internal[FieldCode]>;
+  }>
+>;
+
+type BuildFieldOnCreatePage<FieldProperty> =
+  FieldProperty extends KintoneApi.KintoneFormProperty[string]
+    ? FieldProperty extends { type: CreatePageFieldType }
+      ? FieldMap[FieldProperty["type"]]["get"]
+      : never
+    : never;
+
 type ChangedField = ChangeEventSupportedField["get"];
 type ChangedSubtable = Subtable<{
   [fieldCode in string]?: InSubtableField["get"];
@@ -409,6 +505,9 @@ export type {
   KintoneRecord,
   KintoneRecordForSet,
   KintoneRecordOnCreatePage,
+  BuildRecord,
+  BuildRecordForSet,
+  BuildRecordOnCreatePage,
   ChangedField,
   ChangedSubtable,
   ChangedRow,

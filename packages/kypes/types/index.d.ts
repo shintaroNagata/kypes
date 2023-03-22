@@ -8,6 +8,9 @@ import type {
   KintoneRecord,
   KintoneRecordOnCreatePage,
   KintoneRecordForSet,
+  BuildRecord,
+  BuildRecordForSet,
+  BuildRecordOnCreatePage,
   ChangedField,
   ChangedSubtable,
   ChangedRow,
@@ -384,6 +387,9 @@ declare global {
       KintoneRecord as Record,
       KintoneRecordOnCreatePage as RecordOnCreatePage,
       KintoneRecordForSet as RecordForSet,
+      BuildRecord,
+      BuildRecordForSet,
+      BuildRecordOnCreatePage,
     };
   }
 
@@ -434,6 +440,9 @@ declare global {
       KintoneRecord as Record,
       KintoneRecordOnCreatePage as RecordOnCreatePage,
       KintoneRecordForSet as RecordForSet,
+      BuildRecord,
+      BuildRecordForSet,
+      BuildRecordOnCreatePage,
     };
   }
 
