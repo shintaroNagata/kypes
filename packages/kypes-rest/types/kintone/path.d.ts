@@ -1,7 +1,8 @@
 import type { SchemaMap } from "./schema";
 
-type Path<Endpoint extends keyof SchemaMap> = `/k/v1/${Endpoint}.json`;
-type GuestPath<Endpoint extends keyof SchemaMap> =
-  `/k/guest/${number}/v1/${Endpoint}.json`;
+type GuestPath<Path extends keyof SchemaMap> =
+  Path extends `/k/v1/${infer Endpoint}.json`
+    ? `/k/guest/${number}/v1/${Endpoint}.json`
+    : never;
 
-export type { Path, GuestPath };
+export type { GuestPath };

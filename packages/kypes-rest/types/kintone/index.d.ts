@@ -1,4 +1,4 @@
-export type { Path, GuestPath } from "./path";
+export type { GuestPath } from "./path";
 
 export type {
   RecordJson,
