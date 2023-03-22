@@ -455,12 +455,16 @@ declare global {
     /**
      * @see [Get Record Details](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#get-record-details) (Kintone Developer Program)
      */
-    function get(): { record: KintoneRecord } | null;
+    function get<AppSchema extends KintoneApi.KintoneAppSchema>(): {
+      record: BuildRecord<AppSchema>;
+    } | null;
 
     /**
      * @see [Set Record Value](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#set-record-value) (Kintone Developer Program)
      */
-    function set(recordObject: { record: KintoneRecordForSet }): void;
+    function set<AppSchema extends KintoneApi.KintoneAppSchema>(recordObject: {
+      record: BuildRecordForSet<AppSchema>;
+    }): void;
 
     /**
      * @see [Get Record Header Menu Element](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#get-record-header-menu-element) (Kintone Developer Program)
@@ -497,12 +501,16 @@ declare global {
     /**
      * @see [Get Record Details](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#get-record-details) (Kintone Developer Program)
      */
-    function get(): { record: KintoneRecord } | null;
+    function get<AppSchema extends KintoneApi.KintoneAppSchema>(): {
+      record: BuildRecord<AppSchema>;
+    } | null;
 
     /**
      * @see [Set Record Value](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#set-record-value) (Kintone Developer Program)
      */
-    function set(recordObject: { record: KintoneRecordForSet }): void;
+    function set<AppSchema extends KintoneApi.KintoneAppSchema>(recordObject: {
+      record: BuildRecordForSet<AppSchema>;
+    }): void;
 
     /**
      * @see [Get Record Field Element](https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#get-record-field-element) (Kintone Developer Program)
