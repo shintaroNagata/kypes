@@ -52,47 +52,48 @@ declare global {
      * @see [Kintone REST API Request](https://kintone.dev/en/docs/kintone/js-api/other/kintone-rest-api-request/#kintone-rest-api-request) (Kintone Developer Program)
      */
     function api<
-      AppSchema extends KintoneApi.KintoneAppSchema,
       Endpoint extends keyof KintoneApi.SchemaMap<AppSchema>,
       Method extends keyof KintoneApi.SchemaMap<AppSchema>[Endpoint],
-      Params extends Extract<
-        KintoneApi.SchemaMap<AppSchema>[Endpoint][Method],
-        ApiSchema
-      >["request"],
-      Response extends Extract<
-        KintoneApi.SchemaMap<AppSchema>[Endpoint][Method],
-        ApiSchema
-      >["response"]
+      AppSchema extends KintoneApi.KintoneAppSchema
     >(
       pathOrUrl:
         | KintoneApi.Path<Endpoint>
         | KintoneApi.GuestPath<Endpoint>
         | Url<KintoneApi.Path<Endpoint> | KintoneApi.GuestPath<Endpoint>>,
       method: Method,
-      params: Params
-    ): Promise<Response>;
+      params: Extract<
+        KintoneApi.SchemaMap<AppSchema>[Endpoint][Method],
+        ApiSchema
+      >["request"]
+    ): Promise<
+      Extract<
+        KintoneApi.SchemaMap<AppSchema>[Endpoint][Method],
+        ApiSchema
+      >["response"]
+    >;
 
     /**
      * @see [Kintone REST API Request](https://kintone.dev/en/docs/kintone/js-api/other/kintone-rest-api-request/#kintone-rest-api-request) (Kintone Developer Program)
      */
     function api<
-      AppSchema extends KintoneApi.KintoneAppSchema,
       Endpoint extends keyof KintoneApi.SchemaMap<AppSchema>,
       Method extends Extract<
         keyof KintoneApi.SchemaMap<AppSchema>[Endpoint],
         "GET"
       >,
-      Response extends Extract<
-        KintoneApi.SchemaMap<AppSchema>[Endpoint][Method],
-        ApiSchema
-      >["response"]
+      AppSchema extends KintoneApi.KintoneAppSchema
     >(
       pathOrUrl: QueriedUrl<
         KintoneApi.Path<Endpoint> | KintoneApi.GuestPath<Endpoint>
       >,
       method: Method,
       params: Record<string, never>
-    ): Promise<Response>;
+    ): Promise<
+      Extract<
+        KintoneApi.SchemaMap<AppSchema>[Endpoint][Method],
+        ApiSchema
+      >["response"]
+    >;
 
     /**
      * @see [Kintone REST API Request](https://kintone.dev/en/docs/kintone/js-api/other/kintone-rest-api-request/#kintone-rest-api-request) (Kintone Developer Program)
@@ -107,25 +108,25 @@ declare global {
      * @see [Kintone REST API Request](https://kintone.dev/en/docs/kintone/js-api/other/kintone-rest-api-request/#kintone-rest-api-request) (Kintone Developer Program)
      */
     function api<
-      AppSchema extends KintoneApi.KintoneAppSchema,
       Endpoint extends keyof KintoneApi.SchemaMap<AppSchema>,
       Method extends keyof KintoneApi.SchemaMap<AppSchema>[Endpoint],
-      Params extends Extract<
-        KintoneApi.SchemaMap<AppSchema>[Endpoint][Method],
-        ApiSchema
-      >["request"],
-      Response extends Extract<
-        KintoneApi.SchemaMap<AppSchema>[Endpoint][Method],
-        ApiSchema
-      >["response"]
+      AppSchema extends KintoneApi.KintoneAppSchema
     >(
       pathOrUrl:
         | KintoneApi.Path<Endpoint>
         | KintoneApi.GuestPath<Endpoint>
         | Url<KintoneApi.Path<Endpoint> | KintoneApi.GuestPath<Endpoint>>,
       method: Method,
-      params: Params,
-      callback: (response: Response) => void,
+      params: Extract<
+        KintoneApi.SchemaMap<AppSchema>[Endpoint][Method],
+        ApiSchema
+      >["request"],
+      callback: (
+        response: Extract<
+          KintoneApi.SchemaMap<AppSchema>[Endpoint][Method],
+          ApiSchema
+        >["response"]
+      ) => void,
       errback?: (errorResponse: Record<string, unknown> | string) => void
     ): void;
 
@@ -133,23 +134,24 @@ declare global {
      * @see [Kintone REST API Request](https://kintone.dev/en/docs/kintone/js-api/other/kintone-rest-api-request/#kintone-rest-api-request) (Kintone Developer Program)
      */
     function api<
-      AppSchema extends KintoneApi.KintoneAppSchema,
       Endpoint extends keyof KintoneApi.SchemaMap<AppSchema>,
       Method extends Extract<
         keyof KintoneApi.SchemaMap<AppSchema>[Endpoint],
         "GET"
       >,
-      Response extends Extract<
-        KintoneApi.SchemaMap<AppSchema>[Endpoint][Method],
-        ApiSchema
-      >["response"]
+      AppSchema extends KintoneApi.KintoneAppSchema
     >(
       pathOrUrl: QueriedUrl<
         KintoneApi.Path<Endpoint> | KintoneApi.GuestPath<Endpoint>
       >,
       method: Method,
       params: Record<string, never>,
-      callback: (response: Response) => void,
+      callback: (
+        response: Extract<
+          KintoneApi.SchemaMap<AppSchema>[Endpoint][Method],
+          ApiSchema
+        >["response"]
+      ) => void,
       errback?: (errorResponse: Record<string, unknown> | string) => void
     ): void;
 
@@ -226,8 +228,8 @@ declare global {
      * @see [Get URL](https://kintone.dev/en/docs/kintone/js-api/other/kintone-rest-api-request/#get-url) (Kintone Developer Program)
      */
     function url<
-      AppSchema extends KintoneApi.KintoneAppSchema,
-      Endpoint extends keyof KintoneApi.SchemaMap<AppSchema>
+      Endpoint extends keyof KintoneApi.SchemaMap<AppSchema>,
+      AppSchema extends KintoneApi.KintoneAppSchema
     >(
       path: KintoneApi.Path<Endpoint>,
       detectGuestSpace?: boolean
@@ -242,18 +244,17 @@ declare global {
      * @see [Get URL (including query)](https://kintone.dev/en/docs/kintone/js-api/other/kintone-rest-api-request/#get-url-including-query) (Kintone Developer Program)
      */
     function urlForGet<
-      AppSchema extends KintoneApi.KintoneAppSchema,
       Endpoint extends keyof KintoneApi.SchemaMap<AppSchema>,
-      Params extends Extract<
+      AppSchema extends KintoneApi.KintoneAppSchema
+    >(
+      path: KintoneApi.Path<Endpoint>,
+      params: Extract<
         KintoneApi.SchemaMap<AppSchema>[Endpoint][Extract<
           keyof KintoneApi.SchemaMap<AppSchema>[Endpoint],
           "GET"
         >],
         ApiSchema
-      >["request"]
-    >(
-      path: KintoneApi.Path<Endpoint>,
-      params: Params,
+      >["request"],
       detectGuestSpace?: boolean
     ): QueriedUrl<KintoneApi.Path<Endpoint> | KintoneApi.GuestPath<Endpoint>>;
 
