@@ -1249,17 +1249,23 @@ declare global {
     /**
      * @see [Register Event Handlers](https://kintone.dev/en/docs/kintone/js-api/events/event-handling/#register-event-handlers) (Kintone Developer Program)
      */
-    function on<T extends KintoneEventTypes>(
-      type: T | T[],
-      handler: (event: KintoneEvent<T>) => unknown
+    function on<
+      EventType extends keyof KintoneEventMap<AppSchema>,
+      AppSchema extends KintoneApi.KintoneAppSchema
+    >(
+      type: EventType | readonly EventType[],
+      handler: (event: KintoneEvent<EventType, AppSchema>) => unknown
     ): void;
 
     /**
      * @see [Remove Event Handlers](https://kintone.dev/en/docs/kintone/js-api/events/event-handling/#remove-event-handlers) (Kintone Developer Program)
      */
-    function off<T extends KintoneEventTypes>(
-      type?: T | T[],
-      handler?: (event: KintoneEvent<T>) => unknown
+    function off<
+      EventType extends keyof KintoneEventMap<AppSchema>,
+      AppSchema extends KintoneApi.KintoneAppSchema
+    >(
+      type?: EventType | readonly EventType[],
+      handler?: (event: KintoneEvent<EventType, AppSchema>) => unknown
     ): boolean;
 
     export {
