@@ -831,14 +831,14 @@ declare global {
     /**
      * @see [Record Create Events > Onload Event (desktop)](https://kintone.dev/en/docs/kintone/js-api/events/record-create-event/#onload-event-desktop) (Kintone Developer Program)
      */
-    type AppRecordCreateShowEvent<
+    interface AppRecordCreateShowEvent<
       AppSchema extends KintoneApi.KintoneAppSchema = KintoneApi.KintoneAppSchema
-    > = {
+    > {
       type: "app.record.create.show";
       appId: number;
       reuse: boolean;
       record: BuildRecordOnCreatePage<AppSchema>;
-    };
+    }
 
     /**
      * @see [Record Create Events > Field Change Event](https://kintone.dev/en/docs/kintone/js-api/events/record-create-event/#field-change-event) (Kintone Developer Program)
