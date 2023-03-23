@@ -1,6 +1,6 @@
 {
   "name": "@shin-chan/kypes",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Type definitions for the `kintone` namespace",
   "keywords": [
     "kintone",
@@ -27,13 +27,13 @@
     "lint:ts": "tsc"
   },
   "devDependencies": {
-    "@cybozu/eslint-config": "^17.0.3",
-    "eslint": "^8.26.0",
+    "@cybozu/eslint-config": "^18.0.1",
+    "eslint": "^8.36.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.7.1",
-    "typescript": "^4.8.4"
+    "prettier": "^2.8.6",
+    "typescript": "^4.9.5"
   },
   "dependencies": {
-    "@shin-chan/kypes-rest": "^0.0.1"
+    "@shin-chan/kypes-rest": "^0.0.2"
   }
 }
