@@ -741,9 +741,10 @@ declare global {
      * @see [Record List Events > Field Change Event](https://kintone.dev/en/docs/kintone/js-api/events/record-list-event/#field-change-event) (Kintone Developer Program)
      */
     interface AppRecordIndexEditChangeEvent<
-      AppSchema extends KintoneApi.KintoneAppSchema = KintoneApi.KintoneAppSchema
+      AppSchema extends KintoneApi.KintoneAppSchema = KintoneApi.KintoneAppSchema,
+      TargetField extends string = string
     > {
-      type: `app.record.index.edit.change.${string}`;
+      type: `app.record.index.edit.change.${TargetField}`;
       appId: string;
       recordId: string;
       record: BuildRecord<AppSchema>;
@@ -841,9 +842,10 @@ declare global {
      * @see [Record Create Events > Field Change Event](https://kintone.dev/en/docs/kintone/js-api/events/record-create-event/#field-change-event) (Kintone Developer Program)
      */
     interface AppRecordCreateChangeEvent<
-      AppSchema extends KintoneApi.KintoneAppSchema = KintoneApi.KintoneAppSchema
+      AppSchema extends KintoneApi.KintoneAppSchema = KintoneApi.KintoneAppSchema,
+      TargetField extends string = string
     > {
-      type: `app.record.create.change.${string}`;
+      type: `app.record.create.change.${TargetField}`;
       appId: number;
       record: BuildRecordOnCreatePage<AppSchema>;
       changes:
@@ -890,9 +892,10 @@ declare global {
      * @see [Record Edit Events > Field Change Event](https://kintone.dev/en/docs/kintone/js-api/events/record-edit-event/#field-change-event) (Kintone Developer Program)
      */
     interface AppRecordEditChangeEvent<
-      AppSchema extends KintoneApi.KintoneAppSchema = KintoneApi.KintoneAppSchema
+      AppSchema extends KintoneApi.KintoneAppSchema = KintoneApi.KintoneAppSchema,
+      TargetField extends string = string
     > {
-      type: `app.record.edit.change.${string}`;
+      type: `app.record.edit.change.${TargetField}`;
       appId: number;
       recordId: number;
       record: BuildRecord<AppSchema>;
@@ -1076,9 +1079,10 @@ declare global {
      * @see [Record Create Events > Field Change Event](https://kintone.dev/en/docs/kintone/js-api/events/record-create-event/#field-change-event) (Kintone Developer Program)
      */
     interface MobileAppRecordCreateChangeEvent<
-      AppSchema extends KintoneApi.KintoneAppSchema = KintoneApi.KintoneAppSchema
+      AppSchema extends KintoneApi.KintoneAppSchema = KintoneApi.KintoneAppSchema,
+      TargetField extends string = string
     > {
-      type: `mobile.app.record.create.change.${string}`;
+      type: `mobile.app.record.create.change.${TargetField}`;
       appId: number;
       record: BuildRecordOnCreatePage<AppSchema>;
       changes:
@@ -1125,9 +1129,10 @@ declare global {
      * @see [Record Edit Events > Field Change Event](https://kintone.dev/en/docs/kintone/js-api/events/record-edit-event/#field-change-event) (Kintone Developer Program)
      */
     interface MobileAppRecordEditChangeEvent<
-      AppSchema extends KintoneApi.KintoneAppSchema = KintoneApi.KintoneAppSchema
+      AppSchema extends KintoneApi.KintoneAppSchema = KintoneApi.KintoneAppSchema,
+      TargetField extends string = string
     > {
-      type: `mobile.app.record.edit.change.${string}`;
+      type: `mobile.app.record.edit.change.${TargetField}`;
       appId: number;
       recordId: number;
       record: BuildRecord<AppSchema>;
@@ -1184,13 +1189,11 @@ declare global {
     }
 
     type KintoneEventMap<
-      AppSchema extends KintoneApi.KintoneAppSchema = KintoneApi.KintoneAppSchema
+      AppSchema extends KintoneApi.KintoneAppSchema = KintoneApi.KintoneAppSchema,
+      ChangeEventTargetField extends string = string
     > = {
       "app.record.index.show": AppRecordIndexShowEvent<AppSchema>;
       "app.record.index.edit.show": AppRecordIndexEditShowEvent<AppSchema>;
-      [
-        key: `app.record.index.edit.change.${string}`
-      ]: AppRecordIndexEditChangeEvent<AppSchema>;
       "app.record.index.edit.submit": AppRecordIndexEditSubmitEvent<AppSchema>;
       "app.record.index.edit.submit.success": AppRecordIndexEditSubmitSuccessEvent<AppSchema>;
       "app.record.index.delete.submit": AppRecordIndexDeleteSubmitEvent<AppSchema>;
@@ -1198,15 +1201,9 @@ declare global {
       "app.record.detail.delete.submit": AppRecordDetailDeleteSubmitEvent<AppSchema>;
       "app.record.detail.process.proceed": AppRecordDetailProcessProceedEvent<AppSchema>;
       "app.record.create.show": AppRecordCreateShowEvent<AppSchema>;
-      [
-        eventType: `app.record.create.change.${string}`
-      ]: AppRecordCreateChangeEvent<AppSchema>;
       "app.record.create.submit": AppRecordCreateSubmitEvent<AppSchema>;
       "app.record.create.submit.success": AppRecordCreateSubmitSuccessEvent<AppSchema>;
       "app.record.edit.show": AppRecordEditShowEvent<AppSchema>;
-      [
-        eventType: `app.record.edit.change.${string}`
-      ]: AppRecordEditChangeEvent<AppSchema>;
       "app.record.edit.submit": AppRecordEditSubmitEvent<AppSchema>;
       "app.record.edit.submit.success": AppRecordEditSubmitSuccessEvent<AppSchema>;
       "app.record.print.show": AppRecordPrintShowEvent<AppSchema>;
@@ -1218,51 +1215,98 @@ declare global {
       "mobile.app.record.detail.delete.submit": MobileAppRecordDetailDeleteSubmitEvent<AppSchema>;
       "mobile.app.record.detail.process.proceed": MobileAppRecordDetailProcessProceedEvent<AppSchema>;
       "mobile.app.record.create.show": MobileAppRecordCreateShowEvent<AppSchema>;
-      [
-        eventType: `mobile.app.record.create.change.${string}`
-      ]: MobileAppRecordCreateChangeEvent<AppSchema>;
       "mobile.app.record.create.submit": MobileAppRecordCreateSubmitEvent<AppSchema>;
       "mobile.app.record.create.submit.success": MobileAppRecordCreateSubmitSuccessEvent<AppSchema>;
       "mobile.app.record.edit.show": MobileAppRecordEditShowEvent<AppSchema>;
-      [
-        eventType: `mobile.app.record.edit.change.${string}`
-      ]: MobileAppRecordEditChangeEvent<AppSchema>;
       "mobile.app.record.edit.submit": MobileAppRecordEditSubmitEvent<AppSchema>;
       "mobile.app.record.edit.submit.success": MobileAppRecordEditSubmitSuccessEvent<AppSchema>;
       "mobile.app.report.show": MobileAppReportShowEvent;
       "mobile.portal.show": MobilePortalShowEvent;
       "mobile.space.portal.show": MobileSpacePortalShowEvent;
+    } & KintoneChangeEventMap<AppSchema, ChangeEventTargetField>;
+
+    type KintoneChangeEventMap<
+      AppSchema extends KintoneApi.KintoneAppSchema = KintoneApi.KintoneAppSchema,
+      TargetField extends string = string
+    > = {
+      [EventType in `app.record.index.edit.change.${TargetField}`]: AppRecordIndexEditChangeEvent<
+        AppSchema,
+        TargetField
+      >;
+    } & {
+      [EventType in `app.record.create.change.${TargetField}`]: AppRecordCreateChangeEvent<
+        AppSchema,
+        TargetField
+      >;
+    } & {
+      [EventType in `app.record.edit.change.${TargetField}`]: AppRecordEditChangeEvent<
+        AppSchema,
+        TargetField
+      >;
+    } & {
+      [EventType in `mobile.app.record.create.change.${TargetField}`]: MobileAppRecordCreateChangeEvent<
+        AppSchema,
+        TargetField
+      >;
+    } & {
+      [EventType in `mobile.app.record.edit.change.${TargetField}`]: MobileAppRecordEditChangeEvent<
+        AppSchema,
+        TargetField
+      >;
     };
 
-    type KintoneEventTypes = keyof KintoneEventMap;
+    type KintoneChangeEventTypes<
+      AppSchema extends KintoneApi.KintoneAppSchema = KintoneApi.KintoneAppSchema,
+      TargetField extends string = string
+    > = keyof KintoneChangeEventMap<AppSchema, TargetField>;
+    type KintoneEventTypes<
+      AppSchema extends KintoneApi.KintoneAppSchema = KintoneApi.KintoneAppSchema,
+      TargetField extends string = string
+    > = keyof KintoneEventMap<AppSchema, TargetField>;
 
     type KintoneEvent<
-      EventType extends keyof KintoneEventMap<AppSchema>,
+      EventType extends KintoneEventTypes | readonly KintoneEventTypes[],
       AppSchema extends KintoneApi.KintoneAppSchema = KintoneApi.KintoneAppSchema
-    > = EventType extends unknown
-      ? { type: EventType } & KintoneEventMap<AppSchema>[EventType]
+    > = EventType extends ReadonlyArray<
+      infer EventTypes extends KintoneEventTypes
+    >
+      ? KintoneEvent<EventTypes, AppSchema>
+      : EventType extends KintoneEventTypes
+      ? EventType extends KintoneChangeEventTypes<AppSchema, infer TargetField>
+        ? KintoneChangeEventMap<AppSchema, TargetField>[EventType]
+        : KintoneEventMap<AppSchema>[EventType]
       : never;
 
     /**
      * @see [Register Event Handlers](https://kintone.dev/en/docs/kintone/js-api/events/event-handling/#register-event-handlers) (Kintone Developer Program)
      */
-    function on<
-      EventType extends keyof KintoneEventMap<AppSchema>,
-      AppSchema extends KintoneApi.KintoneAppSchema
-    >(
+    function on<EventType extends KintoneEventTypes>(
       type: EventType | readonly EventType[],
-      handler: (event: KintoneEvent<EventType, AppSchema>) => unknown
+      handler: (event: KintoneEvent<EventType>) => unknown
+    ): void;
+
+    /**
+     * @see [Register Event Handlers](https://kintone.dev/en/docs/kintone/js-api/events/event-handling/#register-event-handlers) (Kintone Developer Program)
+     */
+    function on<Event extends KintoneEvent<KintoneEventTypes>>(
+      type: Event["type"] | ReadonlyArray<Event["type"]>,
+      handler: (event: Event) => unknown
     ): void;
 
     /**
      * @see [Remove Event Handlers](https://kintone.dev/en/docs/kintone/js-api/events/event-handling/#remove-event-handlers) (Kintone Developer Program)
      */
-    function off<
-      EventType extends keyof KintoneEventMap<AppSchema>,
-      AppSchema extends KintoneApi.KintoneAppSchema
-    >(
+    function off<EventType extends KintoneEventTypes>(
       type?: EventType | readonly EventType[],
-      handler?: (event: KintoneEvent<EventType, AppSchema>) => unknown
+      handler?: (event: KintoneEvent<EventType>) => unknown
+    ): boolean;
+
+    /**
+     * @see [Remove Event Handlers](https://kintone.dev/en/docs/kintone/js-api/events/event-handling/#remove-event-handlers) (Kintone Developer Program)
+     */
+    function off<Event extends KintoneEvent<KintoneEventTypes>>(
+      type?: Event["type"] | ReadonlyArray<Event["type"]>,
+      handler?: (event: Event) => unknown
     ): boolean;
 
     export {
