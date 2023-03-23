@@ -40,7 +40,7 @@ export type {
   PreviewAppAclJson,
   RecordAclJson,
   PreviewRecordAclJson,
-  RecordAclEvaluateJson,
+  RecordsAclEvaluateJson,
   FieldAclJson,
   PreviewFieldAclJson,
   SpaceJson,

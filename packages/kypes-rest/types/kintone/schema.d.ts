@@ -1760,7 +1760,7 @@ type PreviewRecordAclJson = {
   };
 };
 
-type RecordAclEvaluateJson = {
+type RecordsAclEvaluateJson = {
   GET: {
     request: {
       app: string | number;
@@ -2101,7 +2101,7 @@ type SchemaMap = {
   "/k/v1/preview/record/acl.json": PreviewRecordAclJson;
   "/k/v1/field/acl.json": FieldAclJson;
   "/k/v1/preview/field/acl.json": PreviewFieldAclJson;
-  "/k/v1/record/acl/evaluate.json": RecordAclEvaluateJson;
+  "/k/v1/records/acl/evaluate.json": RecordsAclEvaluateJson;
   "/k/v1/space.json": SpaceJson;
   "/k/v1/space/body.json": SpaceBodyJson;
   "/k/v1/space/members.json": SpaceMembersJson;
@@ -2152,7 +2152,7 @@ export type {
   PreviewAppAclJson,
   RecordAclJson,
   PreviewRecordAclJson,
-  RecordAclEvaluateJson,
+  RecordsAclEvaluateJson,
   FieldAclJson,
   PreviewFieldAclJson,
   SpaceJson,
