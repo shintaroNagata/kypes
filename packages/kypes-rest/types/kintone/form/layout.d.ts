@@ -1,4 +1,4 @@
-import { InSubtableFieldType } from "../types";
+import type { InSubtableFieldType } from "../types";
 
 type FieldLayoutMap = {
   RECORD_NUMBER: {

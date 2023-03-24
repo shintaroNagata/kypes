@@ -21,6 +21,7 @@
   "main": "./src/index.js",
   "types": "./types/index.d.ts",
   "scripts": {
+    "test": "tsc -p tsconfig.test.json",
     "lint": "run-p -l lint:*",
     "lint:eslint": "eslint types",
     "lint:prettier": "prettier --check types",

@@ -54,14 +54,19 @@ export type {
   SchemaMap,
 } from "./schema";
 
-export {
+export type {
   KintoneRecord,
   KintoneRecordForAdd,
   KintoneRecordForUpdate,
+  BuildRecord,
+  BuildRecordForAdd,
+  BuildRecordForUpdate,
 } from "./record";
-export {
+export type {
   KintoneFormProperty,
   KintoneFormPropertyForAdd,
   KintoneFormPropertyForUpdate,
-} from "./form/properties";
-export { KintoneFormLayout, KintoneFormLayoutForUpdate } from "./form/layout";
+  KintoneFormLayout,
+  KintoneFormLayoutForUpdate,
+  KintoneAppSchema,
+} from "./form";

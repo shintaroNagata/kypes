@@ -1,4 +1,4 @@
-import { InSubtableFieldType } from "../types";
+import type { InSubtableFieldType } from "../types";
 
 type FieldPropertyMap = {
   RECORD_NUMBER: {
@@ -534,7 +534,7 @@ type FieldPropertyMap = {
       noLabel: boolean;
       required: boolean;
       defaultValue: string;
-      options: { [optionName: string]: { label: string; index: string } };
+      options: { [OptionName in string]?: { label: string; index: string } };
       align: "HORIZONTAL" | "VERTICAL";
     };
     add: {
@@ -545,7 +545,7 @@ type FieldPropertyMap = {
       required?: boolean;
       defaultValue?: string;
       options: {
-        [optionName: string]: { label: string; index: string | number };
+        [OptionName in string]?: { label: string; index: string | number };
       };
       align?: "HORIZONTAL" | "VERTICAL";
     };
@@ -557,7 +557,7 @@ type FieldPropertyMap = {
       required?: boolean;
       defaultValue?: string;
       options?: {
-        [optionName: string]: { label?: string; index: string | number };
+        [OptionName in string]?: { label?: string; index: string | number };
       };
       align?: "HORIZONTAL" | "VERTICAL";
     };
@@ -570,7 +570,7 @@ type FieldPropertyMap = {
       noLabel: boolean;
       required: boolean;
       defaultValue: string;
-      options: { [optionName: string]: { label: string; index: string } };
+      options: { [OptionName in string]?: { label: string; index: string } };
     };
     add: {
       type: "DROP_DOWN";
@@ -580,7 +580,7 @@ type FieldPropertyMap = {
       required?: boolean;
       defaultValue?: string;
       options: {
-        [optionName: string]: { label: string; index: string | number };
+        [OptionName in string]?: { label: string; index: string | number };
       };
     };
     update: {
@@ -591,7 +591,7 @@ type FieldPropertyMap = {
       required?: boolean;
       defaultValue?: string;
       options?: {
-        [optionName: string]: { label?: string; index: string | number };
+        [OptionName in string]?: { label?: string; index: string | number };
       };
     };
   };
@@ -603,7 +603,7 @@ type FieldPropertyMap = {
       noLabel: boolean;
       required: boolean;
       defaultValue: string[];
-      options: { [optionName: string]: { label: string; index: string } };
+      options: { [OptionName in string]?: { label: string; index: string } };
       align: "HORIZONTAL" | "VERTICAL";
     };
     add: {
@@ -614,7 +614,7 @@ type FieldPropertyMap = {
       required?: boolean;
       defaultValue?: string[];
       options: {
-        [optionName: string]: { label: string; index: string | number };
+        [OptionName in string]?: { label: string; index: string | number };
       };
       align?: "HORIZONTAL" | "VERTICAL";
     };
@@ -626,7 +626,7 @@ type FieldPropertyMap = {
       required?: boolean;
       defaultValue?: string[];
       options?: {
-        [optionName: string]: { label?: string; index: string | number };
+        [OptionName in string]?: { label?: string; index: string | number };
       };
       align?: "HORIZONTAL" | "VERTICAL";
     };
@@ -639,7 +639,7 @@ type FieldPropertyMap = {
       noLabel: boolean;
       required: boolean;
       defaultValue: string[];
-      options: { [optionName: string]: { label: string; index: string } };
+      options: { [OptionName in string]?: { label: string; index: string } };
     };
     add: {
       type: "MULTI_SELECT";
@@ -649,7 +649,7 @@ type FieldPropertyMap = {
       required?: boolean;
       defaultValue?: string[];
       options: {
-        [optionName: string]: { label: string; index: string | number };
+        [OptionName in string]?: { label: string; index: string | number };
       };
     };
     update: {
@@ -660,7 +660,7 @@ type FieldPropertyMap = {
       required?: boolean;
       defaultValue?: string[];
       options?: {
-        [optionName: string]: { label?: string; index: string | number };
+        [OptionName in string]?: { label?: string; index: string | number };
       };
     };
   };
@@ -901,46 +901,52 @@ type AnyFieldType = keyof FieldPropertyMap;
 type AnyFieldProperty = FieldPropertyMap[AnyFieldType];
 type InSubtableFieldProperty = FieldPropertyMap[InSubtableFieldType];
 
+type SubtableProperty<T> = {
+  type: "SUBTABLE";
+  code: string;
+  label: string;
+  noLabel: boolean;
+  fields: T;
+};
+
 type KintoneFormProperty = {
-  [fieldCode: string]:
+  [FieldCode in string]?:
     | AnyFieldProperty["get"]
-    | {
-        type: "SUBTABLE";
-        code: string;
-        label: string;
-        noLabel: boolean;
-        fields: {
-          [fieldCode: string]: InSubtableFieldProperty["get"];
-        };
-      };
+    | SubtableProperty<{
+        [InSubtableFieldCode in string]?: InSubtableFieldProperty["get"];
+      }>;
+};
+
+type SubtablePropertyForAdd<T> = {
+  type: "SUBTABLE";
+  code: string;
+  label?: string;
+  noLabel?: boolean;
+  fields: T;
 };
 
 type KintoneFormPropertyForAdd = {
-  [fieldCode: string]:
+  [FieldCode in string]?:
     | AnyFieldProperty["add"]
-    | {
-        type: "SUBTABLE";
-        code: string;
-        label?: string;
-        noLabel?: boolean;
-        fields: {
-          [fieldCode: string]: InSubtableFieldProperty["add"];
-        };
-      };
+    | SubtablePropertyForAdd<{
+        [InSubtableFieldCode in string]?: InSubtableFieldProperty["add"];
+      }>;
+};
+
+type SubtablePropertyForUpdate<T> = {
+  type: "SUBTABLE";
+  code?: string;
+  label?: string;
+  noLabel?: boolean;
+  fields?: T;
 };
 
 type KintoneFormPropertyForUpdate = {
-  [fieldCode: string]:
+  [FieldCode in string]?:
     | AnyFieldProperty["update"]
-    | {
-        type: "SUBTABLE";
-        code?: string;
-        label?: string;
-        noLabel?: boolean;
-        fields?: {
-          [fieldCode: string]: InSubtableFieldProperty["update"];
-        };
-      };
+    | SubtablePropertyForUpdate<{
+        [InSubtableFieldCode in string]?: InSubtableFieldProperty["update"];
+      }>;
 };
 
 export type {

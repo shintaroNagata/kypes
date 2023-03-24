@@ -1,31 +1,34 @@
 import type { ApiSchema } from "../types";
 import type {
-  KintoneRecord,
-  KintoneRecordForAdd,
-  KintoneRecordForUpdate,
+  BuildRecord,
+  BuildRecordForAdd,
+  BuildRecordForUpdate,
 } from "./record";
 import type {
   KintoneFormProperty,
   KintoneFormPropertyForAdd,
   KintoneFormPropertyForUpdate,
-} from "./form/properties";
-import type {
   KintoneFormLayout,
   KintoneFormLayoutForUpdate,
-} from "./form/layout";
+  KintoneAppSchema,
+} from "./form";
 
 // Record
-type RecordJson = {
+type RecordJson<AppSchema extends KintoneAppSchema = KintoneAppSchema> = {
   GET: {
+    path: "/k/v1/record.json";
+    method: "GET";
     request: { app: string | number; id: string | number };
     response: {
-      record: KintoneRecord;
+      record: BuildRecord<AppSchema>;
     };
   };
   POST: {
+    path: "/k/v1/record.json";
+    method: "POST";
     request: {
       app: string | number;
-      record?: KintoneRecordForAdd;
+      record?: BuildRecordForAdd<AppSchema>;
     };
     response: {
       id: string;
@@ -33,17 +36,19 @@ type RecordJson = {
     };
   };
   PUT: {
+    path: "/k/v1/record.json";
+    method: "PUT";
     request:
       | {
           app: string | number;
           id: string | number;
-          record?: KintoneRecordForUpdate;
+          record?: BuildRecordForUpdate<AppSchema>;
           revision?: string | number;
         }
       | {
           app: string | number;
           updateKey: { field: string; value: string };
-          record?: KintoneRecordForUpdate;
+          record?: BuildRecordForUpdate<AppSchema>;
           revision?: string | number;
         };
     response: {
@@ -53,8 +58,10 @@ type RecordJson = {
   };
 };
 
-type RecordsJson = {
+type RecordsJson<AppSchema extends KintoneAppSchema = KintoneAppSchema> = {
   GET: {
+    path: "/k/v1/records.json";
+    method: "GET";
     request: {
       app: string | number;
       fields?: string[];
@@ -62,14 +69,16 @@ type RecordsJson = {
       totalCount?: true;
     };
     response: {
-      records: KintoneRecord[];
+      records: Array<BuildRecord<AppSchema>>;
       totalCount: string | null;
     };
   };
   POST: {
+    path: "/k/v1/records.json";
+    method: "POST";
     request: {
       app: string | number;
-      records: KintoneRecordForAdd[];
+      records: Array<BuildRecordForAdd<AppSchema>>;
     };
     response: {
       ids: string[];
@@ -77,17 +86,19 @@ type RecordsJson = {
     };
   };
   PUT: {
+    path: "/k/v1/records.json";
+    method: "PUT";
     request: {
       app: string | number;
       records: Array<
         | {
             id: string | number;
-            record?: KintoneRecordForUpdate;
+            record?: BuildRecordForUpdate<AppSchema>;
             revision?: string | number;
           }
         | {
             updateKey: { field: string; value: string };
-            record?: KintoneRecordForUpdate;
+            record?: BuildRecordForUpdate<AppSchema>;
             revision?: string | number;
           }
       >;
@@ -95,6 +106,8 @@ type RecordsJson = {
     response: { records: Array<{ id: string; revision: string }> };
   };
   DELETE: {
+    path: "/k/v1/records.json";
+    method: "DELETE";
     request: {
       app: string | number;
       ids: Array<string | number>;
@@ -105,29 +118,41 @@ type RecordsJson = {
 };
 
 // Cursor
-type RecordsCursorJson = {
-  GET: {
-    request: { id: string };
-    response: {
-      records: KintoneRecord[];
-      next: boolean;
+type RecordsCursorJson<AppSchema extends KintoneAppSchema = KintoneAppSchema> =
+  {
+    GET: {
+      path: "/k/v1/records/cursor.json";
+      method: "GET";
+      request: { id: string };
+      response: {
+        records: Array<BuildRecord<AppSchema>>;
+        next: boolean;
+      };
+    };
+    POST: {
+      path: "/k/v1/records/cursor.json";
+      method: "POST";
+      request: {
+        app: string | number;
+        fields?: string[];
+        query?: string;
+        size?: string | number;
+      };
+      response: { id: string; totalCount: string };
+    };
+    DELETE: {
+      path: "/k/v1/records/cursor.json";
+      method: "DELETE";
+      request: { id: string };
+      response: Record<string, never>;
     };
   };
-  POST: {
-    request: {
-      app: string | number;
-      fields?: string[];
-      query?: string;
-      size?: string | number;
-    };
-    response: { id: string; totalCount: string };
-  };
-  DELETE: { request: { id: string }; response: Record<string, never> };
-};
 
 // Comments
 type RecordCommentJson = {
   POST: {
+    path: "/k/v1/record/comment.json";
+    method: "POST";
     request: {
       app: string | number;
       record: string | number;
@@ -142,6 +167,8 @@ type RecordCommentJson = {
     response: { id: string };
   };
   DELETE: {
+    path: "/k/v1/record/comment.json";
+    method: "DELETE";
     request: {
       app: string | number;
       record: string | number;
@@ -153,6 +180,8 @@ type RecordCommentJson = {
 
 type RecordCommentsJson = {
   GET: {
+    path: "/k/v1/record/comments.json";
+    method: "GET";
     request: {
       app: string | number;
       record: string | number;
@@ -183,6 +212,8 @@ type RecordCommentsJson = {
 // Process Management
 type RecordAssigneesJson = {
   PUT: {
+    path: "/k/v1/record/assignees.json";
+    method: "PUT";
     request: {
       app: string | number;
       id: string | number;
@@ -195,6 +226,8 @@ type RecordAssigneesJson = {
 
 type RecordStatusJson = {
   PUT: {
+    path: "/k/v1/record/status.json";
+    method: "PUT";
     request: {
       action: string;
       app: string | number;
@@ -208,6 +241,8 @@ type RecordStatusJson = {
 
 type RecordsStatusJson = {
   PUT: {
+    path: "/k/v1/records/status.json";
+    method: "PUT";
     request: {
       app: string | number;
       records: Array<{
@@ -222,70 +257,85 @@ type RecordsStatusJson = {
 };
 
 // Bulk Request
-type BulkRequestSupported = {
-  "/k/v1/record.json": {
-    POST: RecordJson["POST"];
-    PUT: RecordJson["PUT"];
-  };
-  "/k/v1/records.json": {
-    POST: RecordsJson["POST"];
-    PUT: RecordsJson["PUT"];
-    DELETE: RecordsJson["DELETE"];
-  };
-  "/k/v1/record/assignees.json": RecordAssigneesJson;
-  "/k/v1/record/status.json": RecordStatusJson;
-  "/k/v1/records/status.json": RecordsStatusJson;
-};
+type BulkRequestSupported<AppSchema> = AppSchema extends KintoneAppSchema
+  ? {
+      "/k/v1/record.json": {
+        POST: RecordJson<AppSchema>["POST"];
+        PUT: RecordJson<AppSchema>["PUT"];
+      };
+      "/k/v1/records.json": {
+        POST: RecordsJson<AppSchema>["POST"];
+        PUT: RecordsJson<AppSchema>["PUT"];
+        DELETE: RecordsJson<AppSchema>["DELETE"];
+      };
+      "/k/v1/record/assignees.json": RecordAssigneesJson;
+      "/k/v1/record/status.json": RecordStatusJson;
+      "/k/v1/records/status.json": RecordsStatusJson;
+    }
+  : never;
 
-type BulkRequestSupportedPaths = keyof BulkRequestSupported;
+type BulkRequestSupportedPaths = keyof BulkRequestSupported<KintoneAppSchema>;
 type KeyOfUnion<T> = T extends unknown ? keyof T : never;
 type BulkRequestSupportedMethods = KeyOfUnion<
-  BulkRequestSupported[BulkRequestSupportedPaths]
+  BulkRequestSupported<KintoneAppSchema>[BulkRequestSupportedPaths]
 >;
 
-type BuildRequest<Path, Method> = Path extends BulkRequestSupportedPaths
-  ? Method extends keyof BulkRequestSupported[Path]
-    ? {
-        method: Method;
-        api: Path;
-        payload: Extract<
-          BulkRequestSupported[Path][Method],
+type BuildRequest<Path, Method, AppSchema> =
+  Path extends BulkRequestSupportedPaths
+    ? Method extends keyof BulkRequestSupported<AppSchema>[Path]
+      ? {
+          method: Method;
+          api: Path;
+          payload: Extract<
+            BulkRequestSupported<AppSchema>[Path][Method],
+            ApiSchema
+          >["request"];
+        }
+      : never
+    : never;
+type Request<AppSchema> = BuildRequest<
+  BulkRequestSupportedPaths,
+  BulkRequestSupportedMethods,
+  AppSchema
+>;
+
+type BuildSuccessResult<Path, Method, AppSchema> =
+  Path extends BulkRequestSupportedPaths
+    ? Method extends keyof BulkRequestSupported<AppSchema>[Path]
+      ? Extract<
+          BulkRequestSupported<AppSchema>[Path][Method],
           ApiSchema
-        >["request"];
-      }
-    : never
-  : never;
-type Request = BuildRequest<
+        >["response"]
+      : never
+    : never;
+type SuccessResult<AppSchema> = BuildSuccessResult<
   BulkRequestSupportedPaths,
-  BulkRequestSupportedMethods
->;
-
-type BuildSuccessResult<Path, Method> = Path extends BulkRequestSupportedPaths
-  ? Method extends keyof BulkRequestSupported[Path]
-    ? Extract<BulkRequestSupported[Path][Method], ApiSchema>["response"]
-    : never
-  : never;
-type SuccessResult = BuildSuccessResult<
-  BulkRequestSupportedPaths,
-  BulkRequestSupportedMethods
+  BulkRequestSupportedMethods,
+  AppSchema
 >;
 
 type FailureResult =
   | Record<string, never>
   | { message: string; id: string; code: string };
 
-type BulkRequestJson = {
+type BulkRequestJson<AppSchema extends KintoneAppSchema = KintoneAppSchema> = {
   POST: {
+    path: "/k/v1/bulkRequest.json";
+    method: "POST";
     request: {
-      requests: Request[];
+      requests: Array<Request<AppSchema>>;
     };
-    response: { results: SuccessResult[] } | { results: FailureResult[] };
+    response:
+      | { results: Array<SuccessResult<AppSchema>> }
+      | { results: FailureResult[] };
   };
 };
 
 // App
 type AppJson = {
   GET: {
+    path: "/k/v1/app.json";
+    method: "GET";
     request: {
       id: string | number;
     };
@@ -312,6 +362,8 @@ type AppJson = {
 
 type AppsJson = {
   GET: {
+    path: "/k/v1/apps.json";
+    method: "GET";
     request: {
       ids?: Array<string | number>;
       codes?: string[];
@@ -345,6 +397,8 @@ type AppsJson = {
 
 type PreviewAppJson = {
   POST: {
+    path: "/k/v1/preview/app.json";
+    method: "POST";
     request:
       | { name: string }
       | { name: string; space: string | number; thread: string | number };
@@ -355,6 +409,8 @@ type PreviewAppJson = {
 // Deploy
 type PreviewAppDeployJson = {
   GET: {
+    path: "/k/v1/preview/app/deploy.json";
+    method: "GET";
     request: { apps: Array<string | number> };
     response: {
       apps: Array<{
@@ -364,6 +420,8 @@ type PreviewAppDeployJson = {
     };
   };
   POST: {
+    path: "/k/v1/preview/app/deploy.json";
+    method: "POST";
     request: {
       apps: Array<{
         app: string | number;
@@ -378,6 +436,8 @@ type PreviewAppDeployJson = {
 // Form Fields
 type AppFormFieldsJson = {
   GET: {
+    path: "/k/v1/app/form/fields.json";
+    method: "GET";
     request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -391,6 +451,8 @@ type AppFormFieldsJson = {
 
 type PreviewAppFormFieldsJson = {
   GET: {
+    path: "/k/v1/preview/app/form/fields.json";
+    method: "GET";
     request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -401,6 +463,8 @@ type PreviewAppFormFieldsJson = {
     };
   };
   POST: {
+    path: "/k/v1/preview/app/form/fields.json";
+    method: "POST";
     request: {
       app: string | number;
       properties: KintoneFormPropertyForAdd;
@@ -409,6 +473,8 @@ type PreviewAppFormFieldsJson = {
     response: { revision: string };
   };
   PUT: {
+    path: "/k/v1/preview/app/form/fields.json";
+    method: "PUT";
     request: {
       app: string | number;
       properties: KintoneFormPropertyForUpdate;
@@ -417,6 +483,8 @@ type PreviewAppFormFieldsJson = {
     response: { revision: string };
   };
   DELETE: {
+    path: "/k/v1/preview/app/form/fields.json";
+    method: "DELETE";
     request: {
       app: string | number;
       fields: string[];
@@ -429,6 +497,8 @@ type PreviewAppFormFieldsJson = {
 // Form Layout
 type AppFormLayoutJson = {
   GET: {
+    path: "/k/v1/app/form/layout.json";
+    method: "GET";
     request: { app: string | number };
     response: {
       layout: KintoneFormLayout;
@@ -439,6 +509,8 @@ type AppFormLayoutJson = {
 
 type PreviewAppFormLayoutJson = {
   GET: {
+    path: "/k/v1/preview/app/form/layout.json";
+    method: "GET";
     request: {
       app: string | number;
     };
@@ -448,6 +520,8 @@ type PreviewAppFormLayoutJson = {
     };
   };
   PUT: {
+    path: "/k/v1/preview/app/form/layout.json";
+    method: "PUT";
     request: {
       app: string | number;
       layout: KintoneFormLayoutForUpdate;
@@ -460,6 +534,8 @@ type PreviewAppFormLayoutJson = {
 // Views
 type AppViewsJson = {
   GET: {
+    path: "/k/v1/app/views.json";
+    method: "GET";
     request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -495,6 +571,8 @@ type AppViewsJson = {
 
 type PreviewAppViewsJson = {
   GET: {
+    path: "/k/v1/preview/app/views.json";
+    method: "GET";
     request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -527,6 +605,8 @@ type PreviewAppViewsJson = {
     };
   };
   PUT: {
+    path: "/k/v1/preview/app/views.json";
+    method: "PUT";
     request: {
       app: string | number;
       views: {
@@ -562,6 +642,8 @@ type PreviewAppViewsJson = {
 // Graph Settings
 type AppReportsJson = {
   GET: {
+    path: "/k/v1/app/reports.json";
+    method: "GET";
     request: {
       app: string;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -653,6 +735,8 @@ type AppReportsJson = {
 
 type PreviewAppReportsJson = {
   GET: {
+    path: "/k/v1/preview/app/reports.json";
+    method: "GET";
     request: {
       app: string;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -741,6 +825,8 @@ type PreviewAppReportsJson = {
     };
   };
   PUT: {
+    path: "/k/v1/preview/app/reports.json";
+    method: "PUT";
     request: {
       app: string | number;
       reports: {
@@ -824,6 +910,8 @@ type PreviewAppReportsJson = {
 // General Settings
 type AppSettingsJson = {
   GET: {
+    path: "/k/v1/app/settings.json";
+    method: "GET";
     request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -863,6 +951,8 @@ type AppSettingsJson = {
 
 type PreviewAppSettingsJson = {
   GET: {
+    path: "/k/v1/preview/app/settings.json";
+    method: "GET";
     request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -899,6 +989,8 @@ type PreviewAppSettingsJson = {
     };
   };
   PUT: {
+    path: "/k/v1/preview/app/settings.json";
+    method: "PUT";
     request: {
       app: string | number;
       name?: string;
@@ -936,6 +1028,8 @@ type PreviewAppSettingsJson = {
 // General Notifications
 type AppNotificationsGeneralJson = {
   GET: {
+    path: "/k/v1/app/notifications/general.json";
+    method: "GET";
     request: {
       app: string | number;
     };
@@ -960,6 +1054,8 @@ type AppNotificationsGeneralJson = {
 
 type PreviewAppNotificationsGeneralJson = {
   GET: {
+    path: "/k/v1/preview/app/notifications/general.json";
+    method: "GET";
     request: {
       app: string | number;
     };
@@ -981,6 +1077,8 @@ type PreviewAppNotificationsGeneralJson = {
     };
   };
   PUT: {
+    path: "/k/v1/preview/app/notifications/general.json";
+    method: "PUT";
     request: {
       app: string;
       notifications?: Array<{
@@ -1005,6 +1103,8 @@ type PreviewAppNotificationsGeneralJson = {
 // Per Record Notifications
 type AppNotificationsPerRecordJson = {
   GET: {
+    path: "/k/v1/app/notifications/perRecord.json";
+    method: "GET";
     request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -1028,6 +1128,8 @@ type AppNotificationsPerRecordJson = {
 
 type PreviewAppNotificationsPerRecordJson = {
   GET: {
+    path: "/k/v1/preview/app/notifications/perRecord.json";
+    method: "GET";
     request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -1048,6 +1150,8 @@ type PreviewAppNotificationsPerRecordJson = {
     };
   };
   PUT: {
+    path: "/k/v1/preview/app/notifications/perRecord.json";
+    method: "PUT";
     request: {
       app: string | number;
       notifications: Array<{
@@ -1070,6 +1174,8 @@ type PreviewAppNotificationsPerRecordJson = {
 // Reminder Notifications
 type AppNotificationsReminderJson = {
   GET: {
+    path: "/k/v1/app/notifications/reminder.json";
+    method: "GET";
     request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -1105,6 +1211,8 @@ type AppNotificationsReminderJson = {
 
 type PreviewAppNotificationsReminderJson = {
   GET: {
+    path: "/k/v1/preview/app/notifications/reminder.json";
+    method: "GET";
     request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -1137,6 +1245,8 @@ type PreviewAppNotificationsReminderJson = {
     };
   };
   PUT: {
+    path: "/k/v1/preview/app/notifications/reminder.json";
+    method: "PUT";
     request: {
       app: string | number;
       notifications?: Array<{
@@ -1173,6 +1283,8 @@ type PreviewAppNotificationsReminderJson = {
 // Process Management
 type AppStatusJson = {
   GET: {
+    path: "/k/v1/app/status.json";
+    method: "GET";
     request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -1215,6 +1327,8 @@ type AppStatusJson = {
 
 type PreviewAppStatusJson = {
   GET: {
+    path: "/k/v1/preview/app/status.json";
+    method: "GET";
     request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -1256,6 +1370,8 @@ type PreviewAppStatusJson = {
     };
   };
   PUT: {
+    path: "/k/v1/preview/app/status.json";
+    method: "PUT";
     request: {
       app: string | number;
       enable?: boolean;
@@ -1297,6 +1413,8 @@ type PreviewAppStatusJson = {
 // Action Settings
 type AppActionsJson = {
   GET: {
+    path: "/k/v1/app/actions.json";
+    method: "GET";
     request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -1325,6 +1443,8 @@ type AppActionsJson = {
 
 type PreviewAppActionsJson = {
   GET: {
+    path: "/k/v1/preview/app/actions.json";
+    method: "GET";
     request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -1350,6 +1470,8 @@ type PreviewAppActionsJson = {
     };
   };
   PUT: {
+    path: "/k/v1/preview/app/actions.json";
+    method: "PUT";
     request: {
       app: string | number;
       actions: {
@@ -1379,6 +1501,8 @@ type PreviewAppActionsJson = {
 // Customization
 type AppCustomizeJson = {
   GET: {
+    path: "/k/v1/app/customize.json";
+    method: "GET";
     request: { app: string | number };
     response: {
       scope: "ALL" | "ADMIN" | "NONE";
@@ -1453,6 +1577,8 @@ type AppCustomizeJson = {
 
 type PreviewAppCustomizeJson = {
   GET: {
+    path: "/k/v1/preview/app/customize.json";
+    method: "GET";
     request: { app: string | number };
     response: {
       scope: "ALL" | "ADMIN" | "NONE";
@@ -1524,6 +1650,8 @@ type PreviewAppCustomizeJson = {
     };
   };
   PUT: {
+    path: "/k/v1/preview/app/customize.json";
+    method: "PUT";
     request: {
       app: string | number;
       scope?: "ALL" | "ADMIN" | "NONE";
@@ -1590,6 +1718,8 @@ type PreviewAppCustomizeJson = {
 // App Permissions
 type AppAclJson = {
   GET: {
+    path: "/k/v1/app/acl.json";
+    method: "GET";
     request: { app: string | number };
     response: {
       rights: Array<
@@ -1624,6 +1754,8 @@ type AppAclJson = {
 
 type PreviewAppAclJson = {
   GET: {
+    path: "/k/v1/preview/app/acl.json";
+    method: "GET";
     request: { app: string | number };
     response: {
       rights: Array<
@@ -1655,6 +1787,8 @@ type PreviewAppAclJson = {
     };
   };
   PUT: {
+    path: "/k/v1/preview/app/acl.json";
+    method: "PUT";
     request: {
       app: string | number;
       revision?: string;
@@ -1690,6 +1824,8 @@ type PreviewAppAclJson = {
 // Record Permissions
 type RecordAclJson = {
   GET: {
+    path: "/k/v1/record/acl.json";
+    method: "GET";
     request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -1715,6 +1851,8 @@ type RecordAclJson = {
 
 type PreviewRecordAclJson = {
   GET: {
+    path: "/k/v1/preview/record/acl.json";
+    method: "GET";
     request: {
       app: string | number;
       lang?: "ja" | "en" | "zh" | "user" | "default";
@@ -1737,6 +1875,8 @@ type PreviewRecordAclJson = {
     };
   };
   PUT: {
+    path: "/k/v1/preview/record/acl.json";
+    method: "PUT";
     request: {
       app: string | number;
       rights: Array<{
@@ -1762,6 +1902,8 @@ type PreviewRecordAclJson = {
 
 type RecordsAclEvaluateJson = {
   GET: {
+    path: "/k/v1/records/acl/evaluate.json";
+    method: "GET";
     request: {
       app: string | number;
       ids: Array<string | number>;
@@ -1785,6 +1927,8 @@ type RecordsAclEvaluateJson = {
 // Field Permissions
 type FieldAclJson = {
   GET: {
+    path: "/k/v1/field/acl.json";
+    method: "GET";
     request: { app: string | number };
     response: {
       rights: Array<{
@@ -1805,6 +1949,8 @@ type FieldAclJson = {
 
 type PreviewFieldAclJson = {
   GET: {
+    path: "/k/v1/preview/field/acl.json";
+    method: "GET";
     request: { app: string | number };
     response: {
       rights: Array<{
@@ -1822,6 +1968,8 @@ type PreviewFieldAclJson = {
     };
   };
   PUT: {
+    path: "/k/v1/preview/field/acl.json";
+    method: "PUT";
     request: {
       app: string | number;
       rights: Array<{
@@ -1846,6 +1994,8 @@ type PreviewFieldAclJson = {
 // Space
 type SpaceJson = {
   GET: {
+    path: "/k/v1/space.json";
+    method: "GET";
     request: { id: string | number };
     response: {
       id: string;
@@ -1892,11 +2042,18 @@ type SpaceJson = {
       showRelatedLinkList: boolean | null;
     };
   };
-  DELETE: { request: { id: string }; response: Record<string, never> };
+  DELETE: {
+    path: "/k/v1/space.json";
+    method: "DELETE";
+    request: { id: string };
+    response: Record<string, never>;
+  };
 };
 
 type SpaceBodyJson = {
   PUT: {
+    path: "/k/v1/space/body.json";
+    method: "PUT";
     request: {
       id: string | number;
       body: string;
@@ -1907,6 +2064,8 @@ type SpaceBodyJson = {
 
 type TemplateSpaceJson = {
   POST: {
+    path: "/k/v1/template/space.json";
+    method: "POST";
     request: {
       id: string | number;
       name: string;
@@ -1938,6 +2097,8 @@ type TemplateSpaceJson = {
 // Space Members
 type SpaceMembersJson = {
   GET: {
+    path: "/k/v1/space/members.json";
+    method: "GET";
     request: {
       id: string | number;
     };
@@ -1970,6 +2131,8 @@ type SpaceMembersJson = {
     };
   };
   PUT: {
+    path: "/k/v1/space/members.json";
+    method: "PUT";
     request: {
       id: string | number;
       members: Array<
@@ -1997,6 +2160,8 @@ type SpaceMembersJson = {
 // Thread
 type SpaceThreadJson = {
   PUT: {
+    path: "/k/v1/space/thread.json";
+    method: "PUT";
     request: { id: string | number; name?: string; body?: string };
     response: Record<string, never>;
   };
@@ -2004,6 +2169,8 @@ type SpaceThreadJson = {
 
 type SpaceThreadCommentJson = {
   POST: {
+    path: "/k/v1/space/thread/comment.json";
+    method: "POST";
     request: {
       space: string | number;
       thread: string | number;
@@ -2026,6 +2193,8 @@ type SpaceThreadCommentJson = {
 // Guests
 type GuestsJson = {
   POST: {
+    path: "/k/v1/guests.json";
+    method: "POST";
     request: {
       guests: Array<{
         code: string;
@@ -2045,6 +2214,8 @@ type GuestsJson = {
     response: Record<string, never>;
   };
   DELETE: {
+    path: "/k/v1/guests.json";
+    method: "DELETE";
     request: {
       guests: string[];
     };
@@ -2054,21 +2225,23 @@ type GuestsJson = {
 
 type SpaceGuestsJson = {
   PUT: {
+    path: "/k/v1/space/guests.json";
+    method: "PUT";
     request: { id: string | number; guests: string[] };
     response: Record<string, never>;
   };
 };
 
-type SchemaMap = {
-  "/k/v1/record.json": RecordJson;
-  "/k/v1/records.json": RecordsJson;
-  "/k/v1/records/cursor.json": RecordsCursorJson;
+type SchemaMap<AppSchema extends KintoneAppSchema = KintoneAppSchema> = {
+  "/k/v1/record.json": RecordJson<AppSchema>;
+  "/k/v1/records.json": RecordsJson<AppSchema>;
+  "/k/v1/records/cursor.json": RecordsCursorJson<AppSchema>;
   "/k/v1/record/comment.json": RecordCommentJson;
   "/k/v1/record/comments.json": RecordCommentsJson;
   "/k/v1/record/assignees.json": RecordAssigneesJson;
   "/k/v1/record/status.json": RecordStatusJson;
   "/k/v1/records/status.json": RecordsStatusJson;
-  "/k/v1/bulkRequest.json": BulkRequestJson;
+  "/k/v1/bulkRequest.json": BulkRequestJson<AppSchema>;
   "/k/v1/app.json": AppJson;
   "/k/v1/preview/app.json": PreviewAppJson;
   "/k/v1/preview/app/deploy.json": PreviewAppDeployJson;

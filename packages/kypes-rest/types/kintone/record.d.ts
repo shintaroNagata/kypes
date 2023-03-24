@@ -1,4 +1,5 @@
-import { InSubtableFieldType } from "./types";
+import type { KintoneAppSchema, KintoneFormProperty } from "./form";
+import type { InSubtableFieldType } from "./types";
 
 type FieldMap = {
   __ID__: {
@@ -304,51 +305,153 @@ type AnyFieldType = keyof FieldMap;
 type AnyField = FieldMap[AnyFieldType];
 type InSubtableField = FieldMap[InSubtableFieldType];
 
+type Subtable<T> = {
+  type: "SUBTABLE";
+  value: Array<{
+    id: string;
+    value: T;
+  }>;
+};
+
 type KintoneRecord = {
-  $id: {
-    type: "__ID__";
-    value: string;
-  };
-  $revision: {
-    type: "__REVISION__";
-    value: string;
-  };
-  [fieldCode: string]:
+  $id: FieldMap["__ID__"]["get"];
+  $revision: FieldMap["__REVISION__"]["get"];
+} & {
+  [FieldCode in string]?:
     | AnyField["get"]
-    | {
-        type: "SUBTABLE";
-        value: Array<{
-          id: string;
-          value: {
-            [fieldCode: string]: InSubtableField["get"];
-          };
-        }>;
-      };
+    | Subtable<{
+        [InSubtableFieldCode in string]?: InSubtableField["get"];
+      }>;
+};
+
+type SubtableForAdd<T> = {
+  value: Array<{
+    value?: T;
+  }>;
 };
 
 type KintoneRecordForAdd = {
-  [fieldCode: string]:
+  [FieldCode in string]?:
     | AnyField["add"]
-    | {
-        value: Array<{
-          value?: {
-            [fieldCode: string]: InSubtableField["add"];
-          };
-        }>;
-      };
+    | SubtableForAdd<{
+        [InSubtableFieldCode in string]?: InSubtableField["add"];
+      }>;
+};
+
+type SubtableForUpdate<T> = {
+  value: Array<{
+    id?: string | null;
+    value?: T;
+  }>;
 };
 
 type KintoneRecordForUpdate = {
-  [fieldCode: string]:
+  [FieldCode in string]?:
     | AnyField["update"]
-    | {
-        value: Array<{
-          id?: string | null;
-          value?: {
-            [fieldCode: string]: InSubtableField["update"];
-          };
-        }>;
-      };
+    | SubtableForUpdate<{
+        [InSubtableFieldCode in string]?: InSubtableField["update"];
+      }>;
 };
 
-export type { KintoneRecord, KintoneRecordForAdd, KintoneRecordForUpdate };
+type RemoveNeverProperties<T> = {
+  [K in keyof T as T[K] extends never ? never : K]: T[K];
+};
+
+type BuildRecord<AppSchema extends KintoneAppSchema> = AppSchema extends unknown
+  ? string extends keyof AppSchema["properties"]
+    ? KintoneRecord
+    : {
+        $id: FieldMap["__ID__"]["get"];
+        $revision: FieldMap["__REVISION__"]["get"];
+      } & RemoveNeverProperties<{
+        [FieldCode in keyof AppSchema["properties"]]: AppSchema["properties"][FieldCode] extends {
+          type: "SUBTABLE";
+        }
+          ? BuildSubtable<AppSchema["properties"][FieldCode]["fields"]>
+          : BuildField<AppSchema["properties"][FieldCode]>;
+      }>
+  : never;
+
+type BuildSubtable<Internal> = Subtable<
+  RemoveNeverProperties<{
+    [FieldCode in keyof Internal]: BuildField<Internal[FieldCode]>;
+  }>
+>;
+
+type BuildField<FieldProperty> =
+  FieldProperty extends KintoneFormProperty[string]
+    ? FieldProperty extends {
+        type: AnyFieldType;
+      }
+      ? FieldProperty extends {
+          type: "STATUS" | "STATUS_ASSIGNEE" | "CATEGORY";
+        }
+        ? true extends FieldProperty["enabled"]
+          ? FieldMap[FieldProperty["type"]]["get"]
+          : never
+        : FieldMap[FieldProperty["type"]]["get"]
+      : never
+    : never;
+
+type BuildRecordForAdd<AppSchema extends KintoneAppSchema> =
+  AppSchema extends unknown
+    ? string extends keyof AppSchema["properties"]
+      ? KintoneRecordForAdd
+      : RemoveNeverProperties<{
+          [FieldCode in keyof AppSchema["properties"]]?: AppSchema["properties"][FieldCode] extends {
+            type: "SUBTABLE";
+          }
+            ? BuildSubtableForAdd<AppSchema["properties"][FieldCode]["fields"]>
+            : BuildFieldForAdd<AppSchema["properties"][FieldCode]>;
+        }>
+    : never;
+
+type BuildSubtableForAdd<Internal> = SubtableForAdd<
+  RemoveNeverProperties<{
+    [FieldCode in keyof Internal]?: BuildFieldForAdd<Internal[FieldCode]>;
+  }>
+>;
+
+type BuildFieldForAdd<FieldProperty> =
+  FieldProperty extends KintoneFormProperty[string]
+    ? FieldProperty extends { type: AnyFieldType }
+      ? FieldMap[FieldProperty["type"]]["add"]
+      : never
+    : never;
+
+type BuildRecordForUpdate<AppSchema extends KintoneAppSchema> =
+  AppSchema extends unknown
+    ? string extends keyof AppSchema["properties"]
+      ? KintoneRecordForUpdate
+      : RemoveNeverProperties<{
+          [FieldCode in keyof AppSchema["properties"]]?: AppSchema["properties"][FieldCode] extends {
+            type: "SUBTABLE";
+          }
+            ? BuildSubtableForUpdate<
+                AppSchema["properties"][FieldCode]["fields"]
+              >
+            : BuildFieldForUpdate<AppSchema["properties"][FieldCode]>;
+        }>
+    : never;
+
+type BuildSubtableForUpdate<Internal> = SubtableForUpdate<
+  RemoveNeverProperties<{
+    [FieldCode in keyof Internal]?: BuildFieldForUpdate<Internal[FieldCode]>;
+  }>
+>;
+
+type BuildFieldForUpdate<FieldProperty> =
+  FieldProperty extends KintoneFormProperty[string]
+    ? FieldProperty extends { type: AnyFieldType }
+      ? FieldMap[FieldProperty["type"]]["update"]
+      : never
+    : never;
+
+export type {
+  KintoneRecord,
+  KintoneRecordForAdd,
+  KintoneRecordForUpdate,
+  BuildRecord,
+  BuildRecordForAdd,
+  BuildRecordForUpdate,
+};
