@@ -10,11 +10,11 @@ const test_infer_response_type_from_arguments = async () => {
     app: 1,
     id: 1,
   });
-  const expect_response_record_extends_kintone_record: KintoneApi.KintoneRecord =
-    response.record;
+  const expect_response_extends_get_record_json_response: KintoneApi.RecordJson["GET"]["response"] =
+    response;
 
   // @ts-expect-error
-  const check_not_any: undefined = response.record;
+  const check_response_not_any: undefined = response;
 };
 
 const test_infer_callback_args_type_from_arguments = () => {
@@ -26,11 +26,11 @@ const test_infer_callback_args_type_from_arguments = () => {
       id: 1,
     },
     (response) => {
-      const expect_response_record_extends_kintone_record: KintoneApi.KintoneRecord =
-        response.record;
+      const expect_response_extends_get_record_json_response: KintoneApi.RecordJson["GET"]["response"] =
+        response;
 
       // @ts-expect-error
-      const check_not_any: undefined = response.record;
+      const check_response_not_any: undefined = response;
     }
   );
 };
@@ -42,11 +42,17 @@ const test_infer_response_type_from_type_parameters = async () => {
     "GET",
     { app: 1, id: 1 }
   );
+  const expect_response_extends_get_record_json_response: KintoneApi.RecordJson["GET"]["response"] =
+    response;
+
   const expect_response_record_extends_my_app_record: KintoneApi.BuildRecord<MyAppSchema> =
     response.record;
 
   // @ts-expect-error
-  const check_not_any: undefined = response.record;
+  const check_response_not_any: undefined = response;
+
+  // @ts-expect-error
+  const check_response_record_not_any: undefined = response.record;
 };
 
 const test_infer_callback_args_type_from_type_parameters = () => {
@@ -59,11 +65,17 @@ const test_infer_callback_args_type_from_type_parameters = () => {
       id: 1,
     },
     (response) => {
-      const expect_response_record_extends_kintone_record: KintoneApi.BuildRecord<MyAppSchema> =
+      const expect_response_extends_get_record_json_response: KintoneApi.RecordJson["GET"]["response"] =
+        response;
+
+      const expect_response_record_extends_my_app_record: KintoneApi.BuildRecord<MyAppSchema> =
         response.record;
 
       // @ts-expect-error
-      const check_not_any: undefined = response.record;
+      const check_response_not_any: undefined = response;
+
+      // @ts-expect-error
+      const check_response_record_not_any: undefined = response.record;
     }
   );
 };
