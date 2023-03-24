@@ -1,5 +1,5 @@
 import { KintoneApi } from "../types/index";
-import { MyAppSchema } from "./testAppSchema";
+import { MyAppSchema } from "./resource/appSchema";
 
 // Unknown app schema gives unknown record schema.
 type UnknownAppSchema = { properties: KintoneApi.KintoneFormProperty };

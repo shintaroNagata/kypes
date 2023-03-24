@@ -1,4 +1,4 @@
-export type TestAppSchema = {
+export type MyAppSchema = {
   properties: {
     経費: {
       type: "SUBTABLE";
