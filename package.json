@@ -10,6 +10,7 @@
     "npm": ">=7.10.0"
   },
   "scripts": {
+    "test": "npm test --workspaces",
     "lint": "npm run lint --workspaces"
   },
   "workspaces": [
