@@ -109,7 +109,7 @@ declare global {
       Method extends Methods<Path>
     >(
       pathOrUrl: QueriedUrl<Path | KintoneApi.GuestPath<Path>>,
-      method: Method,
+      method: Extract<Method, "GET" | "DELETE">,
       params: Record<string, never>
     ): Promise<Response<Path, Method>>;
 
@@ -122,7 +122,7 @@ declare global {
       Method extends TargetApiSchema["method"] = TargetApiSchema["method"]
     >(
       pathOrUrl: QueriedUrl<Path | KintoneApi.GuestPath<Path>>,
-      method: Extract<Method, "GET">,
+      method: Extract<Method, "GET" | "DELETE">,
       params: Record<string, never>
     ): Promise<TargetApiSchema["response"]>;
 
@@ -174,7 +174,7 @@ declare global {
       Method extends Methods<Path>
     >(
       pathOrUrl: QueriedUrl<Path | KintoneApi.GuestPath<Path>>,
-      method: Method,
+      method: Extract<Method, "GET" | "DELETE">,
       params: Record<string, never>,
       callback: (response: Response<Path, Method>) => void,
       errback?: (errorResponse: Record<string, unknown> | string) => void
@@ -189,7 +189,7 @@ declare global {
       Method extends TargetApiSchema["method"] = TargetApiSchema["method"]
     >(
       pathOrUrl: QueriedUrl<Path | KintoneApi.GuestPath<Path>>,
-      method: Extract<Method, "GET">,
+      method: Extract<Method, "GET" | "DELETE">,
       params: Record<string, never>,
       callback: (response: TargetApiSchema["response"]) => void,
       errback?: (errorResponse: Record<string, unknown> | string) => void

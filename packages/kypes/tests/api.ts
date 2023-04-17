@@ -79,3 +79,104 @@ const test_infer_callback_args_type_from_type_parameters = () => {
     }
   );
 };
+
+const test_infer_response_type_when_proper_methods_specified_for_queried_url =
+  () => {
+    const case_get = async () => {
+      const response = await kintone.api(
+        "https://example.cybozu.com/k/v1/records.json?app=1&id=1",
+        "GET",
+        {}
+      );
+      const expect_response_extends_get_records_json_response: KintoneApi.RecordsJson["GET"]["response"] =
+        response;
+
+      // @ts-expect-error
+      const check_response_not_any: undefined = response;
+    };
+
+    const case_delete = async () => {
+      const response = await kintone.api(
+        "https://example.cybozu.com/k/v1/records.json?app=1&ids[0]=1",
+        "DELETE",
+        {}
+      );
+      const expect_response_extends_delete_records_json_response: KintoneApi.RecordsJson["DELETE"]["response"] =
+        response;
+
+      // @ts-expect-error
+      const check_response_not_any: undefined = response;
+    };
+
+    const case_post = async () => {
+      const response = await kintone.api(
+        "https://example.cybozu.com/k/v1/records.json?app=1",
+        "POST",
+        {}
+      );
+      // @ts-expect-error
+      const expect_response_does_not_extend_post_records_json_response: KintoneApi.RecordsJson["POST"]["response"] =
+        response;
+    };
+
+    const case_put = async () => {
+      const put_response = await kintone.api(
+        "https://example.cybozu.com/k/v1/records.json?app=1",
+        "PUT",
+        {}
+      );
+      // @ts-expect-error
+      const expect_response_does_not_extend_put_records_json_response: KintoneApi.RecordsJson["PUT"]["response"] =
+        put_response;
+    };
+  };
+
+const test_infer_callback_args_type_when_proper_methods_specified_for_queried_url =
+  () => {
+    kintone.api(
+      "https://example.cybozu.com/k/v1/records.json?app=1&id=1",
+      "GET",
+      {},
+      (response) => {
+        const expect_response_extends_get_records_json_response: KintoneApi.RecordsJson["GET"]["response"] =
+          response;
+
+        // @ts-expect-error
+        const check_response_not_any: undefined = response;
+      }
+    );
+    kintone.api(
+      "https://example.cybozu.com/k/v1/records.json?app=1&ids[0]=1",
+      "DELETE",
+      {},
+      (response) => {
+        const expect_response_extends_delete_records_json_response: KintoneApi.RecordsJson["DELETE"]["response"] =
+          response;
+
+        // @ts-expect-error
+        const check_response_not_any: undefined = response;
+      }
+    );
+
+    kintone.api(
+      "https://example.cybozu.com/k/v1/records.json?app=1",
+      "POST",
+      {},
+      (response) => {
+        // @ts-expect-error
+        const expect_response_does_not_extend_post_records_json_response: KintoneApi.RecordsJson["POST"]["response"] =
+          response;
+      }
+    );
+
+    kintone.api(
+      "https://example.cybozu.com/k/v1/records.json?app=1",
+      "PUT",
+      {},
+      (response) => {
+        // @ts-expect-error
+        const expect_response_does_not_extend_put_records_json_response: KintoneApi.RecordsJson["PUT"]["response"] =
+          response;
+      }
+    );
+  };
