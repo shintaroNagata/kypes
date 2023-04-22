@@ -209,13 +209,13 @@ type FieldMap = {
   DROP_DOWN: {
     get: {
       type: "DROP_DOWN";
-      value: string;
+      value: string | null;
     };
     add: {
-      value: string;
+      value: string | null;
     };
     update: {
-      value: string;
+      value: string | null;
     };
   };
   CHECK_BOX: {
